@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             }.attach()
         }
 
+
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
