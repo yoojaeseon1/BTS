@@ -1,6 +1,7 @@
 package com.android.bts.presentation.search
 
-
-interface VideoRepository {
-    suspend fun getVideoList() : VideoEntity
-}
+//import com.android.bts.data.VideoEntity
+//
+//interface VideoRepository {
+//    fun getVideoList() : List<VideoEntity>
+//}

@@ -14,7 +14,7 @@ data class VideoResponse(
     @SerializedName("pageInfo")
     val pageInfo: PageInfo,
     @SerializedName("items")
-    val items: List<Items>?
+    val items: List<Items>
 )
 
 data class PageInfo(
@@ -54,7 +54,7 @@ data class Snippet(
     @SerializedName("publishTime")
     val publishTime: String,
     @SerializedName("channelTitle")
-    val channelTitle: String,
+    val channelTitle: String
 )
 
 
