@@ -1,9 +1,9 @@
-package com.android.bts.data
+package com.android.bts.data.remote
 
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RetrofitInterface {
+interface SearchVideoRemoteDataSource {
 
     //검색결과 받아오는 코루틴 전용 메소드
     @GET("search")
@@ -11,7 +11,7 @@ interface RetrofitInterface {
         @Query("part") part:String = "snippet",
         @Query("chart") chart:String = "mostPopular",
         @Query("maxResults") maxResults:Int = 20,
-        @Query("key") apiKey: String = "키입력",
+        @Query("key") apiKey: String = "AIzaSyCSXtO79sI9CoPrFNzBd2lpNKszffqdvqQ",
         @Query("q") query: String = "강아지"
     ): VideoResponse
 }
