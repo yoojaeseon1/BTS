@@ -12,7 +12,6 @@ import com.android.bts.presentation.home.HomeFragment
 import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.R
 import com.android.bts.presentation.detail.VideoDetailFragment
-import com.android.bts.ViewPagerAdapter
 import com.android.bts.databinding.ActivityMainBinding
 import com.android.bts.presentation.search.SearchFragment
 import com.google.android.material.tabs.TabLayout
