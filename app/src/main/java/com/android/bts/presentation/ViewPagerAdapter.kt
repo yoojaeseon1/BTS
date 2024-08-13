@@ -1,4 +1,4 @@
-package com.android.bts
+package com.android.bts.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter

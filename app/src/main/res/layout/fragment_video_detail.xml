@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".presentation.detail.VideoDetailFragment">
 
+
+    <include
+        android:id="@+id/detail_video_toolbar"
+        layout="@layout/toolbar" />
+
+
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"

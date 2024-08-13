@@ -51,17 +51,13 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.8.1")
     implementation("androidx.activity:activity-ktx:1.6.0")
-
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-
     implementation ("androidx.viewpager2:viewpager2:1.1.0")
-
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:4.10.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
-
     implementation ("com.github.skydoves:powerspinner:1.2.6")
 
 
@@ -73,7 +69,6 @@ dependencies {
     implementation ("androidx.room:room-ktx:$room_version")
     // optional - Test helpers
     testImplementation ("androidx.room:room-testing:$room_version")
-
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
 
