@@ -1,4 +1,4 @@
-package com.android.bts.data
+package com.android.bts.data.remote
 
 import com.google.gson.annotations.SerializedName
 

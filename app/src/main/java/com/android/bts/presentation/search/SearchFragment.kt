@@ -1,22 +1,21 @@
 package com.android.bts.presentation.search
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
-import com.android.bts.R
+import androidx.fragment.app.viewModels
 import com.android.bts.databinding.FragmentSearchBinding
-import com.android.bts.presentation.RetrofitClient.apiService
-import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
     var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding as FragmentSearchBinding
 //    private lateinit var searchRecyclerViewAdapter: SearchRecyclerViewAdapter
 
+    private val searchViewModel by viewModels<SearchViewModel> {
+        SearchViewModelFactory()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +38,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        receiveImage()
 
+        searchViewModel.getVideoList()
     }
 
 //    private fun receiveImage() = lifecycleScope.launch {
