@@ -11,31 +11,55 @@
 
     <ImageView
         android:id="@+id/search_rv_holder_iv_title"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="171dp"
+        android:layout_height="119dp"
         android:clipToOutline="true"
-        android:padding="36dp"
+        android:background="@drawable/bg_round_square"
         android:scaleType="centerCrop"
-        android:clickable="false"
-        app:layout_constraintBottom_toTopOf="@+id/home_holder_tv_title"
+        app:layout_constraintBottom_toTopOf="@+id/search_rv_holder_tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/home_holder_tv_title"
+        android:id="@+id/search_rv_holder_tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
-        android:gravity="center"
         android:maxLines="1"
         android:text="제목"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/search_rv_holder_iv_title"
         app:layout_constraintStart_toStartOf="@+id/search_rv_holder_iv_title"
         app:layout_constraintTop_toBottomOf="@+id/search_rv_holder_iv_title" />
 
+    <ImageView
+        android:id="@+id/search_rv_holder_iv_traveler"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:clipToOutline="true"
+        android:background="@drawable/bg_round_square"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@+id/search_rv_holder_tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/search_rv_holder_tv_title" />
+
+
+    <TextView
+        android:id="@+id/search_rv_holder_tv_traveler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="제목"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/search_rv_holder_tv_title"
+        app:layout_constraintStart_toEndOf="@+id/search_rv_holder_iv_traveler"
+        app:layout_constraintTop_toTopOf="@+id/search_rv_holder_iv_traveler" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
