@@ -38,7 +38,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        receiveImage()
 
-        searchViewModel.getVideoList()
+//        searchViewModel.getVideoList()
     }
 
 //    private fun receiveImage() = lifecycleScope.launch {
