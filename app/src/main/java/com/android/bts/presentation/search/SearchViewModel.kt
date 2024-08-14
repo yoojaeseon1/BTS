@@ -1,13 +1,11 @@
 package com.android.bts.presentation.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.data.remote.VideoRepositoryImpl
 import com.android.bts.network.RetrofitClient
 import kotlinx.coroutines.async
@@ -55,7 +53,7 @@ class SearchViewModel(private val videoRepository: VideoRepository) :
     }
 
     //검색결과를 업데이트해주는 함수
-    private fun updateSearchVideo(list: SearchVideoEntity) {
+    private fun updateSearchVideo(list: VideoEntity) {
        let { _searchVideoLiveData.value = list.items.map { it.snippet }}
     }
 
@@ -69,8 +67,6 @@ class SearchViewModel(private val videoRepository: VideoRepository) :
     private fun infinityScroll() {
 
     }
-
-
 
 
 }

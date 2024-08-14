@@ -32,6 +32,27 @@ data class Items(
 )
 
 
+data class HomeVideoResponse(
+    @SerializedName("kind")
+    val kind: String,
+    @SerializedName("etag")
+    val etag: String,
+    @SerializedName("nextPageToken")
+    val nextPageToken: String,
+    @SerializedName("pageInfo")
+    val pageInfo: PageInfo,
+    @SerializedName("items")
+    val items: List<HomeVideoItems>?
+)
+
+data class HomeVideoItems(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("snippet")
+    val snippet: Snippet
+)
+
+
 data class Id(
     @SerializedName("kind")
     val kind: String,
@@ -51,8 +72,8 @@ data class Snippet(
     val description: String,
     @SerializedName("thumbnails")
     val thumbnails: ThumbNail,
-    @SerializedName("publishTime")
-    val publishTime: String,
+//    @SerializedName("publishTime")
+//    val publishTime: String,
     @SerializedName("channelTitle")
     val channelTitle: String
 )

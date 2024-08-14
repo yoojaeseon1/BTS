@@ -55,11 +55,11 @@ class SearchRecyclerViewAdapter(
                 }
             }
             Glide.with(itemView.context)
-                .load(item.thumbnails)
+                .load(item.thumbnail)
                 .into(binding.searchRvHolderIvTraveler)
 
             Glide.with(itemView.context)
-                .load(item.thumbnails)
+                .load(item.thumbnail)
                 .into(binding.searchRvHolderIvTitle)
         }
     }
