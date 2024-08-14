@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.android.bts.databinding.DialogMyVideoModifyBinding
 
 class MyVideoModifyDialog() : DialogFragment() {
     private var _binding: DialogMyVideoModifyBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var adapter: ModifyRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +28,10 @@ class MyVideoModifyDialog() : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.rvModifyRegionLayout.layoutManager = GridLayoutManager(context, 4)
+        adapter = ModifyRecyclerViewAdapter()
+        binding.rvModifyRegionLayout.adapter = adapter
 
         binding.btnCancel.setOnClickListener {
             dismiss()
