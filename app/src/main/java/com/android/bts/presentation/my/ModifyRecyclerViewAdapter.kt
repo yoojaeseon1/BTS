@@ -26,13 +26,13 @@ class ModifyRecyclerViewAdapter() :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            cbRegion11.text = regionItems[position].toString()
+            cbRegion11.text = regionItems[position].regionName
         }
     }
 }
 
-enum class Region(regionName: String) {
-    서울("서울"),
+enum class Region(val regionName: String) {
+    Seoul("서울"),
     Gyeonggi("경기"),
     Gangwon("강원"),
     Incheon("인천"),

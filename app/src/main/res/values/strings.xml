@@ -5,4 +5,9 @@
     <string name="searchFragment">비디오 검색</string>
     <string name="videoDetailFragment">상세정보</string>
     <string name="myVideoFragment">마이 페이지</string>
+
+
+
+    <string name="modify_btn_cancel">취 소</string>
+    <string name="modify_btn_confirm">확 인</string>
 </resources>
