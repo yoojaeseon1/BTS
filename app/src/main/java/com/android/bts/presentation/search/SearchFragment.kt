@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.databinding.FragmentSearchBinding
 
 
@@ -27,11 +28,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         //리사이클러뷰 어댑터 초기화
         initAdapter()
@@ -47,6 +43,14 @@ class SearchFragment : Fragment() {
         binding.searchBtn.setOnClickListener {
             searchWithWord()
         }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
 
 
     }
@@ -80,6 +84,20 @@ class SearchFragment : Fragment() {
             }
         }
     }
+
+//    private fun scrollEndListener() {
+//        binding.searchRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                if (!isLoading) {
+//                    if (!binding.searchRv.canScrollVertically(1)) {
+//                        isLoading = true
+//                    }
+//                }
+//            }
+//        })
+//    }
+
 
     //키보드 숨기는 함수
     private fun hideKeyboard() {

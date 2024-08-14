@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.data.remote.VideoRepositoryImpl
 import com.android.bts.network.RetrofitClient
 import kotlinx.coroutines.async
@@ -17,6 +18,10 @@ private const val TAG = "SearchViewModel"
 class SearchViewModel(private val videoRepository: VideoRepository) :
     ViewModel() {
 
+
+
+
+
     //검색어
     private val _searchWordLiveData = MutableLiveData("")
     val searchWordLiveData: LiveData<String> = _searchWordLiveData
@@ -24,6 +29,11 @@ class SearchViewModel(private val videoRepository: VideoRepository) :
     //검색결과
     private val _searchVideoLiveData = MutableLiveData<List<SnippetEntity>>()
     val searchVideoLiveData: LiveData<List<SnippetEntity>> = _searchVideoLiveData
+
+    //페이지
+    private val _pageLiveData = MutableLiveData("")
+    val pageLiveData: LiveData<String> = _pageLiveData
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading = _isLoading
@@ -46,8 +56,21 @@ class SearchViewModel(private val videoRepository: VideoRepository) :
 
     //검색결과를 업데이트해주는 함수
     private fun updateSearchVideo(list: SearchVideoEntity) {
-        _searchVideoLiveData.value = list.items.map { it.snippet }
+       let { _searchVideoLiveData.value = list.items.map { it.snippet }}
     }
+
+    //다음페이지를 업데이트해주는 함수 : pagetoken 변경
+    fun updatePage(pageToken: String) {
+        _pageLiveData.value = pageToken
+    }
+
+    val page = 0
+            val maxPage = 10
+    private fun infinityScroll() {
+
+    }
+
+
 
 
 }

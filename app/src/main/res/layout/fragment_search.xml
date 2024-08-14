@@ -25,6 +25,8 @@
             android:id="@+id/search_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
@@ -57,6 +59,20 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/search_btn_recommend"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="버스기사님 추천해주세요!"
+
+        android:textColor="@color/red_like"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:drawableStart="@drawable/drawable_search_driver"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        app:layout_constraintStart_toStartOf="@+id/search_bar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_rv"
         android:layout_width="match_parent"
@@ -65,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/search_btn_recommend" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
