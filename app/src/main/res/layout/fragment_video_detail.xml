@@ -7,6 +7,11 @@
     android:background="#282828"
     tools:context=".presentation.detail.VideoDetailFragment">
 
+
+    <include
+        android:id="@+id/detail_video_toolbar"
+        layout="@layout/toolbar" />
+
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"

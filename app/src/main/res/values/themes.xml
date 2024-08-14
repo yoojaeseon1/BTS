@@ -3,6 +3,10 @@
     <style name="Base.Theme.BTS" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorAccent">@color/main_blue</item>
+        <item name="android:colorPrimary">@color/main_blue</item>
+
     </style>
 
     <style name="Theme.BTS" parent="Base.Theme.BTS" />
