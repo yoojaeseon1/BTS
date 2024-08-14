@@ -11,7 +11,7 @@ interface SearchVideoRemoteDataSource {
         @Query("part") part:String = "snippet",
         @Query("chart") chart:String = "mostPopular",
         @Query("maxResults") maxResults:Int = 20,
-        @Query("key") apiKey: String = "AIzaSyCSXtO79sI9CoPrFNzBd2lpNKszffqdvqQ",
+        @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk",
         @Query("q") query: String = "강아지"
     ): VideoResponse
 }

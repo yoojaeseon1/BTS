@@ -1,11 +1,16 @@
 package com.android.bts.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.bts.R
+import com.android.bts.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,27 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
+    private var _binding: FragmentHomeBinding? = null
+    val binding get() = _binding!!
+
+    private val interestedAdapter = InterestedAdapter{
+
+    }
+
+    private val hotSpotAdapter = FavoriteAdapter{
+
+    }
+
+    private val newSpotAdapter = FavoriteAdapter{
+
+    }
+
+    private val viewModel by viewModels<HomeViewModel> {
+        HomeViewModelFactory()
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,9 +60,48 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding.recyclerViewInterested.adapter = interestedAdapter
+        binding.recyclerViewHot.adapter = hotSpotAdapter
+        binding.recyclerViewNew.adapter = newSpotAdapter
+
+//        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
+        viewModel.getInterestedVideoList()
+        viewModel.getHotSpotVideoList()
+        viewModel.getNewVideoList()
+
+//        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
+
+//        interestedAdapter.submitList(viewModel.interestedVideos.value)
+
+        observeModel()
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+    }
+
+    private fun observeModel(){
+
+        viewModel.interestedVideos.observe(viewLifecycleOwner){
+            interestedAdapter.submitList(viewModel.interestedVideos.value)
+        }
+
+        viewModel.hotSpotVideos.observe(viewLifecycleOwner) {
+            hotSpotAdapter.submitList(viewModel.hotSpotVideos.value)
+        }
+
+        viewModel.newSpotVideos.observe(viewLifecycleOwner){
+            newSpotAdapter.submitList(viewModel.newSpotVideos.value)
+        }
+    }
+
 
     companion object {
         /**
