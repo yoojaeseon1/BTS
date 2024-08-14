@@ -39,8 +39,9 @@
             android:id="@+id/et_my_modify_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="18"
-            android:text="아이디"
+            android:ems="16"
+            android:hint="아이디"
+            android:textColorHint="@color/white"
             android:textColor="@color/white" />
 
         <EditText
@@ -48,8 +49,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:ems="18"
-            android:text="비밀번호"
+            android:ems="16"
+            android:hint="비밀번호"
+            android:textColorHint="@color/white"
             android:textColor="@color/white" />
 
         <EditText
@@ -57,8 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:ems="18"
-            android:text="닉네임"
+            android:ems="16"
+            android:hint="닉네임"
+            android:textColorHint="@color/white"
             android:textColor="@color/white" />
 
         <EditText
@@ -66,8 +69,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:ems="18"
-            android:text="이메일"
+            android:ems="16"
+            android:hint="이메일"
+            android:textColorHint="@color/white"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -75,7 +79,8 @@
         android:id="@+id/tv_my_modify_region"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="5dp"
         android:text="지역"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -91,181 +96,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_my_modify_region">
 
-        <LinearLayout
-            android:id="@+id/modify_check1"
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="4"
+            tools:listitem="@layout/recyclerview_checkbox"/>
 
-            <CheckBox
-                android:id="@+id/cb_region1_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region1_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region1_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region1_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/modify_check2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_region2_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region2_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region2_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region2_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/modify_check3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_region3_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region3_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region3_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region3_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/modify_check4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_region4_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region4_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region4_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_region4_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="지역1"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <Button

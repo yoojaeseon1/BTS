@@ -51,6 +51,16 @@
                 app:layout_constraintStart_toEndOf="@id/my_video_profile_cardview"
                 app:layout_constraintTop_toTopOf="@id/my_video_profile_cardview" />
 
+            <ImageView
+                android:id="@+id/btn_detail_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/image_right_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_video_user_id"
+                app:layout_constraintStart_toEndOf="@id/tv_my_video_user_id"
+                app:layout_constraintTop_toTopOf="@id/tv_my_video_user_id" />
+
             <TextView
                 android:id="@+id/tv_my_video_user_interest"
                 android:layout_width="wrap_content"
