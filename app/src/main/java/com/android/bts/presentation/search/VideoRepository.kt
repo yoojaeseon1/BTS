@@ -1,5 +1,5 @@
 package com.android.bts.presentation.search
 
 interface VideoRepository {
-    suspend fun getVideoList() : VideoEntity
+    suspend fun getVideoList(searchWord : String) : SearchVideoEntity
 }

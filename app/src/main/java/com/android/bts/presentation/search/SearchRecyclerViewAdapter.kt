@@ -5,21 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.bts.data.VideoEntity
 import com.android.bts.databinding.RecyclerviewSearchHolderBinding
 import com.bumptech.glide.Glide
 
 class SearchRecyclerViewAdapter(
-    private val itemClickListener: (item: VideoEntity) -> Unit
-) : ListAdapter<VideoEntity, SearchRecyclerViewAdapter.Holder>(diffUtil) {
+    private val itemClickListener: (item: SnippetEntity) -> Unit
+) : ListAdapter<SnippetEntity, SearchRecyclerViewAdapter.Holder>(diffUtil) {
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<VideoEntity>() {
-            override fun areItemsTheSame(oldItem: VideoEntity, newItem: VideoEntity): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<SnippetEntity>() {
+            override fun areItemsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
                 return oldItem.uId == newItem.uId
             }
 
-            override fun areContentsTheSame(oldItem: VideoEntity, newItem: VideoEntity): Boolean {
+            override fun areContentsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
                 return oldItem == newItem
             }
         }
@@ -42,26 +41,26 @@ class SearchRecyclerViewAdapter(
 
     class Holder(
         private val binding: RecyclerviewSearchHolderBinding,
-        private val itemClickListener: (VideoEntity) -> Unit
+        private val itemClickListener: (SnippetEntity) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(item: VideoEntity) {
+        fun bind(item: SnippetEntity) {
             binding.apply {
                 searchRvHolderTvTitle.text = item.title
-                searchRvHolderTvTraveler.text = item.travelerName
+                searchRvHolderTvTraveler.text = item.channelTitle
                 homeHolder.setOnClickListener {
                     itemClickListener(item)
                 }
             }
             Glide.with(itemView.context)
-                .load(item.travelerIcon)
+                .load(item.thumbnails)
                 .into(binding.searchRvHolderIvTraveler)
 
-//            Glide.with(itemView.context)
-//                .load(item.thumbNail)
-//                .into(binding.searchRvHolderIvTitle)
+            Glide.with(itemView.context)
+                .load(item.thumbnails)
+                .into(binding.searchRvHolderIvTitle)
         }
     }
 }

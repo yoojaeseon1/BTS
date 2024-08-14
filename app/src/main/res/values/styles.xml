@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SearchBar" parent="Theme.AppCompat.NoActionBar">
+        <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!-- Customize your theme here. -->
+        <item name="colorControlActivated">@color/white</item>
+        <!--Sets COLOR for the Cursor in EditText  -->
+    </style>
+
+</resources>
