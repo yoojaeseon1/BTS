@@ -7,7 +7,8 @@ import com.android.bts.presentation.search.toVideoEntity
 
 class VideoRepositoryImpl(private val searchVideoRemoteDataSource: SearchVideoRemoteDataSource) :
     VideoRepository {
-    override suspend fun getVideoList(): VideoEntity {
-        return toVideoEntity(searchVideoRemoteDataSource.getSearchVideo())
+
+    override suspend fun getVideoList(searchWord : String): VideoEntity {
+        return toVideoEntity(searchVideoRemoteDataSource.getSearchVideo(query = searchWord))
     }
 }

@@ -1,55 +1,77 @@
 package com.android.bts.presentation.search
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.android.bts.data.remote.VideoRepositoryImpl
 import com.android.bts.network.RetrofitClient
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-private const val TAG = "HomeViewModel"
+private const val TAG = "SearchViewModel"
 
 class SearchViewModel(private val videoRepository: VideoRepository) :
     ViewModel() {
 
-        fun getVideoList() {
-            viewModelScope.launch {
-                val list = videoRepository.getVideoList()
-                Log.d("debug2323",list.toString())
-            }
+
+
+
+
+    //검색어
+    private val _searchWordLiveData = MutableLiveData("")
+    val searchWordLiveData: LiveData<String> = _searchWordLiveData
+
+    //검색결과
+    private val _searchVideoLiveData = MutableLiveData<List<SnippetEntity>>()
+    val searchVideoLiveData: LiveData<List<SnippetEntity>> = _searchVideoLiveData
+
+    //페이지
+    private val _pageLiveData = MutableLiveData("")
+    val pageLiveData: LiveData<String> = _pageLiveData
+
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading = _isLoading
+
+
+    //검색어를 업데이트해주는 함수
+    fun updateSearchWord(searchWord: String) {
+        _searchWordLiveData.value = searchWord
+    }
+
+
+    //검색결과 응답값을 받아오는 함수
+    fun getSearchVideoResponse() {
+        viewModelScope.launch {
+            _isLoading.value = false
+            val list = async { videoRepository.getVideoList(searchWordLiveData.value ?: "") }
+            updateSearchVideo(list.await())
         }
-//    /*   private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
-//       val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
-//
-//       fun fetchTrendingVideos(region: String = "US") {
-//           viewModelScope.launch {
-//               runCatching {
-//                   val videos = repository.getTrendingVideos(region).items?.toVideoItem()
-//                   _trendingVideos.value = videos
-//               }.onFailure {
-//                   Log.e(TAG, "fetchTrendingVideos() failed! : ${it.message}")
-//                   handleException(it)
-//               }
-//           }
-//       }
-//
-//       private fun handleException(e: Throwable) {
-//           when (e) {
-//               is HttpException -> {
-//                   val errorJsonString = e.response()?.errorBody()?.string()
-//                   Log.e(TAG, "HTTP error: $errorJsonString")
-//               }
-//
-//               is IOException -> Log.e(TAG, "Network error: $e")
-//               else -> Log.e(TAG, "Unexpected error: $e")
-//           }
-//       }
-//   }
-//*/
+    }
+
+    //검색결과를 업데이트해주는 함수
+    private fun updateSearchVideo(list: VideoEntity) {
+       let { _searchVideoLiveData.value = list.items.map { it.snippet }}
+    }
+
+    //다음페이지를 업데이트해주는 함수 : pagetoken 변경
+    fun updatePage(pageToken: String) {
+        _pageLiveData.value = pageToken
+    }
+
+    val page = 0
+            val maxPage = 10
+    private fun infinityScroll() {
+
+    }
+
+
 }
-class SearchViewModelFactory : ViewModelProvider.Factory{
+
+class SearchViewModelFactory : ViewModelProvider.Factory {
     private val repository = VideoRepositoryImpl(RetrofitClient.searchVideo)
     override fun <T : ViewModel> create(
         modelClass: Class<T>,

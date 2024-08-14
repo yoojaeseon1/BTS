@@ -8,4 +8,7 @@
     <color name="background_black">#282828</color>
     <color name="blue_text">#1F14FA</color>
     <color name="red_like">#F94B50</color>
+    <color name="gray_dark">#424242</color>
+
 </resources>
+

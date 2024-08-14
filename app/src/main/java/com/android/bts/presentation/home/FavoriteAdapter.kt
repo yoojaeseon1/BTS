@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 
 class FavoriteAdapter(private val onClick: () -> Unit) : ListAdapter<SnippetEntity, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<SnippetEntity>(){
     override fun areItemsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
-        return oldItem.thumbNailUrl == newItem.thumbNailUrl
+        return oldItem.thumbnail == newItem.thumbnail
     }
 
     override fun areContentsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
@@ -30,7 +30,7 @@ class FavoriteAdapter(private val onClick: () -> Unit) : ListAdapter<SnippetEnti
         val currentItem = getItem(position)
 
         Glide.with(interestedHolder.thumbnail.context)
-            .load(currentItem.thumbNailUrl)
+            .load(currentItem.thumbnail)
             .centerCrop()
             .into(interestedHolder.thumbnail)
 
