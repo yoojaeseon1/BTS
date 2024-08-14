@@ -11,5 +11,3 @@ class VideoRepositoryImpl(private val searchVideoRemoteDataSource: SearchVideoRe
         return toVideoEntity(searchVideoRemoteDataSource.getSearchVideo())
     }
 }
-
-
