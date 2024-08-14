@@ -37,7 +37,7 @@ class VideoDetailFragment : Fragment() {
             textVideoIntro.isSelected = false
             textMemo.isSelected = true
             updateBackgrounds(textVideoIntro, textMemo)
-
+            showFragment(MemoFragment())
         }
 
         return view

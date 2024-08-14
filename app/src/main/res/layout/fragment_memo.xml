@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="#282828">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/notosans_bold"
+        android:includeFontPadding="false"
+        android:text="저장하기"
+        android:textSize="24sp" />
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <EditText
+        android:id="@+id/edit_text_memo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_text"
+        android:fontFamily="@font/notosans_medium"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="나중에 가려고 메모\n10:30 개꿀잼"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/text_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="편집"
+        android:fontFamily="@font/notosans_bold"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        />
+
+</FrameLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비슷한 여행지"
+        android:fontFamily="@font/notosans_bold"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:layout_marginTop="13dp"
+        android:textSize="24sp"
+        />
+
+
+
+</LinearLayout>
