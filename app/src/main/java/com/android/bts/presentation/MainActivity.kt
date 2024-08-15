@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity() {
                     tab.text = "검색"
                 }
                 2 ->{
-                    tab.text = "디테일"
+                    tab.text = "저장"
                 }
                     3->{
-                        tab.text = "마이"
+                        tab.text = "구독"
                     }
             }
         }.attach()

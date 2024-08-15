@@ -10,7 +10,7 @@ import com.android.bts.databinding.RecyclerviewInterestedHolderBinding
 import com.android.bts.presentation.search.SnippetEntity
 import com.bumptech.glide.Glide
 
-class InterestedAdapter(val onClick: () -> Unit) : ListAdapter<SnippetEntity, RecyclerView.ViewHolder>(
+class InterestedAdapter(val onClick: (SnippetEntity) -> Unit) : ListAdapter<SnippetEntity, RecyclerView.ViewHolder>(
     object : DiffUtil.ItemCallback<SnippetEntity>(){
         override fun areItemsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
             return oldItem.thumbnail == newItem.thumbnail

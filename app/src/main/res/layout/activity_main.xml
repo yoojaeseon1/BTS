@@ -30,7 +30,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="76dp"
         android:background="@color/background_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

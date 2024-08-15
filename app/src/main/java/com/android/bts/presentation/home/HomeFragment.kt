@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
+
     private val interestedAdapter = InterestedAdapter{
 
     }

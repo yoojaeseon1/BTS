@@ -37,6 +37,7 @@ class FavoriteAdapter(private val onClick: () -> Unit) : ListAdapter<SnippetEnti
         interestedHolder.traveler.text = currentItem.channelTitle
         interestedHolder.title.text = currentItem.title
 
+
     }
 
 
