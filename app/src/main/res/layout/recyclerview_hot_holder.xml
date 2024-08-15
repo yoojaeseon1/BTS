@@ -13,7 +13,7 @@
         android:id="@+id/search_rv_holder_iv_title"
         android:layout_width="138dp"
         android:layout_height="101dp"
-        android:background="@drawable/bg_round_square"
+        android:background="@drawable/bg_round_thumbnail"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/search_rv_holder_tv_title"

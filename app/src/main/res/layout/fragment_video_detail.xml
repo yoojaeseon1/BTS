@@ -8,11 +8,7 @@
     tools:context=".presentation.detail.VideoDetailFragment">
 
 
-    <include
-        android:id="@+id/detail_video_toolbar"
-        layout="@layout/toolbar" />
-
-    <LinearLayout
+      <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
