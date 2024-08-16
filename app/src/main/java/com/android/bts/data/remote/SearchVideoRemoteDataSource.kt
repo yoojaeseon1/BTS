@@ -14,4 +14,28 @@ import retrofit2.http.Query
             @Query("pageToken") pageToken: String = "",
             @Query("q") query: String
         ): VideoResponse
+
+
+        @GET("search")
+        suspend fun getHotVideo(
+            @Query("q") query: String,
+            @Query("pageToken") pageToken: String = "",
+            @Query("part") part:String = "snippet",
+            @Query("maxResults") maxResults:Int = 4,
+            @Query("order") order: String = "viewCount",
+//            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
+            @Query("key") apiKey: String = "AIzaSyDnS_YcZUFvMPW_A_4qK4BNkRzNpLSJwAw"
+        ): VideoResponse
+
+
+        @GET("search")
+        suspend fun getNewVideo(
+            @Query("q") query: String,
+            @Query("pageToken") pageToken: String = "",
+            @Query("part") part:String = "snippet",
+            @Query("maxResults") maxResults:Int =10,
+            @Query("order") order: String = "date",
+//            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
+            @Query("key") apiKey: String = "AIzaSyDnS_YcZUFvMPW_A_4qK4BNkRzNpLSJwAw"
+        ): VideoResponse
     }

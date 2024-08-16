@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.android.bts.R
 import com.android.bts.databinding.FragmentHomeBinding
+import com.android.bts.presentation.MainActivity
 import com.android.bts.presentation.my.MyVideoFragment
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,26 +37,44 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
-
-    private val interestedAdapter = InterestedAdapter{
-
+    private val interestedClick: InterestedClickListenerImpl by lazy {
+        InterestedClickListenerImpl(requireActivity())
     }
 
-    private val hotSpotAdapter = FavoriteAdapter{
-
+    private val hotSpotClick: HotClickListenerImpl by lazy {
+        HotClickListenerImpl(requireActivity())
     }
 
-    private val newSpotAdapter = FavoriteAdapter{
+    private val interestedAdapter: InterestedAdapter by lazy {
+        InterestedAdapter(interestedClick)
+    }
 
+    private val hotSpotAdapter: FavoriteAdapter by lazy{
+        FavoriteAdapter(hotSpotClick)
+    }
+
+    private val newSpotAdapter: FavoriteAdapter by lazy{
+        FavoriteAdapter(hotSpotClick)
     }
 
     private val viewModel by viewModels<HomeViewModel> {
         HomeViewModelFactory()
     }
 
+    val recyclerViewListener = object : OnItemTouchListener{
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+            rv.parent.requestDisallowInterceptTouchEvent(true)
+            return false
+        }
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+    }
+
+    private lateinit var parentActivity: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -68,10 +91,14 @@ class HomeFragment : Fragment() {
         binding.recyclerViewHot.adapter = hotSpotAdapter
         binding.recyclerViewNew.adapter = newSpotAdapter
 
+        parentActivity = requireActivity() as MainActivity
+
+        viewModel.initViewModel()
+
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-        viewModel.getInterestedVideoList()
-        viewModel.getHotSpotVideoList()
-        viewModel.getNewVideoList()
+        viewModel.getInterestedVideoList(requireActivity())
+        viewModel.getHotVideoList(requireActivity())
+        viewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
@@ -85,6 +112,55 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        binding.recyclerViewInterested.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+//
+//            Log.d("HomeFragment", "interestedScroll = (${v.scrollX},${v.scrollY}), (${scrollX}, ${scrollY})")
+//            Log.d("HomeFragment", "interestedScroll =  (${oldScrollX}, ${oldScrollY})")
+//
+//        }
+
+        binding.recyclerViewInterested.addOnItemTouchListener(recyclerViewListener)
+        binding.recyclerViewHot.addOnItemTouchListener(recyclerViewListener)
+        binding.recyclerViewNew.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if(!recyclerView.canScrollVertically(1)) {
+                    viewModel.getNewVideoList(requireActivity())
+//                    viewModel.newSpotVideos.notifyObserver()
+//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value)
+//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value?.toMutableList())
+                }
+            }
+        })
+
+//        binding.recyclerViewInterested.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                Log.d("HomeFragment", "scrollListener (${dx}, ${dy})")
+//
+//                if(!recyclerView.canScrollHorizontally(1)) {
+////                    isScrollable = false
+//                    parentActivity.binding.pager.isUserInputEnabled = true
+//                    Log.d("HomeFragment", "scrollListener end canScroll true (${dx}, ${dy})")
+//                } else {
+////                    isEndScroll = true
+//                    Log.d("HomeFragment", "scrollListener canScroll false (${dx}, ${dy})")
+//
+//                    parentActivity.binding.pager.isUserInputEnabled = false
+//
+//                }
+//
+//                if(!recyclerView.canScrollHorizontally(-1)) {
+////                    isScrollable = false
+//                    parentActivity.binding.pager.isUserInputEnabled = true
+//                    Log.d("HomeFragment", "scrollListener start canScroll true (${dx}, ${dy})")
+//                }
+//            }
+//        })
+
 
 
         binding.profileIcon.setOnClickListener {
@@ -109,7 +185,8 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.newSpotVideos.observe(viewLifecycleOwner){
-            newSpotAdapter.submitList(viewModel.newSpotVideos.value)
+            Log.d("HomeFragment", "observe newSpotVideos size = ${viewModel.newSpotVideos.value?.size}")
+            newSpotAdapter.submitList(viewModel.newSpotResults.toMutableList())
         }
     }
 
@@ -133,4 +210,10 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+
+
+
+
+
+
 }

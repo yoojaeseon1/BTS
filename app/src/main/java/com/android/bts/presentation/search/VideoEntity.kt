@@ -15,7 +15,13 @@ data class VideoEntity(
 
 )
 
+data class Id(
+    val kind: String,
+    val videoId: String
+)
+
 data class ItemsEntity(
+    val id: Id,
     val snippet: SnippetEntity
 )
 
@@ -27,7 +33,8 @@ data class SnippetEntity(
 //    val description: String,
 //    val publishTime: String,
     val channelTitle: String,
-    val thumbnail: String
+    val thumbnail: String,
+    var isLike: Boolean = false
 
 )
 
@@ -40,30 +47,31 @@ fun toVideoEntity(content: VideoResponse): VideoEntity = with(content) {
     )
 }
 
-fun toHomeVideoEntity(content: HomeVideoResponse): VideoEntity = with(content) {
-    return VideoEntity(
-        kind = kind,
-        etag = etag,
-        nextPageToken = nextPageToken,
-        items = toHomeVideoItemEntity(items)
-    )
-}
+//fun toHomeVideoEntity(content: HomeVideoResponse): VideoEntity = with(content) {
+//    return VideoEntity(
+//        kind = kind,
+//        etag = etag,
+//        nextPageToken = nextPageToken,
+//        items = toHomeVideoItemEntity(items)
+//    )
+//}
 
 fun toItemEntity(items: List<Items>?): List<ItemsEntity> = with(items) {
     return this?.map { items ->
         ItemsEntity(
+            id = Id(items.id.kind, items.id.videoId),
             snippet = toSnippetEntity(items.snippet)
         )
     }.orEmpty()
 }
 
-fun toHomeVideoItemEntity(items: List<HomeVideoItems>?): List<ItemsEntity> = with(items) {
-    return this?.map { items ->
-        ItemsEntity(
-            snippet = toSnippetEntity(items.snippet)
-        )
-    }.orEmpty()
-}
+//fun toHomeVideoItemEntity(items: List<HomeVideoItems>?): List<ItemsEntity> = with(items) {
+//    return this?.map { items ->
+//        ItemsEntity(
+//            snippet = toSnippetEntity(items.snippet)
+//        )
+//    }.orEmpty()
+//}
 
 
 fun toSnippetEntity(snippet: Snippet): SnippetEntity = with(snippet) {

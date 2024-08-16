@@ -17,7 +17,7 @@ interface HomeVideoRemoteDataSource {
 
 
     @GET("videos")
-    suspend fun getRecentVideos(
+    suspend fun getNewVideos(
         @Query("part") part: String = "snippet",
         @Query("chart") chart: String = "mostPopular",
         @Query("maxResult") maxResult: String = "20",
