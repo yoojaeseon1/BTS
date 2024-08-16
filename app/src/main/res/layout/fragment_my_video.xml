@@ -7,14 +7,61 @@
     android:background="@color/background_black"
     tools:context=".presentation.my.MyVideoFragment">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/my_video_toolbar"
-            layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/ic_back"
+                android:layout_width="19dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:text="프로필"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:layout_gravity="center_vertical"
+              />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="17dp"
+                android:src="@drawable/ic_bell"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="170dp"
+
+                />
+
+            <ImageView
+                android:id="@+id/profile_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_round"
+                android:layout_gravity="center_vertical"
+               />
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -148,6 +195,8 @@
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_my_video_ask" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

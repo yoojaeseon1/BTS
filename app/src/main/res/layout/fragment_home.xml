@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:background="@color/background_black"
         tools:context=".presentation.home.HomeFragment">
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -20,31 +21,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <include
-                android:id="@+id/home_toolbar"
-                layout="@layout/toolbar" />
 
-            <ImageView
-                android:id="@+id/ivAdBanner"
-                android:layout_width="380dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_round_square"
-                app:layout_constraintTop_toBottomOf="@id/home_toolbar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="46dp"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:text="BTS"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvInterestedSpots"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="관심 여행지"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@id/ivAdBanner"
-                app:layout_constraintTop_toBottomOf="@+id/ivAdBanner" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="34dp"
+                    android:src="@drawable/ic_bell"
+                    android:layout_marginEnd="17dp"
+                    app:layout_constraintEnd_toStartOf="@id/profile_icon"
+                    app:layout_constraintTop_toTopOf="@+id/logo"
+                    app:layout_constraintBottom_toBottomOf="@id/logo"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/profile_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_round"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/logo"
+                    app:layout_constraintBottom_toBottomOf="@id/logo"
+                    android:layout_marginEnd="16dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivAdBanner"
+                    android:layout_width="380dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/image_title"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_round_thumbnail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logo" />
+
+                <TextView
+                    android:id="@+id/tvInterestedSpots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:text="관심 여행지"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="@id/ivAdBanner"
+                    app:layout_constraintTop_toBottomOf="@+id/ivAdBanner" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewInterested"
@@ -62,11 +99,13 @@
                     android:id="@+id/tvHotSpot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="인기 여행지"
-                    android:textSize="24sp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:text="인기 여행지"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/recyclerViewInterested"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerViewInterested" />
 
@@ -77,18 +116,19 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@id/tvHotSpot"
-                    app:layout_constraintStart_toStartOf="@id/tvHotSpot" />
+                    app:layout_constraintStart_toStartOf="@id/tvHotSpot"
+                    app:layout_constraintTop_toBottomOf="@id/tvHotSpot" />
 
                 <TextView
                     android:id="@+id/tvNewSpots"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
                     android:text="신규 여행지"
-                    android:textSize="24sp"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
+                    android:textSize="24sp"
+
                     app:layout_constraintStart_toStartOf="@id/recyclerViewHot"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerViewHot" />
 
@@ -106,6 +146,14 @@
 
         </ScrollView>
 
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

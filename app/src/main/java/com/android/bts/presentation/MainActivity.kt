@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.android.bts.R
 import com.android.bts.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -95,19 +97,26 @@ class MainActivity : AppCompatActivity() {
 
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             when (position) {
-                0 -> tab.text = "홈"
+                0 -> {
+                    tab.text = "홈"
+                    tab.setIcon(R.drawable.ic_home)
+                }
+
                 1 -> {
                     tab.text = "검색"
+                    tab.setIcon(R.drawable.ic_search)
                 }
-
-                2 -> {
-                    tab.text = "디테일"
+                2 ->{
+                    tab.text = "저장"
+                    tab.setIcon(R.drawable.ic_down)
                 }
-
-                3 -> {
-                    tab.text = "마이"
-                }
+                    3->{
+                        tab.text = "구독"
+                        tab.setIcon(R.drawable.ic_like)
+                    }
             }
+
+
         }.attach()
     }
 

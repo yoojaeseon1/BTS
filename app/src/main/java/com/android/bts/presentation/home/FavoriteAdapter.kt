@@ -53,6 +53,7 @@ class FavoriteAdapter(private val videoClick: HotClickListener) : ListAdapter<It
         hotSpotHolder.traveler.text = currentItem.snippet.channelTitle
         hotSpotHolder.title.text = currentItem.snippet.title
 
+
     }
 
 

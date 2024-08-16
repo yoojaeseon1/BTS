@@ -14,7 +14,7 @@
         android:layout_width="171dp"
         android:layout_height="119dp"
         android:clipToOutline="true"
-        android:background="@drawable/bg_round_square"
+        android:background="@drawable/bg_round_thumbnail"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/search_rv_holder_tv_title"
         app:layout_constraintEnd_toEndOf="parent"
