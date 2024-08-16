@@ -2,17 +2,21 @@ package com.android.bts.presentation.search
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.android.bts.R
 import com.android.bts.databinding.FragmentSearchBinding
+import com.android.bts.presentation.MainActivity
 
 
 class SearchFragment : Fragment() {
@@ -22,6 +26,8 @@ class SearchFragment : Fragment() {
     private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
     }
+    private val sharedViewModel : MainViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +38,19 @@ class SearchFragment : Fragment() {
         //리사이클러뷰 어댑터 초기화
         initAdapter()
 
+        //검색어 입력 후 검색버튼
+        binding.searchBtn.setOnClickListener {
+            searchWithWord()
+        }
+
+
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //검색어 입력 후 키보드 엔터키
         binding.searchEt.setOnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -39,17 +58,6 @@ class SearchFragment : Fragment() {
                 return@setOnKeyListener false
             } else return@setOnKeyListener false
         }
-        //검색어 입력 후 검색버튼
-        binding.searchBtn.setOnClickListener {
-            searchWithWord()
-        }
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
 
@@ -57,6 +65,11 @@ class SearchFragment : Fragment() {
     private fun initAdapter() {
         searchRecyclerViewAdapter = SearchRecyclerViewAdapter(
             itemClickListener = { item ->
+                Log.d("써치", "${sharedViewModel.videoPlayLiveData.value}")
+                sharedViewModel.updateVideoPlayer(item)
+                binding.searchContainer.isVisible = true
+                showVideo()
+
             })
         binding.searchRv.adapter = searchRecyclerViewAdapter
         binding.searchRv.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -81,6 +94,26 @@ class SearchFragment : Fragment() {
             }
         }
     }
+
+    //디테일 프래그먼트로 이동하는 함수 : 클릭시
+    private fun moveTotDetailFragment() {
+        val mainActivity = activity as MainActivity
+//        mainActivity.moveToVideoPlayFragment()
+    }
+
+
+
+    //동영상 재생 함수 : 롱클릭시
+    private fun showVideo() {
+//        (activity as MainActivity).moveToVideoPlayFragment()
+        childFragmentManager.beginTransaction()
+            .add(R.id.search_container, VideoPlayFragment())
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .commit()
+    }
+
+
 
 //    private fun scrollEndListener() {
 //        binding.searchRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {

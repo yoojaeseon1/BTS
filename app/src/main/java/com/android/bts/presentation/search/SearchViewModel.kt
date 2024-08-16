@@ -32,6 +32,9 @@ class SearchViewModel(private val videoRepository: VideoRepository) :
     private val _pageLiveData = MutableLiveData("")
     val pageLiveData: LiveData<String> = _pageLiveData
 
+    //비디오 재생
+    private val _videoPlayLiveData = MutableLiveData<SnippetEntity>()
+    val videoPlayLiveData: LiveData<SnippetEntity> = _videoPlayLiveData
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading = _isLoading
@@ -42,6 +45,10 @@ class SearchViewModel(private val videoRepository: VideoRepository) :
         _searchWordLiveData.value = searchWord
     }
 
+    //재생할 동영상을 업데이트해주는 함수
+    fun updateVideoPlayer(video: SnippetEntity) {
+        _videoPlayLiveData.value = video
+    }
 
     //검색결과 응답값을 받아오는 함수
     fun getSearchVideoResponse() {

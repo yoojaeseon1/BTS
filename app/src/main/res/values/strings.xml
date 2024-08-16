@@ -6,8 +6,15 @@
     <string name="videoDetailFragment">상세정보</string>
     <string name="myVideoFragment">마이 페이지</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="search_">홈</string>
+    <!--    <string name="searchFragment">비디오 검색</string>-->
+    <!--    <string name="videoDetailFragment">상세정보</string>-->
+    <!--    <string name="myVideoFragment">마이 페이지</string>-->
 
-
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="modify_btn_cancel">취 소</string>
     <string name="modify_btn_confirm">확 인</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
