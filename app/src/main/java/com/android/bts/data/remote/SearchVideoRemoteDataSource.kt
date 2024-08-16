@@ -24,7 +24,7 @@ import retrofit2.http.Query
             @Query("maxResults") maxResults:Int = 4,
             @Query("order") order: String = "viewCount",
 //            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
-            @Query("key") apiKey: String = "AIzaSyDnS_YcZUFvMPW_A_4qK4BNkRzNpLSJwAw"
+            @Query("key") apiKey: String = "AIzaSyCSXtO79sI9CoPrFNzBd2lpNKszffqdvqQ"
         ): VideoResponse
 
 
@@ -36,6 +36,6 @@ import retrofit2.http.Query
             @Query("maxResults") maxResults:Int =10,
             @Query("order") order: String = "date",
 //            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
-            @Query("key") apiKey: String = "AIzaSyDnS_YcZUFvMPW_A_4qK4BNkRzNpLSJwAw"
+            @Query("key") apiKey: String = "AIzaSyCSXtO79sI9CoPrFNzBd2lpNKszffqdvqQ"
         ): VideoResponse
     }

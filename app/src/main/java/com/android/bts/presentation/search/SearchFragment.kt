@@ -67,6 +67,7 @@ class SearchFragment : Fragment() {
             itemClickListener = { item ->
                 Log.d("써치", "${sharedViewModel.videoPlayLiveData.value}")
                 sharedViewModel.updateVideoPlayer(item)
+
                 binding.searchContainer.isVisible = true
                 showVideo()
 
@@ -107,11 +108,16 @@ class SearchFragment : Fragment() {
     private fun showVideo() {
 //        (activity as MainActivity).moveToVideoPlayFragment()
         childFragmentManager.beginTransaction()
-            .add(R.id.search_container, VideoPlayFragment())
+            .replace(R.id.search_container, VideoPlayFragment())//리플레이스 교체 적용해보기
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()
     }
+
+
+
+
+
 
 
 
@@ -133,6 +139,12 @@ class SearchFragment : Fragment() {
     private fun hideKeyboard() {
         val manager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         manager.hideSoftInputFromWindow(binding.searchEt.windowToken, 0)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

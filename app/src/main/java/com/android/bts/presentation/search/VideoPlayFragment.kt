@@ -41,7 +41,11 @@ class VideoPlayFragment : Fragment(R.layout.fragment_video_play) {
 
 
 
-//binding.videoPlayPlayerVv.setImageResource(R.drawable.ic_search_btn)
+
+
+        sharedViewModel.videoPlayLiveData.observe(viewLifecycleOwner) {
+
+        }
         Log.d("플레이", "${sharedViewModel.videoPlayLiveData.value}")
 
 
