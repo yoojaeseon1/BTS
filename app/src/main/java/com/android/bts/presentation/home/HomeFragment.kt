@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.bts.R
 import com.android.bts.databinding.FragmentHomeBinding
+import com.android.bts.presentation.my.MyVideoFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,6 +86,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        binding.profileIcon.setOnClickListener {
+            // MyVideoFragment로 전환
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, MyVideoFragment())
+                .addToBackStack(null)
+                .commit()
+
+        }
 
     }
 

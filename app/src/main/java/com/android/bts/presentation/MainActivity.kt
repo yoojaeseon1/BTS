@@ -1,6 +1,7 @@
 package com.android.bts.presentation
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.bts.R
 import com.android.bts.databinding.ActivityMainBinding
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
                         tab.setIcon(R.drawable.ic_like)
                     }
             }
+
+
         }.attach()
     }
 

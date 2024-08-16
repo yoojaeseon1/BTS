@@ -1,6 +1,7 @@
 package com.android.bts.presentation.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.bts.R
 import com.android.bts.databinding.FragmentMemoBinding
+import com.android.bts.presentation.home.FavoriteAdapter
+import com.android.bts.presentation.home.HomeViewModel
+import com.android.bts.presentation.home.HomeViewModelFactory
+
 
 class MemoFragment : Fragment() {
 
     private var _binding: FragmentMemoBinding? = null
     private val binding get() = _binding!!
     private val memoViewModel: MemoViewModel by activityViewModels() // ViewModel 초기화
+    private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
+
+    private val newSpotAdapter = FavoriteAdapter {
+        // 이곳에 아이템 클릭 이벤트 처리를 추가할 수 있습니다.
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +33,15 @@ class MemoFragment : Fragment() {
     ): View? {
         _binding = FragmentMemoBinding.inflate(inflater, container, false)
 
-        val gridLayoutManager = GridLayoutManager(requireContext(), 2)  // 두 개의 열로 설정
+
+        Log.d("MemoFragment", "onCreateView called")
+
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.videoRecyclrview.layoutManager = gridLayoutManager
+        binding.videoRecyclrview.adapter = newSpotAdapter
+
+        // ViewModel의 상태 확인 및 관찰
+        observeViewModel()
 
         // ViewModel의 상태를 관찰하여 EditText 상태와 텍스트 업데이트
         memoViewModel.isEditTextEnabled.observe(viewLifecycleOwner) { isEnabled ->
@@ -45,6 +62,18 @@ class MemoFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun observeViewModel() {
+        homeViewModel.newSpotVideos.observe(viewLifecycleOwner) { videoList ->
+            if (videoList.isNullOrEmpty()) {
+                // 데이터가 비어 있는 경우 로그 출력
+                Log.d("MemoFragment", "Video list is empty or null")
+            } else {
+                newSpotAdapter.submitList(videoList)
+                Log.d("MemoFragment", "Video list loaded with size: ${videoList.size}")
+            }
+        }
     }
 
     private fun updateEditTextState(isEnabled: Boolean) {
