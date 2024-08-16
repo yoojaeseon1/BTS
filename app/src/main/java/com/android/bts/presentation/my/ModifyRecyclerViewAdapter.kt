@@ -2,10 +2,13 @@ package com.android.bts.presentation.my
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.databinding.RecyclerviewCheckboxBinding
+import com.android.bts.presentation.search.ItemsEntity
 
-class ModifyRecyclerViewAdapter() :
+class ModifyRecyclerViewAdapter(private val viewModel: MyVideoViewModel) :
     RecyclerView.Adapter<ModifyRecyclerViewAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RecyclerviewCheckboxBinding) :
@@ -28,6 +31,9 @@ class ModifyRecyclerViewAdapter() :
         holder.binding.apply {
             cbRegion11.text = regionItems[position].regionName
         }
+        // 체크박스 상태 가져옴
+        holder.binding.cbRegion11.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.updateChecked(regionItems[position].regionName, isChecked)
+        }
     }
 }
-

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.bts.databinding.DialogMyVideoModifyBinding
 
@@ -14,6 +15,7 @@ class MyVideoModifyDialog() : DialogFragment() {
     private var _binding: DialogMyVideoModifyBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var viewModel: MyVideoViewModel
     private lateinit var adapter: ModifyRecyclerViewAdapter
 
     override fun onCreateView(
@@ -22,19 +24,25 @@ class MyVideoModifyDialog() : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DialogMyVideoModifyBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(MyVideoViewModel::class.java)
+
         binding.rvModifyRegionLayout.layoutManager = GridLayoutManager(context, 4)
-        adapter = ModifyRecyclerViewAdapter()
+        adapter = ModifyRecyclerViewAdapter(viewModel)
         binding.rvModifyRegionLayout.adapter = adapter
 
         binding.btnCancel.setOnClickListener {
             dismiss()
+        }
+
+        // 체크된 지역텍스트 적용
+        viewModel.checkedText.observe(viewLifecycleOwner) { checkedText ->
+            binding.tvMyModifyRegion.text = checkedText.joinToString(", ")
         }
     }
 

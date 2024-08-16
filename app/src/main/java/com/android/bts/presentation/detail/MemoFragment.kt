@@ -23,9 +23,9 @@ class MemoFragment : Fragment() {
     private val memoViewModel: MemoViewModel by activityViewModels() // ViewModel 초기화
     private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
 
-    private val newSpotAdapter = FavoriteAdapter {
-        // 이곳에 아이템 클릭 이벤트 처리를 추가할 수 있습니다.
-    }
+//    private val newSpotAdapter = FavoriteAdapter() {
+//        // 이곳에 아이템 클릭 이벤트 처리를 추가할 수 있습니다.
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class MemoFragment : Fragment() {
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.videoRecyclrview.layoutManager = gridLayoutManager
-        binding.videoRecyclrview.adapter = newSpotAdapter
+//        binding.videoRecyclrview.adapter = newSpotAdapter
 
         // ViewModel의 상태 확인 및 관찰
         observeViewModel()
@@ -66,13 +66,13 @@ class MemoFragment : Fragment() {
 
     private fun observeViewModel() {
         homeViewModel.newSpotVideos.observe(viewLifecycleOwner) { videoList ->
-            if (videoList.isNullOrEmpty()) {
-                // 데이터가 비어 있는 경우 로그 출력
-                Log.d("MemoFragment", "Video list is empty or null")
-            } else {
-                newSpotAdapter.submitList(videoList)
-                Log.d("MemoFragment", "Video list loaded with size: ${videoList.size}")
-            }
+//            if (videoList.isNullOrEmpty()) {
+//                // 데이터가 비어 있는 경우 로그 출력
+//                Log.d("MemoFragment", "Video list is empty or null")
+//            } else {
+//                newSpotAdapter.submitList(videoList)
+//                Log.d("MemoFragment", "Video list loaded with size: ${videoList.size}")
+//            }
         }
     }
 

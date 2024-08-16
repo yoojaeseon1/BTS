@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
 import com.android.bts.databinding.FragmentMyVideoBinding
 
 class MyVideoFragment : Fragment() {
+    private lateinit var viewModel: MyVideoViewModel
 
     private lateinit var binding: FragmentMyVideoBinding
 
@@ -42,5 +45,8 @@ class MyVideoFragment : Fragment() {
         binding.icBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+
+        viewModel = ViewModelProvider(this).get(MyVideoViewModel::class.java)
+
     }
 }
