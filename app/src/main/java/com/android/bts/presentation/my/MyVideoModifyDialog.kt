@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.android.bts.R
 import com.android.bts.databinding.DialogMyVideoModifyBinding
 
 class MyVideoModifyDialog() : DialogFragment() {
@@ -36,14 +37,15 @@ class MyVideoModifyDialog() : DialogFragment() {
         adapter = ModifyRecyclerViewAdapter(viewModel)
         binding.rvModifyRegionLayout.adapter = adapter
 
+        binding.btnConfirm.setOnClickListener{
+            dismiss()
+        }
+
         binding.btnCancel.setOnClickListener {
             dismiss()
         }
 
-        // 체크된 지역텍스트 적용
-        viewModel.checkedText.observe(viewLifecycleOwner) { checkedText ->
-            binding.tvMyModifyRegion.text = checkedText.joinToString(", ")
-        }
+
     }
 
     override fun onResume() {

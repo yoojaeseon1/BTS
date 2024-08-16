@@ -47,6 +47,9 @@ class MyVideoFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this).get(MyVideoViewModel::class.java)
-
+        // 체크된 지역텍스트 적용
+        viewModel.checkedText.observe(viewLifecycleOwner) { checkedText ->
+            binding.tvMyVideoUserRegion.text = checkedText.joinToString(", ")
+        }
     }
 }
