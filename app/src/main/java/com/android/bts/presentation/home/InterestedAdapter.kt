@@ -2,21 +2,23 @@ package com.android.bts.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.databinding.RecyclerviewInterestedHolderBinding
-import com.android.bts.presentation.search.SnippetEntity
+import com.android.bts.presentation.search.ItemsEntity
 import com.bumptech.glide.Glide
 
-class InterestedAdapter(val onClick: () -> Unit) : ListAdapter<SnippetEntity, RecyclerView.ViewHolder>(
-    object : DiffUtil.ItemCallback<SnippetEntity>(){
-        override fun areItemsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
-            return oldItem.thumbnail == newItem.thumbnail
+class InterestedAdapter(private val videoClick: InterestedClickLIstener) : ListAdapter<ItemsEntity, RecyclerView.ViewHolder>
+    (object : DiffUtil.ItemCallback<ItemsEntity>(){
+        override fun areItemsTheSame(oldItem:ItemsEntity, newItem:ItemsEntity): Boolean {
+//            return oldItem.snippet.thumbnail == newItem.snippet.thumbnail
+            return oldItem.id.videoId == newItem.id.videoId
+                    && oldItem.snippet.isLike == newItem.snippet.isLike
         }
 
-        override fun areContentsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
+        override fun areContentsTheSame(oldItem:ItemsEntity, newItem: ItemsEntity): Boolean {
             return oldItem == newItem
         }
     }
@@ -31,14 +33,27 @@ class InterestedAdapter(val onClick: () -> Unit) : ListAdapter<SnippetEntity, Re
         val interestedHolder = holder as InterestedSpotHolder
         val currentItem = getItem(position)
 
+        holder.binding.root.setOnLongClickListener {
+            videoClick.onClickLike(currentItem, holder)
+            true
+        }
+
+        holder.binding.root.setOnClickListener {
+            videoClick.onClickDetail(currentItem, holder)
+        }
+
 //        interestedHolder.thumbnail.setImageURI(currentItem.thumbnail.toUri())
         Glide.with(interestedHolder.thumbnail.context)
-            .load(currentItem.thumbnail)
+            .load(currentItem.snippet.thumbnail)
             .centerCrop()
             .into(interestedHolder.thumbnail)
 
-        interestedHolder.traveler.text = currentItem.channelTitle
-        interestedHolder.title.text = currentItem.title
+        if(currentItem.snippet.isLike) {
+            interestedHolder.like.visibility = ImageView.VISIBLE
+        }
+
+        interestedHolder.traveler.text = currentItem.snippet.channelTitle
+        interestedHolder.title.text = currentItem.snippet.title
 
     }
 
@@ -46,5 +61,6 @@ class InterestedAdapter(val onClick: () -> Unit) : ListAdapter<SnippetEntity, Re
         var thumbnail = binding.interestedRvHolderIvTitle
         var title = binding.interestedRvHolderTvTitle
         var traveler = binding.interestedRvHolderTvTraveler
+        val like = binding.ivLike
     }
 }

@@ -13,7 +13,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -47,13 +48,15 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewInterested"
-                    android:layout_width="350dp"
+                    android:layout_width="380dp"
                     android:layout_height="250dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/tvInterestedSpots"
-                    app:layout_constraintStart_toStartOf="@id/tvInterestedSpots" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/tvHotSpot"
@@ -69,7 +72,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewHot"
-                    android:layout_width="350dp"
+                    android:layout_width="380dp"
                     android:layout_height="250dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
@@ -91,7 +94,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewNew"
-                    android:layout_width="350dp"
+                    android:layout_width="380dp"
                     android:layout_height="250dp"
                     android:layout_marginTop="8dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
