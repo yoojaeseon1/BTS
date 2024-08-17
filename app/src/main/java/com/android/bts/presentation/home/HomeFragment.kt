@@ -229,7 +229,10 @@ class HomeFragment : Fragment() {
             holder: FavoriteAdapter.HotSpotHolder
         ) {
             // VideoDetailFragment로 전환
-            val videoDetailFragment = VideoDetailFragment.newInstance(itemsEntity.id.videoId)
+            val videoDetailFragment = VideoDetailFragment.newInstance(
+                itemsEntity.id.videoId,
+                itemsEntity.snippet.title
+            )
             (context as FragmentActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frame, videoDetailFragment)
                 .addToBackStack(null)

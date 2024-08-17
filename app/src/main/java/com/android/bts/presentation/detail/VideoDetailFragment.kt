@@ -17,12 +17,15 @@ class VideoDetailFragment : Fragment() {
 
     companion object {
         private const val VIDEO_ID_KEY = "videoId"
+        private const val VIDEO_TITLE_KEY = "videoTitle"
+
 
         // newInstance 메서드로 프래그먼트 생성
-        fun newInstance(videoId: String): VideoDetailFragment {
+        fun newInstance(videoId: String, videoTitle: String): VideoDetailFragment {
             val fragment = VideoDetailFragment()
             val args = Bundle()
             args.putString(VIDEO_ID_KEY, videoId)
+            args.putString(VIDEO_TITLE_KEY, videoTitle)
             fragment.arguments = args
             return fragment
         }
@@ -35,8 +38,12 @@ class VideoDetailFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_video_detail, container, false)
 
         val videoId = arguments?.getString(VIDEO_ID_KEY)
-        val youTubePlayerView = view.findViewById<YouTubePlayerView>(R.id.player_view)
+        val videoTitle = arguments?.getString(VIDEO_TITLE_KEY)
 
+        val videoTitleTextView = view.findViewById<TextView>(R.id.video_title)
+        videoTitleTextView.text = videoTitle
+
+        val youTubePlayerView = view.findViewById<YouTubePlayerView>(R.id.player_view)
         setupYouTubePlayer(youTubePlayerView, videoId)
 
         val textVideoIntro = view.findViewById<TextView>(R.id.text_video_intro)
