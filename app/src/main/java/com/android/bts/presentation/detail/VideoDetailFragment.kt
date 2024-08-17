@@ -8,13 +8,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.android.bts.R
 import com.example.app.IntroduceVideoFragment
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+
 
 class VideoDetailFragment : Fragment() {
 
     companion object {
         private const val VIDEO_ID_KEY = "videoId"
 
-        // newInstance 추가
+        // newInstance 메서드로 프래그먼트 생성
         fun newInstance(videoId: String): VideoDetailFragment {
             val fragment = VideoDetailFragment()
             val args = Bundle()
@@ -31,6 +35,9 @@ class VideoDetailFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_video_detail, container, false)
 
         val videoId = arguments?.getString(VIDEO_ID_KEY)
+        val youTubePlayerView = view.findViewById<YouTubePlayerView>(R.id.player_view)
+
+        setupYouTubePlayer(youTubePlayerView, videoId)
 
         val textVideoIntro = view.findViewById<TextView>(R.id.text_video_intro)
         val textMemo = view.findViewById<TextView>(R.id.text_memo)
@@ -55,9 +62,18 @@ class VideoDetailFragment : Fragment() {
             showFragment(MemoFragment())
         }
 
-
-
         return view
+    }
+
+    private fun setupYouTubePlayer(youTubePlayerView: YouTubePlayerView, videoId: String?) {
+        lifecycle.addObserver(youTubePlayerView) // 생명주기 관리
+        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                videoId?.let {
+                    youTubePlayer.loadVideo(it, 0f) // 영상 로드 및 재생
+                }
+            }
+        })
     }
 
     private fun updateBackgrounds(textVideoIntro: TextView, textMemo: TextView) {
