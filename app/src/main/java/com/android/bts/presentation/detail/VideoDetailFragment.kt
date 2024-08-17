@@ -11,11 +11,26 @@ import com.example.app.IntroduceVideoFragment
 
 class VideoDetailFragment : Fragment() {
 
+    companion object {
+        private const val VIDEO_ID_KEY = "videoId"
+
+        // newInstance 추가
+        fun newInstance(videoId: String): VideoDetailFragment {
+            val fragment = VideoDetailFragment()
+            val args = Bundle()
+            args.putString(VIDEO_ID_KEY, videoId)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_video_detail, container, false)
+
+        val videoId = arguments?.getString(VIDEO_ID_KEY)
 
         val textVideoIntro = view.findViewById<TextView>(R.id.text_video_intro)
         val textMemo = view.findViewById<TextView>(R.id.text_memo)
@@ -39,6 +54,8 @@ class VideoDetailFragment : Fragment() {
             updateBackgrounds(textVideoIntro, textMemo)
             showFragment(MemoFragment())
         }
+
+
 
         return view
     }

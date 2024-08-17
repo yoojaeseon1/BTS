@@ -1,5 +1,6 @@
 package com.android.bts.presentation.home
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.android.bts.R
 import com.android.bts.databinding.FragmentHomeBinding
 import com.android.bts.presentation.MainActivity
+import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoFragment
+import com.android.bts.presentation.search.ItemsEntity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,11 +52,11 @@ class HomeFragment : Fragment() {
         InterestedAdapter(interestedClick)
     }
 
-    private val hotSpotAdapter: FavoriteAdapter by lazy{
+    private val hotSpotAdapter: FavoriteAdapter by lazy {
         FavoriteAdapter(hotSpotClick)
     }
 
-    private val newSpotAdapter: FavoriteAdapter by lazy{
+    private val newSpotAdapter: FavoriteAdapter by lazy {
         FavoriteAdapter(hotSpotClick)
     }
 
@@ -61,11 +64,12 @@ class HomeFragment : Fragment() {
         HomeViewModelFactory()
     }
 
-    val recyclerViewListener = object : OnItemTouchListener{
+    val recyclerViewListener = object : OnItemTouchListener {
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
             rv.parent.requestDisallowInterceptTouchEvent(true)
             return false
         }
+
         override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
         override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
     }
@@ -122,12 +126,12 @@ class HomeFragment : Fragment() {
 
         binding.recyclerViewInterested.addOnItemTouchListener(recyclerViewListener)
         binding.recyclerViewHot.addOnItemTouchListener(recyclerViewListener)
-        binding.recyclerViewNew.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        binding.recyclerViewNew.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if(!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1)) {
                     viewModel.getNewVideoList(requireActivity())
 //                    viewModel.newSpotVideos.notifyObserver()
 //                    newSpotAdapter.submitList(viewModel.newSpotVideos.value)
@@ -162,7 +166,6 @@ class HomeFragment : Fragment() {
 //        })
 
 
-
         binding.profileIcon.setOnClickListener {
             // MyVideoFragment로 전환
             parentFragmentManager.beginTransaction()
@@ -174,9 +177,9 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun observeModel(){
+    private fun observeModel() {
 
-        viewModel.interestedVideos.observe(viewLifecycleOwner){
+        viewModel.interestedVideos.observe(viewLifecycleOwner) {
             interestedAdapter.submitList(viewModel.interestedVideos.value)
         }
 
@@ -184,8 +187,11 @@ class HomeFragment : Fragment() {
             hotSpotAdapter.submitList(viewModel.hotSpotVideos.value)
         }
 
-        viewModel.newSpotVideos.observe(viewLifecycleOwner){
-            Log.d("HomeFragment", "observe newSpotVideos size = ${viewModel.newSpotVideos.value?.size}")
+        viewModel.newSpotVideos.observe(viewLifecycleOwner) {
+            Log.d(
+                "HomeFragment",
+                "observe newSpotVideos size = ${viewModel.newSpotVideos.value?.size}"
+            )
             newSpotAdapter.submitList(viewModel.newSpotResults.toMutableList())
         }
     }
@@ -212,8 +218,22 @@ class HomeFragment : Fragment() {
     }
 
 
+    class HotClickListenerImpl(val context: Activity) : HotClickListener {
 
+        override fun onClickLike(itemsEntity: ItemsEntity, holder: FavoriteAdapter.HotSpotHolder) {
 
+        }
 
-
-}
+        override fun onClickDetail(
+            itemsEntity: ItemsEntity,
+            holder: FavoriteAdapter.HotSpotHolder
+        ) {
+            // VideoDetailFragment로 전환
+            val videoDetailFragment = VideoDetailFragment.newInstance(itemsEntity.id.videoId)
+            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, videoDetailFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+    }
