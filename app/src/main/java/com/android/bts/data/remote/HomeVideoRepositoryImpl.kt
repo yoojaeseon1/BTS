@@ -15,6 +15,10 @@ class HomeVideoRepositoryImpl(private val remoteDataSource: SearchVideoRemoteDat
 //        return toHomeVideoEntity(remoteDataSource.getNewVideos())
 //    }
 
+    override suspend fun getInterestedVideoList(query: String): VideoEntity {
+        return toVideoEntity(remoteDataSource.getInterestedVideo(query))
+    }
+
     override suspend fun getHotVideoList(query: String): VideoEntity {
         return toVideoEntity(remoteDataSource.getHotVideo(query))
     }
