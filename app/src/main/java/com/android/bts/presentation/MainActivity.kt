@@ -1,92 +1,36 @@
 package com.android.bts.presentation
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
 import com.android.bts.databinding.ActivityMainBinding
+
+import com.android.bts.presentation.search.MainViewModel
+
 import com.android.bts.presentation.my.MyVideoFragment
 import com.google.android.material.tabs.TabLayout
+
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
-
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var searchSharedViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //액티비티 공유 뷰모델 갖다 쓰세요~!
+        //private val sharedViewModel : MainViewModel by activityViewModels()
+
+
         //레이아웃 초기화
         initLayout()
+        searchSharedViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-//        binding.pager.isUserInputEnabled = false
-
-        binding.tabLayout.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            Log.d("MainActivity", "LayoutChangeListener")
-        }
-
-        binding.tabLayout.setOnDragListener { v, event ->
-            Log.d("MainActivity", "DragListener")
-            true
-        }
-
-        binding.tabLayout.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            Log.d("MainActivity", "ScrollChangeListener")
-        }
-
-        binding.tabLayout.setOnFocusChangeListener { v, hasFocus ->
-            Log.d("MainActivity", "FocusChangeListener ")
-        }
-
-        binding.tabLayout.setOnHoverListener { v, event ->
-            Log.d("MainActivity", "HoverListener ")
-            true
-        }
-
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                Log.d("MainActivity", "TabSelectedListener.onTabSelected")
-
-
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Log.d("MainActivity", "TabSelectedListener.onTabUnselected ")
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.d("MainActivity", "TabSelectedListener.onTabReselected ")
-            }
-        })
-
-        binding.pager.setOnDragListener { v, event ->
-            Log.d("MainActivity", "pager.setOnDragListener")
-            true
-        }
-
-        binding.pager.setOnFocusChangeListener { v, hasFocus ->
-            Log.d("MainActivity", "pager.setOnFocusChangeListener")
-        }
-
-        binding.pager.setOnHierarchyChangeListener(object : ViewGroup.OnHierarchyChangeListener {
-            override fun onChildViewAdded(parent: View?, child: View?) {
-                Log.d("MainActivity", "pager.setOnHierarchyChangeListener.onChildViewAdded")
-            }
-
-            override fun onChildViewRemoved(parent: View?, child: View?) {
-                Log.d("MainActivity", "pager.setOnHierarchyChangeListener.onChildViewRemoved")
-            }
-        })
-
-        binding.pager.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            Log.d("MainActivity", "pager.setOnScrollChangeListener")
-        }
 
 
 
@@ -120,13 +64,11 @@ class MainActivity : AppCompatActivity() {
                     tab.setIcon(R.drawable.ic_like)
                 }
             }
-
-
         }.attach()
     }
 
+    }
 
-}
 
 
 //    private val binding: ActivityMainBinding by lazy {

@@ -24,15 +24,10 @@ class MemoFragment : Fragment() {
     private val memoViewModel: MemoViewModel by activityViewModels() // ViewModel 초기화
     private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
 
-    private val hotSpotClick: HotClickListenerImpl by lazy {
-        HotClickListenerImpl(requireActivity())
-    }
 
-    private val newSpotAdapter: FavoriteAdapter by lazy {
-        FavoriteAdapter(hotSpotClick)
+    private lateinit var newSpotAdapter : FavoriteAdapter
         // 이곳에 아이템 클릭 이벤트 처리를 추가할 수 있습니다.
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

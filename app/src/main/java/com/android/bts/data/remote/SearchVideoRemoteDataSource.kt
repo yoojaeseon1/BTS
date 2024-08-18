@@ -12,6 +12,7 @@ import retrofit2.http.Query
             @Query("maxResults") maxResults:Int =20,
             @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ",
             @Query("pageToken") pageToken: String = "",
+            @Query("type") type: String = "video",
             @Query("q") query: String
         ): VideoResponse
 

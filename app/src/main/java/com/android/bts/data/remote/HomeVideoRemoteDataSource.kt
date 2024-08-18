@@ -12,9 +12,10 @@ interface HomeVideoRemoteDataSource {
         @Query("maxResult") maxResult: String = "20",
         @Query("regionCode") regionCode: String = "KR",
         @Query("videoCategoryId") videoCategoryId: String ="20",
+
         @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
     ): HomeVideoResponse
-
+    //AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk
 
     @GET("videos")
     suspend fun getNewVideos(
@@ -23,7 +24,9 @@ interface HomeVideoRemoteDataSource {
         @Query("maxResult") maxResult: String = "20",
         @Query("regionCode") regionCode: String = "KR",
         @Query("videoCategoryId") videoCategoryId: String ="10",
+
         @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
+
     ): HomeVideoResponse
 
 
