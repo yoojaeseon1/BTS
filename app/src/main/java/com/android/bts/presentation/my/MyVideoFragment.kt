@@ -1,11 +1,14 @@
 package com.android.bts.presentation.my
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -51,6 +54,27 @@ class MyVideoFragment : Fragment() {
 
         binding.icBack.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+
+        //고객센터 url 이동
+        binding.tvMyVideoHelp.setOnClickListener {
+            val url = "https://support.google.com/youtube/?hl=ko#topic=9257498/"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }
+
+        //1대1문의 url 이동
+        binding.tvMyVideoAsk.setOnClickListener {
+            val url = "https://support.google.com/youtube/gethelp?sjid=12190161131484178952-AP"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }
+
+        //이용약관 url 이동
+        binding.tvMyVideoContract.setOnClickListener {
+            val url = "https://www.youtube.com/t/terms?sjid=12190161131484178952-AP"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
         }
     }
 

@@ -7,10 +7,14 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -44,6 +48,17 @@ class MyVideoModifyDialog() : DialogFragment() {
         adapter = ModifyRecyclerViewAdapter(viewModel)
         binding.rvModifyRegionLayout.adapter = adapter
 
+
+        binding.etMyModifyEmail.setOnEditorActionListener { textView, action, event ->
+            var handle = false
+            if (action == KeyEvent.ACTION_DOWN) {
+                val inputMethodManager =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(binding.etMyModifyEmail.windowToken, 0)
+                handle = true
+            }
+            handle
+        }
 
         binding.btnConfirm.setOnClickListener {
             //지역 체크박스 부분
@@ -89,4 +104,6 @@ class MyVideoModifyDialog() : DialogFragment() {
 
         window?.setLayout(x, y)
     }
+
+
 }

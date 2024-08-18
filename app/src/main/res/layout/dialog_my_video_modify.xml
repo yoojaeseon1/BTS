@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:ems="16"
             android:hint="아이디"
+            android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
@@ -64,6 +65,7 @@
             android:layout_marginTop="5dp"
             android:ems="16"
             android:hint="닉네임"
+            android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
@@ -75,7 +77,9 @@
             android:layout_marginTop="5dp"
             android:ems="16"
             android:hint="이메일"
+            android:inputType="text"
             android:maxLines="1"
+            android:imeOptions="actionGo"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
     </LinearLayout>
