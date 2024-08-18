@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.android.bts.MainViewModel
 import com.android.bts.R
 import com.android.bts.databinding.FragmentSearchRecommendBinding
 

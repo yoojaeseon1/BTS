@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.android.bts.MainViewModel
 import com.android.bts.R
-import com.android.bts.databinding.FragmentSearchBinding
 import com.android.bts.databinding.FragmentVideoPlayBinding
 import com.android.bts.presentation.MainActivity
 import com.bumptech.glide.Glide
