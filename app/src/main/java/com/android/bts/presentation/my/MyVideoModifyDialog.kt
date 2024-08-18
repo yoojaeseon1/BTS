@@ -38,7 +38,6 @@ class MyVideoModifyDialog() : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-//        viewModel = ViewModelProvider(requireActivity()).get(MyVideoViewModel::class.java)
 
         val binding = DialogMyVideoModifyBinding.inflate(LayoutInflater.from(context))
         binding.rvModifyRegionLayout.layoutManager = GridLayoutManager(context, 4)

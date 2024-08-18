@@ -23,7 +23,6 @@ class MyVideoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMyVideoBinding.inflate(inflater, container, false)
-//        viewModel = ViewModelProvider(this).get(MyVideoViewModel::class.java)
 
         viewModel.checkedText.observe(viewLifecycleOwner, Observer { checkedText ->
             binding.tvMyVideoUserRegion.text = checkedText.joinToString(", ")
