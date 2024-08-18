@@ -6,27 +6,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
 import com.android.bts.databinding.FragmentMyVideoBinding
 
 class MyVideoFragment : Fragment() {
-    private lateinit var viewModel: MyVideoViewModel
+    private val viewModel: MyVideoViewModel by activityViewModels()
+    private var _binding: FragmentMyVideoBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var binding: FragmentMyVideoBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
+        _binding = FragmentMyVideoBinding.inflate(inflater, container, false)
+//        viewModel = ViewModelProvider(this).get(MyVideoViewModel::class.java)
 
-        binding = FragmentMyVideoBinding.inflate(inflater, container, false)
+        viewModel.checkedText.observe(viewLifecycleOwner, Observer { checkedText ->
+            binding.tvMyVideoUserRegion.text = checkedText.joinToString(", ")
+        })
+
+        //닉네임 텍스트 받아오기
+        viewModel.text.observe(viewLifecycleOwner) { newText ->
+            binding.tvMyVideoUserId.text = newText
+            Log.d("TAG", "Received text: $newText")
+        }
         return binding.root
     }
 
@@ -45,11 +52,10 @@ class MyVideoFragment : Fragment() {
         binding.icBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+    }
 
-        viewModel = ViewModelProvider(this).get(MyVideoViewModel::class.java)
-        // 체크된 지역텍스트 적용
-        viewModel.checkedText.observe(viewLifecycleOwner) { checkedText ->
-            binding.tvMyVideoUserRegion.text = checkedText.joinToString(", ")
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

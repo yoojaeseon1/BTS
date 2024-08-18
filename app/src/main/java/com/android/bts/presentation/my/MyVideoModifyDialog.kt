@@ -1,23 +1,31 @@
 package com.android.bts.presentation.my
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.bts.R
 import com.android.bts.databinding.DialogMyVideoModifyBinding
+import com.android.bts.presentation.MainActivity
 
 class MyVideoModifyDialog() : DialogFragment() {
     private var _binding: DialogMyVideoModifyBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MyVideoViewModel
+    private val viewModel: MyVideoViewModel by activityViewModels()
     private lateinit var adapter: ModifyRecyclerViewAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,16 +36,23 @@ class MyVideoModifyDialog() : DialogFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        viewModel = ViewModelProvider(this).get(MyVideoViewModel::class.java)
+//        viewModel = ViewModelProvider(requireActivity()).get(MyVideoViewModel::class.java)
 
+        val binding = DialogMyVideoModifyBinding.inflate(LayoutInflater.from(context))
         binding.rvModifyRegionLayout.layoutManager = GridLayoutManager(context, 4)
         adapter = ModifyRecyclerViewAdapter(viewModel)
         binding.rvModifyRegionLayout.adapter = adapter
 
-        binding.btnConfirm.setOnClickListener{
+
+        binding.btnConfirm.setOnClickListener {
+            val selectedRegionItems = adapter.getSelectedRegionItems()
+
+            Log.d("Dialog", "selectedRegionItems: ${selectedRegionItems.size}")
+            viewModel.updateChecked(selectedRegionItems)
+//            viewModel.updateText(binding.etMyModifyNickname.text.toString())
+//            Log.d("TAG", "onCreateDialog: ${binding.etMyModifyNickname.text.toString()}")
             dismiss()
         }
 
@@ -45,8 +60,11 @@ class MyVideoModifyDialog() : DialogFragment() {
             dismiss()
         }
 
-
+        return AlertDialog.Builder(requireContext())
+            .setView(binding.root)
+            .create()
     }
+
 
     override fun onResume() {
         super.onResume()

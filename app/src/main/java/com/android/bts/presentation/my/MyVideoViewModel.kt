@@ -7,20 +7,19 @@ import androidx.lifecycle.ViewModel
 class MyVideoViewModel() : ViewModel() {
 
     //LiveData를 이용하여 체크박스 텍스트상태저장
-    private val _checkedText = MutableLiveData<MutableList<String>>()
-    val checkedText: LiveData<MutableList<String>> get() = _checkedText
+    private val _checkedText = MutableLiveData<List<String>>(emptyList())
+    val checkedText: LiveData<List<String>> get() = _checkedText
 
     //체크박스 상태를 업데이트하는 함수
-    fun updateChecked(text: String, isChecked: Boolean) {
-        val currentText = _checkedText.value ?: mutableListOf()
+    fun updateChecked(items: List<String>) {
+        _checkedText.value = items
+    }
 
-        if (isChecked) {
-            if (!currentText.contains(text)) {
-                currentText.add(text)
-            }
-        } else {
-            currentText.remove(text)
-        }
-        _checkedText.value = currentText
+    //텍스트 변화 반영
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String> get() = _text
+
+    fun updateText(newText: String) {
+        _text.value = newText
     }
 }

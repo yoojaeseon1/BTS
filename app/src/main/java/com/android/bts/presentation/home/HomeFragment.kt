@@ -94,9 +94,10 @@ class HomeFragment : Fragment() {
         viewModel.initViewModel()
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-        viewModel.getInterestedVideoList(requireActivity())
-        viewModel.getHotVideoList(requireActivity())
-        viewModel.getNewVideoList(requireActivity())
+
+//        viewModel.getInterestedVideoList(requireActivity())
+//        viewModel.getHotVideoList(requireActivity())
+//        viewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 

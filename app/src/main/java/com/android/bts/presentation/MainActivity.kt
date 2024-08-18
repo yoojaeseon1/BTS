@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.bts.R
 import com.android.bts.databinding.ActivityMainBinding
+import com.android.bts.presentation.my.MyVideoFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -87,6 +88,8 @@ class MainActivity : AppCompatActivity() {
             Log.d("MainActivity", "pager.setOnScrollChangeListener")
         }
 
+
+
     }
 
     //레이아웃 초기화 함수 : 뷰페이저, 탭레이아웃 연결
@@ -106,20 +109,21 @@ class MainActivity : AppCompatActivity() {
                     tab.text = "검색"
                     tab.setIcon(R.drawable.ic_search)
                 }
-                2 ->{
+
+                2 -> {
                     tab.text = "저장"
                     tab.setIcon(R.drawable.ic_down)
                 }
-                    3->{
-                        tab.text = "구독"
-                        tab.setIcon(R.drawable.ic_like)
-                    }
+
+                3 -> {
+                    tab.text = "구독"
+                    tab.setIcon(R.drawable.ic_like)
+                }
             }
 
 
         }.attach()
     }
-
 
 
 }
