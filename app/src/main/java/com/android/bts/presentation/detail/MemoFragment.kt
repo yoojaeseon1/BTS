@@ -45,7 +45,7 @@ class MemoFragment : Fragment() {
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.videoRecyclrview.layoutManager = gridLayoutManager
-        binding.videoRecyclrview.adapter = newSpotAdapter
+//        binding.videoRecyclrview.adapter = newSpotAdapter
 
         // ViewModel의 상태 확인 및 관찰
         observeViewModel()
@@ -73,13 +73,13 @@ class MemoFragment : Fragment() {
 
     private fun observeViewModel() {
         homeViewModel.newSpotVideos.observe(viewLifecycleOwner) { videoList ->
-            if (videoList.isNullOrEmpty()) {
-                // 데이터가 비어 있는 경우 로그 출력
-                Log.d("MemoFragment", "Video list is empty or null")
-            } else {
-                newSpotAdapter.submitList(videoList)
-                Log.d("MemoFragment", "Video list loaded with size: ${videoList.size}")
-            }
+//            if (videoList.isNullOrEmpty()) {
+//                // 데이터가 비어 있는 경우 로그 출력
+//                Log.d("MemoFragment", "Video list is empty or null")
+//            } else {
+//                newSpotAdapter.submitList(videoList)
+//                Log.d("MemoFragment", "Video list loaded with size: ${videoList.size}")
+//            }
         }
     }
 

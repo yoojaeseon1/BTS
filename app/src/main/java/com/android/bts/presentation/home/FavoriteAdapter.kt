@@ -11,21 +11,24 @@ import com.android.bts.databinding.RecyclerviewHotHolderBinding
 import com.android.bts.presentation.search.ItemsEntity
 import com.bumptech.glide.Glide
 
-class FavoriteAdapter(private val videoClick: HotClickListener) : ListAdapter<ItemsEntity, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<ItemsEntity>(){
-    override fun areItemsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
+class FavoriteAdapter(private val videoClick: HotClickListener) :
+    ListAdapter<ItemsEntity, RecyclerView.ViewHolder>(object :
+        DiffUtil.ItemCallback<ItemsEntity>() {
+        override fun areItemsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
 //        return oldItem.snippet.thumbnail == newItem.snippet.thumbnail
 //        return oldItem.id.videoId == newItem.id.videoId
-        return oldItem.id.videoId == newItem.id.videoId
-                && oldItem.snippet.isLike == newItem.snippet.isLike
-    }
+            return oldItem.id.videoId == newItem.id.videoId
+                    && oldItem.snippet.isLike == newItem.snippet.isLike
+        }
 
-    override fun areContentsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
-        return oldItem == newItem
-    }
-}) {
+        override fun areContentsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
+            return oldItem == newItem
+        }
+    }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = RecyclerviewHotHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            RecyclerviewHotHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HotSpotHolder(binding)
     }
 
@@ -47,7 +50,7 @@ class FavoriteAdapter(private val videoClick: HotClickListener) : ListAdapter<It
             .centerCrop()
             .into(hotSpotHolder.thumbnail)
 
-        if(currentItem.snippet.isLike) {
+        if (currentItem.snippet.isLike) {
             hotSpotHolder.like.visibility = ImageView.VISIBLE
         }
 
@@ -57,7 +60,8 @@ class FavoriteAdapter(private val videoClick: HotClickListener) : ListAdapter<It
     }
 
 
-    class HotSpotHolder(val binding: RecyclerviewHotHolderBinding): RecyclerView.ViewHolder(binding.root) {
+    class HotSpotHolder(val binding: RecyclerviewHotHolderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         var thumbnail = binding.searchRvHolderIvTitle
         var title = binding.searchRvHolderTvTitle
         var traveler = binding.searchRvHolderTvTraveler

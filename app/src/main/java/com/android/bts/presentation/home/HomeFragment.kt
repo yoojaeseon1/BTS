@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
@@ -96,9 +94,10 @@ class HomeFragment : Fragment() {
         viewModel.initViewModel()
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-        viewModel.getInterestedVideoList(requireActivity())
-        viewModel.getHotVideoList(requireActivity())
-        viewModel.getNewVideoList(requireActivity())
+
+//        viewModel.getInterestedVideoList(requireActivity())
+//        viewModel.getHotVideoList(requireActivity())
+//        viewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
