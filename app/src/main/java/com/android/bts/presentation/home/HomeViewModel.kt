@@ -11,13 +11,15 @@ import com.android.bts.BTSUtils
 import com.android.bts.data.remote.HomeVideoRepositoryImpl
 import com.android.bts.network.RetrofitClient
 import com.android.bts.presentation.search.ItemsEntity
-import com.android.bts.presentation.search.SnippetEntity
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val videoRepository: HomeVideoRepository) : ViewModel() {
 
     private val _interestedVideos = MutableLiveData<MutableList<ItemsEntity>>()
     val interestedVideos get() = _interestedVideos
+
+    private val _interestedSpots = MutableLiveData<List<String>>()
+    val interestedSpots get() = _interestedSpots
 
     private val _hotSpotVideos = MutableLiveData<MutableList<ItemsEntity>>()
     val hotSpotVideos get() = _hotSpotVideos
@@ -40,7 +42,9 @@ class HomeViewModel(private val videoRepository: HomeVideoRepository) : ViewMode
 
         viewModelScope.launch {
 
-            val videoList = videoRepository.getHotVideoList(searchKeyword)
+            val interestedSearchKeyword = searchKeyword + _interestedSpots.value?.joinToString(" ")
+
+            val videoList = videoRepository.getInterestedVideoList(interestedSearchKeyword)
             val items = videoList.items
             val itemsEntity = mutableListOf<ItemsEntity>()
 

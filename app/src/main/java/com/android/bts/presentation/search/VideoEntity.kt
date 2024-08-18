@@ -1,5 +1,6 @@
 package com.android.bts.presentation.search
 
+import android.util.Log
 import com.android.bts.data.remote.HomeVideoItems
 import com.android.bts.data.remote.HomeVideoResponse
 import com.android.bts.data.remote.Items
@@ -58,6 +59,9 @@ fun toVideoEntity(content: VideoResponse): VideoEntity = with(content) {
 
 fun toItemEntity(items: List<Items>?): List<ItemsEntity> = with(items) {
     return this?.map { items ->
+
+        Log.d("VIdeoEntity", "${items}")
+
         ItemsEntity(
             id = Id(items.id.kind, items.id.videoId),
             snippet = toSnippetEntity(items.snippet)
