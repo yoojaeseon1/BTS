@@ -1,8 +1,9 @@
-package com.android.bts.presentation.search
+package com.android.bts
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.bts.presentation.search.ItemsEntity
 
 
 class MainViewModel : ViewModel() {
