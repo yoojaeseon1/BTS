@@ -1,5 +1,6 @@
 package com.android.bts.presentation.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -55,7 +56,6 @@ class FavoriteAdapter(private val videoClick: HotClickListener) :
 
         hotSpotHolder.traveler.text = currentItem.snippet.channelTitle
         hotSpotHolder.title.text = currentItem.snippet.title
-
 
     }
 

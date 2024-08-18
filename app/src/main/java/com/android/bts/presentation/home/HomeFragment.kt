@@ -128,9 +128,6 @@ class HomeFragment : Fragment() {
 
                 if(!recyclerView.canScrollVertically(1)) {
                     viewModel.getNewVideoList(requireActivity())
-//                    viewModel.newSpotVideos.notifyObserver()
-//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value)
-//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value?.toMutableList())
                 }
             }
         })
