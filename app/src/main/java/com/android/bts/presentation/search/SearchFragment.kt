@@ -68,8 +68,8 @@ class SearchFragment : Fragment() {
 
         //추천버튼
         binding.searchBtnRecommend.setOnClickListener {
-            binding.searchPlayContainer.isVisible = true
-            showVideo()
+                        (activity as MainActivity).binding.searchPlayContainer.isVisible = true
+            (activity as MainActivity).showVideo()
         }
 
 
@@ -83,8 +83,8 @@ class SearchFragment : Fragment() {
             itemClickListener = { item ->
                 Log.d("써치", "${sharedViewModel.videoPlayLiveData.value}")
                 sharedViewModel.updateVideoPlayer(item)
-                binding.searchPlayContainer.isVisible = true
-                showVideo()
+                (activity as MainActivity).binding.searchPlayContainer.isVisible = true
+                (activity as MainActivity).showVideo()
 
             })
         binding.searchRv.adapter = searchRecyclerViewAdapter
@@ -119,15 +119,6 @@ class SearchFragment : Fragment() {
 
 
 
-    //동영상 재생 함수 : 롱클릭시
-    private fun showVideo() {
-//        (activity as MainActivity).moveToVideoPlayFragment()
-        childFragmentManager.beginTransaction()
-            .replace(R.id.search_play_container, VideoPlayFragment())
-            .setReorderingAllowed(true)
-            .addToBackStack(null)
-            .commit()
-    }
 
     //추천 프래그먼트 호출 함수 : 추천버튼 클릭시 프래그먼트로 이동
     private fun recommendPlace() {
