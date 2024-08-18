@@ -9,13 +9,14 @@ import com.android.bts.databinding.ActivityMainBinding
 import com.android.bts.presentation.search.MainViewModel
 
 import com.android.bts.presentation.my.MyVideoFragment
+import com.android.bts.presentation.search.VideoPlayFragment
 import com.google.android.material.tabs.TabLayout
 
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private lateinit var searchSharedViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +67,15 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
     }
+
+    fun showVideo() {
+            supportFragmentManager.beginTransaction()
+            .replace(R.id.search_play_container, VideoPlayFragment())
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     }
 
