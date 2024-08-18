@@ -46,12 +46,15 @@ class MyVideoModifyDialog() : DialogFragment() {
 
 
         binding.btnConfirm.setOnClickListener {
+            //지역 체크박스 부분
             val selectedRegionItems = adapter.getSelectedRegionItems()
 
             Log.d("Dialog", "selectedRegionItems: ${selectedRegionItems.size}")
             viewModel.updateChecked(selectedRegionItems)
-//            viewModel.updateText(binding.etMyModifyNickname.text.toString())
-//            Log.d("TAG", "onCreateDialog: ${binding.etMyModifyNickname.text.toString()}")
+
+            // 닉네임 변경 부분
+            viewModel.updateText(binding.etMyModifyNickname.text.toString())
+            Log.d("TAG", "onCreateDialog: ${binding.etMyModifyNickname.text.toString()}")
             dismiss()
         }
 

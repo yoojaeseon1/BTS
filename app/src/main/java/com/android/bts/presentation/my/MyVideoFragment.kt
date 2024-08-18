@@ -24,6 +24,7 @@ class MyVideoFragment : Fragment() {
     ): View? {
         _binding = FragmentMyVideoBinding.inflate(inflater, container, false)
 
+        //지역 체크박스 옵저빙 부분
         viewModel.checkedText.observe(viewLifecycleOwner, Observer { checkedText ->
             binding.tvMyVideoUserRegion.text = checkedText.joinToString(", ")
         })
