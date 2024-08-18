@@ -14,7 +14,6 @@ import com.android.bts.data.remote.CommentRepository
 import com.android.bts.presentation.detail.CommentAdapter
 import com.android.bts.presentation.detail.IntroduceVideoViewModel
 import com.android.bts.presentation.detail.IntroduceVideoViewModelFactory
-import com.example.app.save.SavedVideo
 import com.example.app.save.SavedVideoRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

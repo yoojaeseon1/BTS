@@ -101,7 +101,8 @@ class VideoDetailFragment : Fragment() {
 
     private fun showFragment(fragment: Fragment) {
         fragment.arguments = Bundle().apply {
-            putString("VIDEO_ID_KEY", arguments?.getString(VIDEO_ID_KEY))
+            putString(VIDEO_ID_KEY, arguments?.getString(VIDEO_ID_KEY))
+            putString(VIDEO_TITLE_KEY, arguments?.getString(VIDEO_TITLE_KEY))
         }
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)

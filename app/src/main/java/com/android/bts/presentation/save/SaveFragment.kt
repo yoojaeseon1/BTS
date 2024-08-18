@@ -7,32 +7,44 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.R
+import com.android.bts.presentation.detail.VideoDetailFragment
 
-
-class SaveFragment : Fragment() {
+class SavedFragment : Fragment() {
 
     private lateinit var savedVideoAdapter: SavedVideoAdapter
-    private val viewModel: SavedVideoViewModel by viewModels()
+    private val savedVideoViewModel: SavedVideoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.save_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_saved, container, false)
 
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.savedRecyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context, 2) // 2줄의 그리드 레이아웃
-        savedVideoAdapter = SavedVideoAdapter(emptyList())
+        savedVideoAdapter = SavedVideoAdapter(emptyList()) { video ->
+            navigateToVideoDetailFragment(video)
+        }
+
         recyclerView.adapter = savedVideoAdapter
 
-
-        viewModel.savedVideos.observe(viewLifecycleOwner) { savedVideos ->
-            savedVideoAdapter.updateSavedVideos(savedVideos)
+        savedVideoViewModel.savedVideos.observe(viewLifecycleOwner) { videos ->
+            savedVideoAdapter.updateSavedVideos(videos)
         }
 
         return view
     }
+
+    private fun navigateToVideoDetailFragment(video: SavedVideo) {
+        val fragment = VideoDetailFragment.newInstance(video.videoId, video.title)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 }
+
