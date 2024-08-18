@@ -43,14 +43,12 @@ class VideoPlayFragment : Fragment(R.layout.fragment_video_play) {
 
 
 
-        sharedViewModel.videoPlayLiveData.observe(viewLifecycleOwner) {
 
-        }
         Log.d("플레이", "${sharedViewModel.videoPlayLiveData.value}")
 
 
             Glide.with(requireContext())
-                .load(sharedViewModel.videoPlayLiveData.value?.thumbnail)
+                .load(sharedViewModel.videoPlayLiveData.value?.snippet?.thumbnail)
                 .into(binding.videoPlayPlayerVv)
 
 

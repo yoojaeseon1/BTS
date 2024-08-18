@@ -9,16 +9,16 @@ import com.android.bts.databinding.RecyclerviewSearchHolderBinding
 import com.bumptech.glide.Glide
 
 class SearchRecyclerViewAdapter(
-    private val itemClickListener: (item: SnippetEntity) -> Unit
-) : ListAdapter<SnippetEntity, SearchRecyclerViewAdapter.Holder>(diffUtil) {
+    private val itemClickListener: (item: ItemsEntity) -> Unit
+) : ListAdapter<ItemsEntity, SearchRecyclerViewAdapter.Holder>(diffUtil) {
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<SnippetEntity>() {
-            override fun areItemsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
-                return oldItem.uId == newItem.uId
+        val diffUtil = object : DiffUtil.ItemCallback<ItemsEntity>() {
+            override fun areItemsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
+                return oldItem.id.videoId == newItem.id.videoId
             }
 
-            override fun areContentsTheSame(oldItem: SnippetEntity, newItem: SnippetEntity): Boolean {
+            override fun areContentsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
                 return oldItem == newItem
             }
         }
@@ -41,25 +41,25 @@ class SearchRecyclerViewAdapter(
 
     class Holder(
         private val binding: RecyclerviewSearchHolderBinding,
-        private val itemClickListener: (SnippetEntity) -> Unit
+        private val itemClickListener: (ItemsEntity) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(item: SnippetEntity) {
+        fun bind(item: ItemsEntity) {
             binding.apply {
-                searchRvHolderTvTitle.text = item.title
-                searchRvHolderTvTraveler.text = item.channelTitle
+                searchRvHolderTvTitle.text = item.snippet.title
+                searchRvHolderTvTraveler.text = item.snippet.channelTitle
                 homeHolder.setOnClickListener {
                     itemClickListener(item)
                 }
             }
             Glide.with(itemView.context)
-                .load(item.thumbnail)
+                .load(item.snippet.thumbnail)
                 .into(binding.searchRvHolderIvTraveler)
 
             Glide.with(itemView.context)
-                .load(item.thumbnail)
+                .load(item.snippet.thumbnail)
                 .into(binding.searchRvHolderIvTitle)
         }
     }

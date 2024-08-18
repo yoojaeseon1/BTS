@@ -9,9 +9,10 @@ import retrofit2.http.Query
         @GET("search")
         suspend fun getSearchVideo(
             @Query("part") part:String = "snippet",
-            @Query("maxResults") maxResults:Int =20,
+            @Query("maxResults") maxResults:Int =50,
             @Query("key") apiKey: String = "AIzaSyCSXtO79sI9CoPrFNzBd2lpNKszffqdvqQ",
             @Query("pageToken") pageToken: String = "",
+            @Query("type") type: String = "video",
             @Query("q") query: String
         ): VideoResponse
 

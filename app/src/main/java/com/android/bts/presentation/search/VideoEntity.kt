@@ -26,7 +26,7 @@ data class ItemsEntity(
 )
 
 data class SnippetEntity(
-    val uId: String = UUID.randomUUID().toString(),
+//    val uId: String = UUID.randomUUID().toString(),
 //    val publishedAt: String,
 //    val channelId: String,
     val title: String,

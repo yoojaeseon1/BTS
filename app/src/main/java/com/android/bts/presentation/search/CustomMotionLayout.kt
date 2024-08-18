@@ -12,9 +12,9 @@ import com.android.bts.R
 
 class CustomMotionLayout(context: Context, attributes: AttributeSet? = null) :
     MotionLayout(context, attributes) {
-    private var motionTouchStarted = false // 정확한 위치에서만 true
+    private var motionTouchStarted = false
     private val mainContainerView by lazy {
-        findViewById<View>(R.id.video_play_player) // view 속성만 필요해서 view 로 받음
+        findViewById<View>(R.id.video_play_player)
     }
     private val hitRect = Rect()
     init {
@@ -22,7 +22,7 @@ class CustomMotionLayout(context: Context, attributes: AttributeSet? = null) :
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                motionTouchStarted = false // transitions 가 완료되고 나서는 해제
+                motionTouchStarted = false
             }
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
         })
@@ -30,7 +30,6 @@ class CustomMotionLayout(context: Context, attributes: AttributeSet? = null) :
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
-            // 터치 뗄 때 또는 취소 한 경우에는 Default 처리 (터치 즉, 누르고 있을 떄만 처리하겠다는 거)
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 motionTouchStarted = false
                 return super.onTouchEvent(event)
@@ -38,7 +37,6 @@ class CustomMotionLayout(context: Context, attributes: AttributeSet? = null) :
         }
         if (!motionTouchStarted) {
             mainContainerView.getHitRect(hitRect)
-            // 실제로 이벤트의 좌표가 mainContainerView 에 포함되는지 확인 (포함되면 true)
             motionTouchStarted = hitRect.contains(event.x.toInt(), event.y.toInt())
         }
         return super.onTouchEvent(event) && motionTouchStarted
@@ -52,7 +50,6 @@ class CustomMotionLayout(context: Context, attributes: AttributeSet? = null) :
                 distanceY: Float
             ): Boolean {
                 mainContainerView.getHitRect(hitRect)
-                // 현재 제스쳐가 메인 컨테이너 위치에 포함되는 위치인지에 따라 반환
                 return hitRect.contains(e1!!.x.toInt(), e1.y.toInt())
             }
         }
@@ -63,6 +60,4 @@ class CustomMotionLayout(context: Context, attributes: AttributeSet? = null) :
     override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
         return gestureDetector.onTouchEvent(event!!)
     }
-    // 트렌지션 리스너에서 스텐지션이 완료됬다면 모션 터치도 끝난 것으로 볼 수 있기 때매
-    // 완료시 모션 터치 스타츠를 false 로
 }

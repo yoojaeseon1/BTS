@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.R
 import com.android.bts.databinding.FragmentSearchBinding
 import com.android.bts.presentation.MainActivity
@@ -43,7 +44,8 @@ class SearchFragment : Fragment() {
             searchWithWord()
         }
 
-
+        //무한 스크롤
+        scrollEndListener()
 
 
         return binding.root
@@ -51,6 +53,11 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+
+
         //검색어 입력 후 키보드 엔터키
         binding.searchEt.setOnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -58,6 +65,15 @@ class SearchFragment : Fragment() {
                 return@setOnKeyListener false
             } else return@setOnKeyListener false
         }
+
+        //추천버튼
+        binding.searchBtnRecommend.setOnClickListener {
+            binding.searchPlayContainer.isVisible = true
+            showVideo()
+        }
+
+
+
     }
 
 
@@ -67,8 +83,7 @@ class SearchFragment : Fragment() {
             itemClickListener = { item ->
                 Log.d("써치", "${sharedViewModel.videoPlayLiveData.value}")
                 sharedViewModel.updateVideoPlayer(item)
-
-                binding.searchContainer.isVisible = true
+                binding.searchPlayContainer.isVisible = true
                 showVideo()
 
             })
@@ -88,9 +103,9 @@ class SearchFragment : Fragment() {
                 searchViewModel.getSearchVideoResponse()
             }
             //검색결과 변화 감지 및 리사이클러뷰 반영
-            searchViewModel.searchVideoLiveData.observe(viewLifecycleOwner) {
+            searchViewModel.searchVideoListLiveData.observe(viewLifecycleOwner) {
                 searchRecyclerViewAdapter.submitList(
-                    searchViewModel.searchVideoLiveData.value
+                    searchViewModel.searchVideoListLiveData.value
                 )
             }
         }
@@ -108,7 +123,16 @@ class SearchFragment : Fragment() {
     private fun showVideo() {
 //        (activity as MainActivity).moveToVideoPlayFragment()
         childFragmentManager.beginTransaction()
-            .replace(R.id.search_container, VideoPlayFragment())//리플레이스 교체 적용해보기
+            .replace(R.id.search_play_container, VideoPlayFragment())
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    //추천 프래그먼트 호출 함수 : 추천버튼 클릭시 프래그먼트로 이동
+    private fun recommendPlace() {
+        childFragmentManager.beginTransaction()
+            .add(R.id.search_recommend_container, SearchRecommendFragment())
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()
@@ -119,20 +143,18 @@ class SearchFragment : Fragment() {
 
 
 
-
-
-//    private fun scrollEndListener() {
-//        binding.searchRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if (!isLoading) {
-//                    if (!binding.searchRv.canScrollVertically(1)) {
-//                        isLoading = true
-//                    }
-//                }
-//            }
-//        })
-//    }
+    private fun scrollEndListener() {
+        binding.searchRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (searchViewModel.loadingLiveData.value == false) {
+                    if (!binding.searchRv.canScrollVertically(1)) {
+                        searchViewModel.getNextSearchVideoResponse()
+                    }
+                }
+            }
+        })
+    }
 
 
     //키보드 숨기는 함수
