@@ -21,6 +21,6 @@ class HotClickListenerImpl(val context: Activity) : HotClickListener{
     }
 
     override fun onClickDetail(itemsEntity: ItemsEntity, holder: FavoriteAdapter.HotSpotHolder) {
-        TODO("Not yet implemented")
+
     }
 }
