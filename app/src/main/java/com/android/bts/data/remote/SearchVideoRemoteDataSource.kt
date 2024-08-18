@@ -15,6 +15,15 @@ import retrofit2.http.Query
             @Query("q") query: String
         ): VideoResponse
 
+        @GET("search")
+        suspend fun getInterestedVideo(
+            @Query("q") query: String,
+            @Query("part") part:String = "snippet",
+            @Query("maxResults") maxResults:Int = 4,
+            @Query("type") type: String = "video",
+            // @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
+            @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
+        ): VideoResponse
 
         @GET("search")
         suspend fun getHotVideo(
@@ -35,6 +44,7 @@ import retrofit2.http.Query
             @Query("part") part:String = "snippet",
             @Query("maxResults") maxResults:Int =10,
             @Query("order") order: String = "date",
+            @Query("type") type: String = "video",
 //            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
             @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
         ): VideoResponse
