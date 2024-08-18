@@ -61,9 +61,9 @@
     <Constraint
         android:id="@+id/mainContainerLayout"
         motion:layout_constraintEnd_toEndOf="parent"
-
+android:layout_marginBottom="80dp"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="100dp"
         motion:layout_constraintBottom_toBottomOf="parent"
         motion:layout_constraintVertical_bias="1.0"
         motion:layout_constraintTop_toBottomOf="@id/top_bar"
@@ -76,5 +76,16 @@
         motion:layout_constraintBottom_toBottomOf="@id/mainContainerLayout"
         motion:layout_constraintTop_toTopOf="@id/mainContainerLayout"
         motion:layout_constraintStart_toStartOf="@id/mainContainerLayout" />
+        <Constraint
+            android:id="@+id/bottom_titel_texct_view"
+            motion:layout_constraintEnd_toStartOf="@id/bottomPlayerControlButton"
+            motion:layout_constraintStart_toEndOf="@id/player_view"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/bottomPlayerControlButton"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/bottomPlayerControlButton" />
     </ConstraintSet>
 </MotionScene>

@@ -23,7 +23,7 @@ class MemoFragment : Fragment() {
     ): View? {
         _binding = FragmentMemoBinding.inflate(inflater, container, false)
 
-        Log.d("MemoFragment", "onCreateView called")
+
 
         // ViewModel의 상태를 관찰하여 EditText 상태와 텍스트 업데이트
         memoViewModel.isEditTextEnabled.observe(viewLifecycleOwner) { isEnabled ->

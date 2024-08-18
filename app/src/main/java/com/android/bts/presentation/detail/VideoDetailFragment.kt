@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.android.bts.R
@@ -12,13 +13,11 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-
 class VideoDetailFragment : Fragment() {
 
     companion object {
         private const val VIDEO_ID_KEY = "videoId"
         private const val VIDEO_TITLE_KEY = "videoTitle"
-
 
         // newInstance 메서드로 프래그먼트 생성
         fun newInstance(videoId: String, videoTitle: String): VideoDetailFragment {
@@ -42,6 +41,9 @@ class VideoDetailFragment : Fragment() {
 
         val videoTitleTextView = view.findViewById<TextView>(R.id.video_title)
         videoTitleTextView.text = videoTitle
+
+        val bottomTitleTextView = view.findViewById<TextView>(R.id.bottom_titel_texct_view)
+        bottomTitleTextView.text = videoTitle
 
         val youTubePlayerView = view.findViewById<YouTubePlayerView>(R.id.player_view)
         setupYouTubePlayer(youTubePlayerView, videoId)
@@ -69,6 +71,11 @@ class VideoDetailFragment : Fragment() {
             showFragment(MemoFragment())
         }
 
+        val backButton = view.findViewById<ImageView>(R.id.back_button)
+        backButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         return view
     }
 
@@ -93,6 +100,9 @@ class VideoDetailFragment : Fragment() {
     }
 
     private fun showFragment(fragment: Fragment) {
+        fragment.arguments = Bundle().apply {
+            putString("VIDEO_ID_KEY", arguments?.getString(VIDEO_ID_KEY))
+        }
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
