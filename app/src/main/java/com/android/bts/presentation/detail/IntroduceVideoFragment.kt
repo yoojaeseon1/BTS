@@ -14,6 +14,7 @@ import com.android.bts.data.remote.CommentRepository
 import com.android.bts.presentation.detail.CommentAdapter
 import com.android.bts.presentation.detail.IntroduceVideoViewModel
 import com.android.bts.presentation.detail.IntroduceVideoViewModelFactory
+import com.example.app.save.SavedVideo // 추가
 import com.example.app.save.SavedVideoRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -61,7 +62,7 @@ class IntroduceVideoFragment : Fragment() {
         // Save 버튼 클릭 기능
         binding.saveButton.setOnClickListener {
             // 비디오 정보 저장
-            SavedVideoRepository.addVideo(SavedVideo(title = videoTitle, description = "Description of $videoTitle"))
+            SavedVideoRepository.addVideo(SavedVideo(videoId = videoId, title = videoTitle, description = "Description of $videoTitle"))
             Log.d("IntroduceVideoFragment", "Video saved: $videoTitle")
         }
 
