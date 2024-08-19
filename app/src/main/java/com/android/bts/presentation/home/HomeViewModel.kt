@@ -82,7 +82,6 @@ class HomeViewModel(private val videoRepository: HomeVideoRepository) : ViewMode
 
         viewModelScope.launch {
             if(_newSpotVideos.value == null) {
-//            _newSpotVideos.value = MutableList<ItemsEntity>()
                 Log.d("HomeViewModel", "before newSpotVideos is null")
                 _newSpotVideos.value = mutableListOf()
             }
@@ -92,25 +91,14 @@ class HomeViewModel(private val videoRepository: HomeVideoRepository) : ViewMode
 
             nextPageToken = videoList.nextPageToken
 
-//            val itemsEntity = mutableListOf<ItemsEntity>()
-
             for (item in items) {
                 val checkedLike = BTSUtils.isCheckedLike(context, item.id.videoId)
-//                if(checkedLike)
                 Log.d("HomeViewModel", "isLike is = ${checkedLike}")
                 item.snippet.isLike = checkedLike
-//                itemsEntity.add(item.snippet)
-//                itemsEntity.add(item)
                 newSpotResults.add(item)
             }
 
-//            if(_newSpotVideos.value != null)
-//                Log.d("HomeViewModel", "after newSpotVideos is not null")
-//            _newSpotVideos.value?.addAll(itemsEntity)
             _newSpotVideos.value = newSpotResults
-//            Log.d("HomeViewModel", "newSpotVideos.size = ${_newSpotVideos.value?.size}")
-
-//            _newSpotVideos.value = itemsEntity
         }
     }
 }
