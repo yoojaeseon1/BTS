@@ -6,16 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
+import com.android.bts.data.remote.RecommendList
 import com.android.bts.databinding.FragmentSearchRecommendBinding
 import com.bumptech.glide.Glide
 
 class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
     private var _binding: FragmentSearchRecommendBinding? = null
     private val binding get() = _binding as FragmentSearchRecommendBinding
-    private val sharedViewModel : MainViewModel by activityViewModels()
+//    private val sharedViewModel : SearchViewModel by viewModels<SearchViewModel>({requireParentFragment()})
+    private val sharedViewModel by viewModels<SearchViewModel> {
+        SearchViewModelFactory()
+    }
+
+
+    private var animationSwit = mutableMapOf("view" to "first", "button" to "left")
+    private val recommendPlaceList = RecommendList().getRecommendList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +62,6 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
         //닫기버튼
         binding.searchRecommendBtnExit.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.search_recommend_enter, R.anim.search_recommend_exit)
                 .remove(this).commit()
         }
         //왼쪽 버튼
@@ -87,10 +98,10 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
         }
         when {
             animationSwit["button"] == "left" -> {
-                imageView[0].startAnimation(animation[0])
-                imageView[1].startAnimation(animation[1])
                 when {
                     animationSwit["view"] == "first" -> {
+                        imageView[0].startAnimation(animation[0])
+                        imageView[1].startAnimation(animation[1])
                         Glide.with(requireContext())
                             .load(recommendPlace.thumbnail.toUri())
                             .timeout(6000)
@@ -98,6 +109,8 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
                         animationSwit["view"] = "second"
                     }
                     animationSwit["view"] == "second" -> {
+                        imageView[0].startAnimation(animation[1])
+                        imageView[1].startAnimation(animation[0])
                         Glide.with(requireContext())
                             .load(recommendPlace.thumbnail.toUri())
                             .timeout(6000)
@@ -108,21 +121,23 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
             }
 
             animationSwit["button"] == "right" -> {
-                imageView[0].startAnimation(animation[2])
-                imageView[1].startAnimation(animation[3])
                 when {
                     animationSwit["view"] == "first" -> {
-                        Glide.with(requireContext())
-                            .load(recommendPlace.thumbnail.toUri())
-                            .timeout(6000)
-                            .into(imageView[0])
-                        animationSwit["view"] = "second"
-                    }
-                    animationSwit["view"] == "second" -> {
+                        imageView[0].startAnimation(animation[2])
+                        imageView[1].startAnimation(animation[3])
                         Glide.with(requireContext())
                             .load(recommendPlace.thumbnail.toUri())
                             .timeout(6000)
                             .into(imageView[1])
+                        animationSwit["view"] = "second"
+                    }
+                    animationSwit["view"] == "second" -> {
+                        imageView[0].startAnimation(animation[3])
+                        imageView[1].startAnimation(animation[2])
+                        Glide.with(requireContext())
+                            .load(recommendPlace.thumbnail.toUri())
+                            .timeout(6000)
+                            .into(imageView[0])
                         animationSwit["view"] = "first"
                     }
                 }
@@ -135,6 +150,7 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
         //마음에 들어요 버튼
         binding.searchRecommendBtnAccept.setOnClickListener {
             sharedViewModel.updateSearchWord(recommendPlace.searchWord)
+            sharedViewModel.getSearchVideoResponse()
             parentFragmentManager.beginTransaction().remove(this).commit()
         }
 

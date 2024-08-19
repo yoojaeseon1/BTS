@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:scaleType="centerCrop"
-        android:src="@color/background_black"
+        android:background="@color/background_black"
         app:layout_constraintEnd_toEndOf="@+id/search_recommend_tv_head"
         app:layout_constraintStart_toStartOf="@+id/search_recommend_tv_head"
         app:layout_constraintTop_toBottomOf="@+id/search_recommend_tv_head"
@@ -51,11 +51,11 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintBottom_toTopOf="@+id/search_recommend_tv_sub_title"
-        app:layout_constraintEnd_toEndOf="@+id/search_recommend_tv_head"
-        app:layout_constraintStart_toStartOf="@+id/search_recommend_tv_head"
-        app:layout_constraintTop_toBottomOf="@+id/search_recommend_tv_head" />
+        android:background="@color/background_black"
+        app:layout_constraintTop_toTopOf="@+id/search_recommend_iv_first"
+        app:layout_constraintEnd_toEndOf="@+id/search_recommend_iv_first"
+        app:layout_constraintStart_toStartOf="@+id/search_recommend_iv_first"
+        app:layout_constraintBottom_toBottomOf="@+id/search_recommend_iv_first"/>
 
     <TextView
         android:id="@+id/search_recommend_tv_sub_title"
@@ -101,22 +101,24 @@
 
     <ImageView
         android:id="@+id/search_recommend_btn_left"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="16dp"
+        android:padding="16dp"
         android:gravity="center"
         android:clickable="true"
-        android:background="@drawable/sel_search_recommend_btn_left"
+        android:src="@drawable/sel_search_recommend_btn_left"
         app:layout_constraintEnd_toStartOf="@+id/search_recommend_btn_accept"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/search_recommend_btn_right"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="16dp"
-        android:background="@drawable/sel_search_recommend_btn_right"
+        android:padding="16dp"
+        android:src="@drawable/sel_search_recommend_btn_right"
         android:clickable="true"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/search_recommend_btn_accept"
@@ -133,6 +135,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
+        android:background="@drawable/sel_search_recommend_btn_accept"
         app:layout_constraintTop_toTopOf="@+id/search_recommend_btn_left"
         app:layout_constraintStart_toEndOf="@+id/search_recommend_btn_left"
         app:layout_constraintBottom_toBottomOf="@+id/search_recommend_btn_left"

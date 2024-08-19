@@ -9,6 +9,7 @@ import com.android.bts.databinding.ActivityMainBinding
 import com.android.bts.presentation.search.MainViewModel
 
 import com.android.bts.presentation.my.MyVideoFragment
+import com.android.bts.presentation.search.SearchRecommendFragment
 import com.android.bts.presentation.search.VideoPlayFragment
 import com.google.android.material.tabs.TabLayout
 
@@ -75,6 +76,9 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+
+
+
 
 
     }

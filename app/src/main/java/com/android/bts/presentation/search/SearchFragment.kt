@@ -68,8 +68,8 @@ class SearchFragment : Fragment() {
 
         //추천버튼
         binding.searchBtnRecommend.setOnClickListener {
-                        (activity as MainActivity).binding.searchPlayContainer.isVisible = true
-            (activity as MainActivity).showVideo()
+            binding.searchRecommendContainer.isVisible = true
+            recommendPlace()
         }
 
 
