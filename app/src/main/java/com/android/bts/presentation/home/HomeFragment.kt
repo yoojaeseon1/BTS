@@ -49,12 +49,12 @@ class HomeFragment : Fragment() {
         InterestedAdapter(interestedClick)
     }
 
-    private val hotSpotAdapter: FavoriteAdapter by lazy{
-        FavoriteAdapter(hotSpotClick)
+    private val hotSpotAdapter: HotSpotAdapter by lazy{
+        HotSpotAdapter(hotSpotClick)
     }
 
-    private val newSpotAdapter: FavoriteAdapter by lazy{
-        FavoriteAdapter(hotSpotClick)
+    private val newSpotAdapter: HotSpotAdapter by lazy{
+        HotSpotAdapter(hotSpotClick)
     }
 
     private val homeViewModel by viewModels<HomeViewModel> {
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
 //        homeViewModel.getInterestedVideoList(requireActivity())
 //        homeViewModel.getHotVideoList(requireActivity())
-//        homeViewModel.getNewVideoList(requireActivity())
+        homeViewModel.getNewVideoList(requireActivity())
 
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
@@ -188,7 +188,8 @@ class HomeFragment : Fragment() {
 
         homeViewModel.newSpotVideos.observe(viewLifecycleOwner){
             Log.d("HomeFragment", "observe newSpotVideos size = ${homeViewModel.newSpotVideos.value?.size}")
-            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
+//            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
+            newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
         }
 
         homeViewModel.interestedSpots.observe(viewLifecycleOwner){
