@@ -9,6 +9,7 @@ import com.android.bts.databinding.ActivityMainBinding
 
 import com.android.bts.MainViewModel
 import com.android.bts.presentation.Login.LoginFragment
+import com.android.bts.presentation.my.MyVideoViewModel
 
 import com.android.bts.presentation.search.VideoPlayFragment
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var searchSharedViewModel: MainViewModel
+    private lateinit var myVideoViewModel: MyVideoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +40,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+
+        myVideoViewModel = ViewModelProvider(this)[MyVideoViewModel::class.java]
+        //로그인 상태 확인 및 레이아웃 초기화
         checkLoginStatus()
-
-
     }
 
     //레이아웃 초기화 함수 : 뷰페이저, 탭레이아웃 연결
@@ -101,6 +104,10 @@ class MainActivity : AppCompatActivity() {
         binding.pager.isVisible = false
         binding.tabLayout.isVisible = false
         binding.loginContainer.isVisible = true
+    }
+
+    fun getMyVideoViewModel(): MyVideoViewModel {
+        return myVideoViewModel
     }
 
 

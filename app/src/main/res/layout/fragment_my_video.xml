@@ -83,7 +83,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/tv_my_video_user_id"
+                android:id="@+id/tv_my_video_user_NickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -101,9 +101,9 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="5dp"
                 android:src="@drawable/image_right_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/tv_my_video_user_id"
-                app:layout_constraintStart_toEndOf="@id/tv_my_video_user_id"
-                app:layout_constraintTop_toTopOf="@id/tv_my_video_user_id" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_video_user_NickName"
+                app:layout_constraintStart_toEndOf="@id/tv_my_video_user_NickName"
+                app:layout_constraintTop_toTopOf="@id/tv_my_video_user_NickName" />
 
             <TextView
                 android:id="@+id/tv_my_video_user_region"
@@ -116,7 +116,7 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@id/my_video_profile_cardview"
                 app:layout_constraintStart_toEndOf="@id/my_video_profile_cardview"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_video_user_id" />
+                app:layout_constraintTop_toBottomOf="@id/tv_my_video_user_NickName" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/myPage_divider_top"

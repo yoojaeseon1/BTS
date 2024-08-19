@@ -39,9 +39,16 @@ class MyVideoFragment : Fragment() {
 
         //닉네임 텍스트 받아오기
         viewModel.text.observe(viewLifecycleOwner) { newText ->
-            binding.tvMyVideoUserId.text = newText
+            binding.tvMyVideoUserNickName.text = newText
             Log.d("TAG", "Received text: $newText")
         }
+
+        //로그인 정보 받아오기
+        viewModel.loginInfo.observe(viewLifecycleOwner) { newLoginInfo ->
+            binding.tvMyVideoUserNickName.text = newLoginInfo.userNickName
+            binding.tvMyVideoUserRegion.text = newLoginInfo.userRegion
+        }
+
         return binding.root
     }
 
@@ -49,7 +56,7 @@ class MyVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.tvMyVideoUserId.setOnClickListener {
+        binding.tvMyVideoUserNickName.setOnClickListener {
 
             MyVideoModifyDialog().show(
                 parentFragmentManager, "MyVideoModifyDialog"

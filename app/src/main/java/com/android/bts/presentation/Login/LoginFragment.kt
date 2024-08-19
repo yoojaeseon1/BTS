@@ -5,13 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.android.bts.R
 import com.android.bts.data.LoginInfo
 import com.android.bts.databinding.FragmentLoginBinding
 import com.android.bts.presentation.MainActivity
 import com.android.bts.presentation.my.MyVideoFragment
+import com.android.bts.presentation.my.MyVideoViewModel
 
 class LoginFragment : Fragment() {
+
+    private val myVideoViewModel: MyVideoViewModel by activityViewModels()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -27,43 +31,55 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginUser1.setOnClickListener {
-            LoginInfo.userId = "user1"
-            LoginInfo.userPassword = "1234"
-            LoginInfo.userNickName = "유저1"
-            LoginInfo.userRegion = "서울"
+            val loginInfo = LoginInfo(
+                userId = "user1",
+                userPassword = "1234",
+                userNickName = "유저1",
+                userRegion = "서울"
+            )
+            myVideoViewModel.updateLoginInfo(loginInfo)
 
             loginSuccess()
         }
 
         binding.loginUser2.setOnClickListener {
-            LoginInfo.userId = "user2"
-            LoginInfo.userPassword = "1234"
-            LoginInfo.userNickName = "유저2"
-            LoginInfo.userRegion = "서울"
+            val loginInfo = LoginInfo(
+                userId = "user2",
+                userPassword = "1234",
+                userNickName = "유저2",
+                userRegion = "서울"
+            )
+            myVideoViewModel.updateLoginInfo(loginInfo)
 
             loginSuccess()
         }
 
         binding.loginUser3.setOnClickListener {
-            LoginInfo.userId = "user3"
-            LoginInfo.userPassword = "1234"
-            LoginInfo.userNickName = "유저3"
-            LoginInfo.userRegion = "서울"
+            val loginInfo = LoginInfo(
+                userId = "user3",
+                userPassword = "1234",
+                userNickName = "유저3",
+                userRegion = "서울"
+            )
+            myVideoViewModel.updateLoginInfo(loginInfo)
 
             loginSuccess()
         }
 
         binding.loginUser4.setOnClickListener {
-            LoginInfo.userId = "user4"
-            LoginInfo.userPassword = "1234"
-            LoginInfo.userNickName = "유저4"
-            LoginInfo.userRegion = "서울"
+            val loginInfo = LoginInfo(
+                userId = "user4",
+                userPassword = "1234",
+                userNickName = "유저4",
+                userRegion = "서울"
+            )
+            myVideoViewModel.updateLoginInfo(loginInfo)
 
             loginSuccess()
         }
     }
 
-    fun loginSuccess() {
+    private fun loginSuccess() {
         val loginSuccess = true
         if (loginSuccess) {
             (activity as? MainActivity)?.showViewPager()

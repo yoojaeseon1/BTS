@@ -3,6 +3,7 @@ package com.android.bts.presentation.my
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.bts.data.LoginInfo
 
 class MyVideoViewModel() : ViewModel() {
 
@@ -21,5 +22,14 @@ class MyVideoViewModel() : ViewModel() {
 
     fun updateText(newText: String) {
         _text.value = newText
+    }
+
+    //로그인 정보 데이터
+    private val _loginInfo = MutableLiveData<LoginInfo>()
+    val loginInfo: LiveData<LoginInfo> get() = _loginInfo
+
+    fun updateLoginInfo(newLoginInfo: LoginInfo) {
+        _loginInfo.value = newLoginInfo
+
     }
 }
