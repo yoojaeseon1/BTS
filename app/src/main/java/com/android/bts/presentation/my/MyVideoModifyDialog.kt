@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -68,9 +70,19 @@ class MyVideoModifyDialog() : DialogFragment() {
             viewModel.updateChecked(selectedRegionItems)
 
             // 닉네임 변경 부분
-            viewModel.updateText(binding.etMyModifyNickname.text.toString())
-            Log.d("TAG", "onCreateDialog: ${binding.etMyModifyNickname.text.toString()}")
-            dismiss()
+            if (binding.etMyModifyId.text.toString() == "") {
+                Toast.makeText(context, "아이디를 입력해주세요", Toast.LENGTH_SHORT).show()
+            } else if (binding.etMyModifyPassword.text.toString() == "") {
+                Toast.makeText(context, "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show()
+            } else if (binding.etMyModifyNickname.text.toString() == "") {
+                Toast.makeText(context, "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
+            } else if (binding.etMyModifyEmail.text.toString() == "") {
+                Toast.makeText(context, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.updateText(binding.etMyModifyNickname.text.toString())
+                Log.d("TAG", "onCreateDialog: ${binding.etMyModifyNickname.text.toString()}")
+                dismiss()
+            }
         }
 
         binding.btnCancel.setOnClickListener {
@@ -85,7 +97,7 @@ class MyVideoModifyDialog() : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this@MyVideoModifyDialog, 0.95f, 0.82f)
+        context?.dialogFragmentResize(this@MyVideoModifyDialog, 0.95f, 0.85f)
     }
 
     // dialog 크기 조절
@@ -103,6 +115,7 @@ class MyVideoModifyDialog() : DialogFragment() {
         val y = (rect.height() * height).toInt()
 
         window?.setLayout(x, y)
+        window?.setGravity(Gravity.BOTTOM)
     }
 
 

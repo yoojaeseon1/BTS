@@ -51,7 +51,7 @@ class MyVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.tvMyVideoUserNickName.setOnClickListener {
+        binding.btnMyVideoModifyNickname.setOnClickListener {
 
             MyVideoModifyDialog().show(
                 parentFragmentManager, "MyVideoModifyDialog"
