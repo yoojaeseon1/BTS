@@ -13,13 +13,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
+import com.android.bts.data.LoginInfo
 import com.android.bts.databinding.FragmentMyVideoBinding
 
 class MyVideoFragment : Fragment() {
     private val viewModel: MyVideoViewModel by activityViewModels()
     private var _binding: FragmentMyVideoBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +34,16 @@ class MyVideoFragment : Fragment() {
 
         //닉네임 텍스트 받아오기
         viewModel.text.observe(viewLifecycleOwner) { newText ->
-            binding.tvMyVideoUserId.text = newText
+            binding.tvMyVideoUserNickName.text = newText
             Log.d("TAG", "Received text: $newText")
         }
+
+        //로그인 정보 받아오기
+        viewModel.loginInfo.observe(viewLifecycleOwner) { newLoginInfo ->
+            binding.tvMyVideoUserNickName.text = newLoginInfo.userNickName
+            binding.tvMyVideoUserRegion.text = newLoginInfo.userRegion
+        }
+
         return binding.root
     }
 
@@ -44,7 +51,7 @@ class MyVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.tvMyVideoUserId.setOnClickListener {
+        binding.btnMyVideoModifyNickname.setOnClickListener {
 
             MyVideoModifyDialog().show(
                 parentFragmentManager, "MyVideoModifyDialog"

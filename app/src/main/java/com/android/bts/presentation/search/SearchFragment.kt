@@ -2,6 +2,8 @@ package com.android.bts.presentation.search
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -15,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.bts.MainViewModel
 import com.android.bts.R
 import com.android.bts.databinding.FragmentSearchBinding
 import com.android.bts.presentation.MainActivity
@@ -54,12 +57,25 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.searchEt.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+            }
 
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(binding.searchEt.text.toString().indexOf("\n") != -1) {
+                    searchWithWord()
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
 
 
         //검색어 입력 후 키보드 엔터키
         binding.searchEt.setOnKeyListener { _, keyCode, _ ->
+            Log.d("SearchFragment", "click enter keyCode = ${keyCode}")
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 searchWithWord()
                 return@setOnKeyListener false

@@ -1,5 +1,6 @@
 package com.android.bts.presentation.home
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.android.bts.R
 import com.android.bts.databinding.FragmentHomeBinding
 import com.android.bts.presentation.MainActivity
+import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
+import com.android.bts.presentation.search.ItemsEntity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,12 +54,12 @@ class HomeFragment : Fragment() {
         InterestedAdapter(interestedClick)
     }
 
-    private val hotSpotAdapter: FavoriteAdapter by lazy{
-        FavoriteAdapter(hotSpotClick)
+    private val hotSpotAdapter: HotSpotAdapter by lazy{
+        HotSpotAdapter(hotSpotClick)
     }
 
-    private val newSpotAdapter: FavoriteAdapter by lazy{
-        FavoriteAdapter(hotSpotClick)
+    private val newSpotAdapter: HotSpotAdapter by lazy{
+        HotSpotAdapter(hotSpotClick)
     }
 
     private val homeViewModel by viewModels<HomeViewModel> {
@@ -102,7 +107,6 @@ class HomeFragment : Fragment() {
 //        homeViewModel.getHotVideoList(requireActivity())
 //        homeViewModel.getNewVideoList(requireActivity())
 
-
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
 //        interestedAdapter.submitList(viewModel.interestedVideos.value)
@@ -123,8 +127,6 @@ class HomeFragment : Fragment() {
 //
 //        }
 
-
-
         binding.recyclerViewInterested.addOnItemTouchListener(recyclerViewListener)
         binding.recyclerViewHot.addOnItemTouchListener(recyclerViewListener)
         binding.recyclerViewNew.addOnScrollListener(object : RecyclerView.OnScrollListener(){
@@ -134,6 +136,9 @@ class HomeFragment : Fragment() {
 
                 if(!recyclerView.canScrollVertically(1)) {
                     homeViewModel.getNewVideoList(requireActivity())
+//                    viewModel.newSpotVideos.notifyObserver()
+//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value)
+//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value?.toMutableList())
                 }
             }
         })
@@ -182,27 +187,25 @@ class HomeFragment : Fragment() {
             interestedAdapter.submitList(homeViewModel.interestedVideos.value)
         }
 
+        homeViewModel.interestedSpots.observe(viewLifecycleOwner){
+            Log.d("HomeFragment", "observe interestedSpots checkedText = ${homeViewModel.interestedSpots.value?.size}")
+            homeViewModel.getInterestedVideoList(requireActivity())
+        }
+
         homeViewModel.hotSpotVideos.observe(viewLifecycleOwner) {
             hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value)
         }
 
         homeViewModel.newSpotVideos.observe(viewLifecycleOwner){
             Log.d("HomeFragment", "observe newSpotVideos size = ${homeViewModel.newSpotVideos.value?.size}")
-            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
-        }
-
-        homeViewModel.interestedSpots.observe(viewLifecycleOwner){
-            Log.d("HomeFragment", "observe interestedSpots checkedText = ${homeViewModel.interestedSpots.value?.size}")
-            homeViewModel.getInterestedVideoList(requireActivity())
-//            interestedAdapter.submitList(homeViewModel.interestedVideos.value)
+//            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
+            newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
         }
 
         myVideoViewModel.checkedText.observe(viewLifecycleOwner){
             Log.d("HomeFragment", "observe mypage checkedText = ${myVideoViewModel.checkedText.value?.size}")
             homeViewModel.interestedSpots.value = myVideoViewModel.checkedText.value
         }
-
-
     }
 
 
@@ -227,7 +230,30 @@ class HomeFragment : Fragment() {
     }
 
 
+    class HotClickListenerImpl(val context: Activity) : HotClickListener {
 
+        override fun onClickLike(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder) {
+
+        }
+
+        override fun onClickDetail(
+            itemsEntity: ItemsEntity,
+            holder: HotSpotAdapter.HotSpotHolder
+        ) {
+            Log.d("HomeFragment", "video id = ${itemsEntity.id.videoId}")
+            Log.d("HomeFragment", "title = ${itemsEntity.snippet.title}")
+            // VideoDetailFragment로 전환
+            val videoDetailFragment = VideoDetailFragment.newInstance(
+                itemsEntity.id.videoId,
+                itemsEntity.snippet.title
+            )
+//            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, videoDetailFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
 
 
 

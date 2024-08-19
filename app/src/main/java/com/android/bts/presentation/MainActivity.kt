@@ -2,16 +2,16 @@ package com.android.bts.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
 import com.android.bts.databinding.ActivityMainBinding
 
-import com.android.bts.presentation.search.MainViewModel
+import com.android.bts.MainViewModel
+import com.android.bts.presentation.Login.LoginFragment
+import com.android.bts.presentation.my.MyVideoViewModel
 
-import com.android.bts.presentation.my.MyVideoFragment
-import com.android.bts.presentation.search.SearchRecommendFragment
 import com.android.bts.presentation.search.VideoPlayFragment
-import com.google.android.material.tabs.TabLayout
 
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var searchSharedViewModel: MainViewModel
+    private lateinit var myVideoViewModel: MyVideoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +34,16 @@ class MainActivity : AppCompatActivity() {
         initLayout()
         searchSharedViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.login_container, LoginFragment())
+                .commit()
+        }
 
 
-
+        myVideoViewModel = ViewModelProvider(this)[MyVideoViewModel::class.java]
+        //로그인 상태 확인 및 레이아웃 초기화
+        checkLoginStatus()
     }
 
     //레이아웃 초기화 함수 : 뷰페이저, 탭레이아웃 연결
@@ -70,19 +78,40 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showVideo() {
-            supportFragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
             .replace(R.id.search_play_container, VideoPlayFragment())
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()
     }
 
-
-
-
-
+    fun checkLoginStatus() {
+        val isLoggedIn = false
+        if (isLoggedIn) {
+            showViewPager()
+        } else {
+            hideViewPager()
+        }
     }
 
+    fun showViewPager() {
+        binding.pager.isVisible = true
+        binding.tabLayout.isVisible = true
+        binding.loginContainer.isVisible = false
+    }
+
+    fun hideViewPager() {
+        binding.pager.isVisible = false
+        binding.tabLayout.isVisible = false
+        binding.loginContainer.isVisible = true
+    }
+
+    fun getMyVideoViewModel(): MyVideoViewModel {
+        return myVideoViewModel
+    }
+
+
+}
 
 
 //    private val binding: ActivityMainBinding by lazy {
