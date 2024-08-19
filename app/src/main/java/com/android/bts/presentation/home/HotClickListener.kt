@@ -4,6 +4,6 @@ import com.android.bts.presentation.search.ItemsEntity
 
 interface HotClickListener {
 
-    fun onClickLike(itemsEntity: ItemsEntity, holder: FavoriteAdapter.HotSpotHolder)
-    fun onClickDetail(itemsEntity: ItemsEntity, holder: FavoriteAdapter.HotSpotHolder)
+    fun onClickLike(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder)
+    fun onClickDetail(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder)
 }

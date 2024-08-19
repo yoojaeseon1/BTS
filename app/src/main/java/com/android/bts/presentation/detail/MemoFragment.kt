@@ -11,10 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.bts.R
 import com.android.bts.databinding.FragmentMemoBinding
-import com.android.bts.presentation.home.FavoriteAdapter
+import com.android.bts.presentation.home.HotSpotAdapter
 import com.android.bts.presentation.home.HomeViewModel
 import com.android.bts.presentation.home.HomeViewModelFactory
-import com.android.bts.presentation.home.HotClickListenerImpl
 
 
 class MemoFragment : Fragment() {
@@ -25,7 +24,7 @@ class MemoFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
 
 
-    private lateinit var newSpotAdapter : FavoriteAdapter
+    private lateinit var newSpotAdapter : HotSpotAdapter
         // 이곳에 아이템 클릭 이벤트 처리를 추가할 수 있습니다.
 
 

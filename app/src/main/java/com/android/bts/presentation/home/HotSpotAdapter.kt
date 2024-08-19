@@ -1,6 +1,5 @@
 package com.android.bts.presentation.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,7 +10,7 @@ import com.android.bts.databinding.RecyclerviewHotHolderBinding
 import com.android.bts.presentation.search.ItemsEntity
 import com.bumptech.glide.Glide
 
-class FavoriteAdapter(private val videoClick: HotClickListener) :
+class HotSpotAdapter(private val videoClick: HotClickListener) :
     ListAdapter<ItemsEntity, RecyclerView.ViewHolder>(object :
         DiffUtil.ItemCallback<ItemsEntity>() {
         override fun areItemsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
@@ -52,6 +51,8 @@ class FavoriteAdapter(private val videoClick: HotClickListener) :
 
         if (currentItem.snippet.isLike) {
             hotSpotHolder.like.visibility = ImageView.VISIBLE
+        } else {
+            hotSpotHolder.like.visibility = ImageView.GONE
         }
 
         hotSpotHolder.traveler.text = currentItem.snippet.channelTitle
