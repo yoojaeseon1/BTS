@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+
     implementation("androidx.fragment:fragment-ktx:1.8.1")
     implementation("androidx.activity:activity-ktx:1.6.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")

@@ -5,13 +5,15 @@
     android:orientation="vertical"
     android:background="#282828">
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/notosans_bold"
         android:includeFontPadding="false"
         android:text="저장하기"
+        android:gravity="center"
+        android:textColor="@color/white"
         android:textSize="24sp" />
 <FrameLayout
     android:layout_width="match_parent"
