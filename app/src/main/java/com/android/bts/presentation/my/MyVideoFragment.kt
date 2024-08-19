@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
+import com.android.bts.data.LoginInfo
 import com.android.bts.databinding.FragmentMyVideoBinding
 
 class MyVideoFragment : Fragment() {
@@ -20,6 +21,10 @@ class MyVideoFragment : Fragment() {
     private var _binding: FragmentMyVideoBinding? = null
     private val binding get() = _binding!!
 
+    // 유저의 초기 로그인 데이터값을(로그인 프레그먼트에서 누른) 가져온다 -> 뷰모델 이용?
+    // 1. 데이터 클래스 구축
+    // 2. 데이터 텍스트뷰에 바인딩
+    // 3. 로그인 화면을 먼저 띄우기
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

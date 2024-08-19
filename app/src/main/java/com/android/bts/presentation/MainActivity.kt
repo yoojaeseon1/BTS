@@ -2,11 +2,13 @@ package com.android.bts.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
 import com.android.bts.databinding.ActivityMainBinding
 
 import com.android.bts.MainViewModel
+import com.android.bts.presentation.Login.LoginFragment
 
 import com.android.bts.presentation.search.VideoPlayFragment
 
@@ -30,7 +32,13 @@ class MainActivity : AppCompatActivity() {
         initLayout()
         searchSharedViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.login_container, LoginFragment())
+                .commit()
+        }
 
+        checkLoginStatus()
 
 
     }
@@ -67,16 +75,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showVideo() {
-            supportFragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
             .replace(R.id.search_play_container, VideoPlayFragment())
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()
     }
 
-
+    fun checkLoginStatus() {
+        val isLoggedIn = false
+        if (isLoggedIn) {
+            showViewPager()
+        } else {
+            hideViewPager()
+        }
     }
 
+    fun showViewPager() {
+        binding.pager.isVisible = true
+        binding.tabLayout.isVisible = true
+        binding.loginContainer.isVisible = false
+    }
+
+    fun hideViewPager() {
+        binding.pager.isVisible = false
+        binding.tabLayout.isVisible = false
+        binding.loginContainer.isVisible = true
+    }
+
+
+}
 
 
 //    private val binding: ActivityMainBinding by lazy {

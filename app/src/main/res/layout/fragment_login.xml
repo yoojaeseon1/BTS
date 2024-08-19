@@ -12,12 +12,12 @@
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView1"
+            android:id="@+id/login_user_1"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="150dp"
             app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/cardView2"
+            app:layout_constraintEnd_toStartOf="@+id/login_user_2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -31,7 +31,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
+            android:id="@+id/login_user_2"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="25dp"
@@ -39,7 +39,7 @@
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/cardView1"
+            app:layout_constraintStart_toEndOf="@+id/login_user_1"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -51,16 +51,16 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
+            android:id="@+id/login_user_3"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="100dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cardView4"
+            app:layout_constraintEnd_toStartOf="@+id/login_user_4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardView1">
+            app:layout_constraintTop_toBottomOf="@id/login_user_1">
 
             <TextView
                 android:layout_width="match_parent"
@@ -71,15 +71,15 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView4"
+            android:id="@+id/login_user_4"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="25dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/cardView3"
-            app:layout_constraintTop_toTopOf="@id/cardView3">
+            app:layout_constraintStart_toEndOf="@+id/login_user_3"
+            app:layout_constraintTop_toTopOf="@id/login_user_3">
 
             <TextView
                 android:layout_width="match_parent"
