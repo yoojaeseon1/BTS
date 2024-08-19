@@ -31,7 +31,7 @@
             android:layout_marginStart="15dp"
             android:fontFamily="@font/notosans_bold"
             android:includeFontPadding="false"
-            android:text="프로필"
+            android:text="저장"
             android:textColor="@color/white"
             android:textSize="32sp" />
 

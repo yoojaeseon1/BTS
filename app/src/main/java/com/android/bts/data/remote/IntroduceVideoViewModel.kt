@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.android.bts.data.remote.CommentRepository
 import com.android.bts.data.remote.CommentItem
 import kotlinx.coroutines.launch
+import android.util.Log
 
 class IntroduceVideoViewModel(private val repository: CommentRepository) : ViewModel() {
     private val _comments = MutableLiveData<List<CommentItem>>()
@@ -14,8 +15,16 @@ class IntroduceVideoViewModel(private val repository: CommentRepository) : ViewM
 
     fun fetchComments(videoId: String, apiKey: String) {
         viewModelScope.launch {
-            val comments = repository.getVideoComments(videoId, apiKey)
-            _comments.postValue(comments)
+            try {
+                Log.d("IntroduceVideoViewModel", "Fetching comments for videoId: $videoId")
+                val comments = repository.getVideoComments(videoId, apiKey)
+                Log.d("IntroduceVideoViewModel", "Fetched ${comments.size} comments")
+                _comments.postValue(comments)
+            } catch (e: retrofit2.HttpException) {
+                Log.e("IntroduceVideoViewModel", "HTTP error: ${e.code()}, message: ${e.message()}")
+            } catch (e: Exception) {
+                Log.e("IntroduceVideoViewModel", "Unexpected error", e)
+            }
         }
     }
 }

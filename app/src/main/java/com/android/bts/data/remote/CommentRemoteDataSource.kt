@@ -12,3 +12,4 @@ interface CommentRemoteDataSource {
         @Query("maxResults") maxResults: Int = 10
     ): CommentResponse
 }
+

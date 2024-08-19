@@ -14,8 +14,6 @@ import com.android.bts.data.remote.CommentRepository
 import com.android.bts.presentation.detail.CommentAdapter
 import com.android.bts.presentation.detail.IntroduceVideoViewModel
 import com.android.bts.presentation.detail.IntroduceVideoViewModelFactory
-import com.example.app.save.SavedVideo // 추가
-import com.example.app.save.SavedVideoRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -47,11 +45,16 @@ class IntroduceVideoFragment : Fragment() {
         binding.recyclerView.adapter = commentAdapter
 
         // ViewModel 설정 및 댓글 불러오기
-        val videoId = arguments?.getString("VIDEO_ID_KEY") ?: ""
-        val videoTitle = arguments?.getString("VIDEO_TITLE_KEY") ?: "Unknown Title"
-        val apiKey = "AIzaSyACNkAFWijoL83hOheP7TUbenVYPynsbpg"
+        val videoId = arguments?.getString("VIDEO_ID_KEY")
+        val videoTitle = arguments?.getString("VIDEO_TITLE_KEY")
 
-        viewModel.fetchComments(videoId, apiKey)
+        if (videoId == null) {
+            Log.e("IntroduceVideoFragment", "Video ID is null")
+        } else {
+            Log.d("IntroduceVideoFragment", "Video ID: $videoId, Video Title: $videoTitle")
+            val apiKey = "AIzaSyBrhEMfHwQcNHcvtVvwQhe0fbILK7JWL14"
+            viewModel.fetchComments(videoId, apiKey)
+        }
 
         // 댓글 데이터 관찰하여 업데이트
         viewModel.comments.observe(viewLifecycleOwner) { comments ->
@@ -61,9 +64,10 @@ class IntroduceVideoFragment : Fragment() {
 
         // Save 버튼 클릭 기능
         binding.saveButton.setOnClickListener {
-            // 비디오 정보 저장
-            SavedVideoRepository.addVideo(SavedVideo(videoId = videoId, title = videoTitle, description = "Description of $videoTitle"))
-            Log.d("IntroduceVideoFragment", "Video saved: $videoTitle")
+            videoId?.let {
+                Log.d("IntroduceVideoFragment", "Saving video: $videoTitle with ID: $videoId")
+                // 비디오 정보 저장 (SavedVideoRepository에 저장 로직 추가)
+            }
         }
 
         return binding.root
