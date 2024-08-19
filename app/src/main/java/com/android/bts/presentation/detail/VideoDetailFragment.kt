@@ -15,9 +15,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 class VideoDetailFragment : Fragment() {
 
+    private var videoId: String? = null
+    private var videoTitle: String? = null
+
     companion object {
-        private const val VIDEO_ID_KEY = "videoId"
-        private const val VIDEO_TITLE_KEY = "videoTitle"
+        const val VIDEO_ID_KEY = "videoId"
+        const val VIDEO_TITLE_KEY = "videoTitle"
 
         // newInstance 메서드로 프래그먼트 생성
         fun newInstance(videoId: String, videoTitle: String): VideoDetailFragment {
@@ -30,14 +33,25 @@ class VideoDetailFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let{
+            videoId = it.getString(VIDEO_ID_KEY)
+            videoTitle = it.getString(VIDEO_TITLE_KEY)
+        }
+
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_video_detail, container, false)
 
-        val videoId = arguments?.getString(VIDEO_ID_KEY)
-        val videoTitle = arguments?.getString(VIDEO_TITLE_KEY)
+//        val videoId = arguments?.getString(VIDEO_ID_KEY)
+//        val videoTitle = arguments?.getString(VIDEO_TITLE_KEY)
 
         val videoTitleTextView = view.findViewById<TextView>(R.id.video_title)
         videoTitleTextView.text = videoTitle

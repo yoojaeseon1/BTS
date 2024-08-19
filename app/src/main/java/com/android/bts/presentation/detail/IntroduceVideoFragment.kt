@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.bts.databinding.FragmentIntroduceVideoBinding
 import com.android.bts.data.remote.CommentRemoteDataSource
 import com.android.bts.data.remote.CommentRepository
+import com.android.bts.databinding.FragmentIntroduceVideoBinding
 import com.android.bts.presentation.detail.CommentAdapter
 import com.android.bts.presentation.detail.IntroduceVideoViewModel
 import com.android.bts.presentation.detail.IntroduceVideoViewModelFactory
+import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ID_KEY
+import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_TITLE_KEY
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -25,12 +27,26 @@ class IntroduceVideoFragment : Fragment() {
         IntroduceVideoViewModelFactory(CommentRepository(apiService))
     }
 
+    private var videoId: String? = null
+    private var videoTitle: String? = null
+
     private val apiService: CommentRemoteDataSource by lazy {
         Retrofit.Builder()
             .baseUrl("https://www.googleapis.com/youtube/v3/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CommentRemoteDataSource::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let{
+            videoId = it.getString(VIDEO_ID_KEY)
+            videoTitle = it.getString(VIDEO_TITLE_KEY)
+        }
+
+
     }
 
     override fun onCreateView(
@@ -45,15 +61,15 @@ class IntroduceVideoFragment : Fragment() {
         binding.recyclerView.adapter = commentAdapter
 
         // ViewModel 설정 및 댓글 불러오기
-        val videoId = arguments?.getString("VIDEO_ID_KEY")
-        val videoTitle = arguments?.getString("VIDEO_TITLE_KEY")
+//        val videoId = arguments?.getString("VIDEO_ID_KEY")
+//        val videoTitle = arguments?.getString("VIDEO_TITLE_KEY")
 
         if (videoId == null) {
             Log.e("IntroduceVideoFragment", "Video ID is null")
         } else {
             Log.d("IntroduceVideoFragment", "Video ID: $videoId, Video Title: $videoTitle")
             val apiKey = "AIzaSyBrhEMfHwQcNHcvtVvwQhe0fbILK7JWL14"
-            viewModel.fetchComments(videoId, apiKey)
+            viewModel.fetchComments(videoId?:"", apiKey)
         }
 
         // 댓글 데이터 관찰하여 업데이트

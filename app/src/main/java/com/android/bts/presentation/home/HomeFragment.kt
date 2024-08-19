@@ -1,5 +1,6 @@
 package com.android.bts.presentation.home
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.android.bts.R
 import com.android.bts.databinding.FragmentHomeBinding
 import com.android.bts.presentation.MainActivity
+import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
+import com.android.bts.presentation.search.ItemsEntity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -189,6 +192,16 @@ class HomeFragment : Fragment() {
             homeViewModel.getInterestedVideoList(requireActivity())
         }
 
+        homeViewModel.hotSpotVideos.observe(viewLifecycleOwner) {
+            hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value)
+        }
+
+        homeViewModel.newSpotVideos.observe(viewLifecycleOwner){
+            Log.d("HomeFragment", "observe newSpotVideos size = ${homeViewModel.newSpotVideos.value?.size}")
+//            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
+            newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
+        }
+
         myVideoViewModel.checkedText.observe(viewLifecycleOwner){
             Log.d("HomeFragment", "observe mypage checkedText = ${myVideoViewModel.checkedText.value?.size}")
             homeViewModel.interestedSpots.value = myVideoViewModel.checkedText.value
@@ -217,7 +230,30 @@ class HomeFragment : Fragment() {
     }
 
 
+    class HotClickListenerImpl(val context: Activity) : HotClickListener {
 
+        override fun onClickLike(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder) {
+
+        }
+
+        override fun onClickDetail(
+            itemsEntity: ItemsEntity,
+            holder: HotSpotAdapter.HotSpotHolder
+        ) {
+            Log.d("HomeFragment", "video id = ${itemsEntity.id.videoId}")
+            Log.d("HomeFragment", "title = ${itemsEntity.snippet.title}")
+            // VideoDetailFragment로 전환
+            val videoDetailFragment = VideoDetailFragment.newInstance(
+                itemsEntity.id.videoId,
+                itemsEntity.snippet.title
+            )
+//            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, videoDetailFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
 
 
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.bts.R
 import com.android.bts.databinding.FragmentMemoBinding
+import com.android.bts.presentation.home.HomeFragment.HotClickListenerImpl
 import com.android.bts.presentation.home.HotSpotAdapter
 import com.android.bts.presentation.home.HomeViewModel
 import com.android.bts.presentation.home.HomeViewModelFactory
@@ -23,7 +24,13 @@ class MemoFragment : Fragment() {
     private val memoViewModel: MemoViewModel by activityViewModels() // ViewModel 초기화
     private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
 
-    private lateinit var newSpotAdapter: HotSpotAdapter
+    private val hotSpotClick: HotClickListenerImpl by lazy {
+        HotClickListenerImpl(requireActivity())
+    }
+
+    private val newSpotAdapter: HotSpotAdapter by lazy {
+        HotSpotAdapter(hotSpotClick)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +40,6 @@ class MemoFragment : Fragment() {
 
 
         Log.d("MemoFragment", "onCreateView called")
-
         val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.videoRecyclrview.layoutManager = gridLayoutManager
         binding.videoRecyclrview.adapter = newSpotAdapter
