@@ -64,7 +64,13 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
             parentFragmentManager.beginTransaction()
                 .remove(this).commit()
         }
+
+
+        val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_recommend_btn_blink)
+        binding.searchRecommendBtnLeft.startAnimation(blinkAnimation)
+        binding.searchRecommendBtnRight.startAnimation(blinkAnimation)
         //왼쪽 버튼
+
         binding.searchRecommendBtnLeft.setOnClickListener {
             Log.d("클릭", "${animationSwit["view"]}")
             animationSwit["button"] = "left"

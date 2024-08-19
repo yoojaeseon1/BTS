@@ -67,7 +67,7 @@ class SearchFragment : Fragment() {
         }
 
         //추천버튼
-        binding.searchBtnRecommend.setOnClickListener {
+        binding.searchBtnRecommend1.setOnClickListener {
             binding.searchRecommendContainer.isVisible = true
             recommendPlace()
         }
