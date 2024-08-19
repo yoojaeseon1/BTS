@@ -23,10 +23,7 @@ class MemoFragment : Fragment() {
     private val memoViewModel: MemoViewModel by activityViewModels() // ViewModel 초기화
     private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
 
-
-    private lateinit var newSpotAdapter : HotSpotAdapter
-        // 이곳에 아이템 클릭 이벤트 처리를 추가할 수 있습니다.
-
+    private lateinit var newSpotAdapter: HotSpotAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +36,7 @@ class MemoFragment : Fragment() {
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.videoRecyclrview.layoutManager = gridLayoutManager
-//        binding.videoRecyclrview.adapter = newSpotAdapter
+        binding.videoRecyclrview.adapter = newSpotAdapter
 
         // ViewModel의 상태 확인 및 관찰
         observeViewModel()

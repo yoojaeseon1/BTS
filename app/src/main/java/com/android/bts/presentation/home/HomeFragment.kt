@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -98,10 +100,9 @@ class HomeFragment : Fragment() {
         homeViewModel.initViewModel()
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-//        homeViewModel.getInterestedVideoList(requireActivity())
-//        homeViewModel.getHotVideoList(requireActivity())
+        homeViewModel.getInterestedVideoList(requireActivity())
+        homeViewModel.getHotVideoList(requireActivity())
         homeViewModel.getNewVideoList(requireActivity())
-
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
@@ -123,8 +124,6 @@ class HomeFragment : Fragment() {
 //
 //        }
 
-
-
         binding.recyclerViewInterested.addOnItemTouchListener(recyclerViewListener)
         binding.recyclerViewHot.addOnItemTouchListener(recyclerViewListener)
         binding.recyclerViewNew.addOnScrollListener(object : RecyclerView.OnScrollListener(){
@@ -134,6 +133,9 @@ class HomeFragment : Fragment() {
 
                 if(!recyclerView.canScrollVertically(1)) {
                     homeViewModel.getNewVideoList(requireActivity())
+//                    viewModel.newSpotVideos.notifyObserver()
+//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value)
+//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value?.toMutableList())
                 }
             }
         })
@@ -182,16 +184,6 @@ class HomeFragment : Fragment() {
             interestedAdapter.submitList(homeViewModel.interestedVideos.value)
         }
 
-        homeViewModel.hotSpotVideos.observe(viewLifecycleOwner) {
-            hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value)
-        }
-
-        homeViewModel.newSpotVideos.observe(viewLifecycleOwner){
-            Log.d("HomeFragment", "observe newSpotVideos size = ${homeViewModel.newSpotVideos.value?.size}")
-//            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
-            newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
-        }
-
         homeViewModel.interestedSpots.observe(viewLifecycleOwner){
             Log.d("HomeFragment", "observe interestedSpots checkedText = ${homeViewModel.interestedSpots.value?.size}")
             homeViewModel.getInterestedVideoList(requireActivity())
@@ -201,8 +193,6 @@ class HomeFragment : Fragment() {
             Log.d("HomeFragment", "observe mypage checkedText = ${myVideoViewModel.checkedText.value?.size}")
             homeViewModel.interestedSpots.value = myVideoViewModel.checkedText.value
         }
-
-
     }
 
 
