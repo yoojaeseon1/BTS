@@ -89,8 +89,7 @@ class IntroduceVideoFragment : Fragment() {
         } else {
             Log.d("IntroduceVideoFragment", "Video ID: $videoId, Video Title: $videoTitle")
             val apiKey = "AIzaSyBrhEMfHwQcNHcvtVvwQhe0fbILK7JWL14"
-//            viewModel.fetchComments(videoId?:"", apiKey)
-//            viewModel.fetchComments(videoId?:"", apiKey)
+            viewModel.fetchComments(videoId?:"", apiKey)
         }
 
         // 댓글 데이터 관찰하여 업데이트
