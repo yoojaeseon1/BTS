@@ -11,6 +11,11 @@ class SavedVideoViewModel : ViewModel() {
     private val _savedVideos = MutableLiveData<List<SavedVideo>>()
     val savedVideos: LiveData<List<SavedVideo>> get() = _savedVideos
 
+    private val _savedLikes = MutableLiveData<List<LikedVideo>>()
+    val savedLikes: LiveData<List<LikedVideo>> get() = _savedLikes
+
+    private val savedLikeResults = mutableListOf<LikedVideo>()
+
     fun saveVideo(video: SavedVideo) {
         _savedVideos.value = _savedVideos.value.orEmpty() + video
     }

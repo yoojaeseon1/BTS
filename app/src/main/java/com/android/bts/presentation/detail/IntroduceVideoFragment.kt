@@ -23,6 +23,7 @@ import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_I
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ITEMS_KEY
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_TITLE_KEY
 import com.android.bts.presentation.home.HomeFragment
+import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.save.SavedVideo
 import com.android.bts.presentation.search.ItemsEntity
 import com.example.app.save.SavedVideoViewModel
@@ -118,10 +119,23 @@ class IntroduceVideoFragment : Fragment() {
             if(isCheckedLike) {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_empty)
                 BTSUtils.deleteLike(requireActivity(), videoId)
+
             } else {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_full)
 //                BTSUtils.addLike(requireActivity(), videoId?:"")
                 BTSUtils.addLike(requireActivity(), itemsEntity?:ItemsEntity())
+                savedVideoViewModel.saveLike(
+                    LikedVideo(
+//                    itemsEntity.id.videoId,
+//                    itemsEntity.snippet.title,
+//                    itemsEntity.snippet.channelTitle,
+//                    itemsEntity.snippet.thumbnail
+                        videoId,
+                        videoTitle,
+                        channelTitle,
+                        thumbnail
+                    )
+                )
             }
         }
 

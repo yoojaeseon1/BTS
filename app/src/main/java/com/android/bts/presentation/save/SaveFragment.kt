@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.BTSUtils
 import com.android.bts.R
@@ -16,6 +15,9 @@ import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoViewModel
 import com.android.bts.presentation.save.LikedVideoAdapter
 import com.android.bts.presentation.save.SavedVideo
+import com.android.bts.presentation.search.Id
+import com.android.bts.presentation.search.ItemsEntity
+import com.android.bts.presentation.search.SnippetEntity
 
 class SavedFragment : Fragment() {
 
@@ -32,8 +34,6 @@ class SavedFragment : Fragment() {
 
         val savedRecyclerView = view.findViewById<RecyclerView>(R.id.savedRecyclerView)
         val likedRectclerView = view.findViewById<RecyclerView>(R.id.likedRecyclerView)
-
-
         savedVideoAdapter = SavedVideoAdapter(emptyList()) { video ->
             navigateToVideoDetailFragment(video)
         }
@@ -62,9 +62,11 @@ class SavedFragment : Fragment() {
 //        savedVideoViewModel.savedVideos.value?.plus(video)
 //        Log.d("SaveFragment", "savedVideos size = ${savedVideoViewModel.savedVideos.value?.size}")
 
-        val fragment = VideoDetailFragment.newInstance(video.videoId, video.title)
+//        val fragment = VideoDetailFragment.newInstance(video.videoId, video.title)
+        val fragment = VideoDetailFragment.newInstance(ItemsEntity(Id(videoId = video.videoId), SnippetEntity(video.title)))
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+//            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()
     }
