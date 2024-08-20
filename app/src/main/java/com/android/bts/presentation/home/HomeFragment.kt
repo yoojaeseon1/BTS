@@ -1,6 +1,5 @@
 package com.android.bts.presentation.home
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,7 +20,9 @@ import com.android.bts.presentation.MainActivity
 import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
+import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.search.ItemsEntity
+import com.example.app.save.SavedVideoViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,11 +46,13 @@ class HomeFragment : Fragment() {
     val binding get() = _binding
 
     private val interestedClick: InterestedClickListenerImpl by lazy {
-        InterestedClickListenerImpl(requireActivity())
+//        InterestedClickListenerImpl(requireActivity())
+        InterestedClickListenerImpl(this)
     }
 
     private val hotSpotClick: HotClickListenerImpl by lazy {
-        HotClickListenerImpl(requireActivity())
+//        HotClickListenerImpl(requireActivity())
+        HotClickListenerImpl(this)
     }
 
     private val interestedAdapter: InterestedAdapter by lazy {
@@ -69,6 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private val myVideoViewModel: MyVideoViewModel by activityViewModels()
+
 
     val recyclerViewListener = object : OnItemTouchListener{
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
@@ -105,9 +109,9 @@ class HomeFragment : Fragment() {
         homeViewModel.initViewModel()
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-        homeViewModel.getInterestedVideoList(requireActivity())
-        homeViewModel.getHotVideoList(requireActivity())
-        homeViewModel.getNewVideoList(requireActivity())
+//        homeViewModel.getInterestedVideoList(requireActivity())
+//        homeViewModel.getHotVideoList(requireActivity())
+//        homeViewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
@@ -242,18 +246,29 @@ class HomeFragment : Fragment() {
     }
 
 
-    class HotClickListenerImpl(val context: Activity) : HotClickListener {
+    class HotClickListenerImpl(val fragment: Fragment) : HotClickListener {
+
+        private val savedVideoViewModel: SavedVideoViewModel by fragment.activityViewModels()
 
         override fun onClickLike(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder) {
             if(itemsEntity.snippet.isLike) {
-                BTSUtils.deleteLike(context, itemsEntity.id.videoId)
+                BTSUtils.deleteLike(fragment.requireActivity(), itemsEntity.id.videoId)
                 itemsEntity.snippet.isLike = false
                 holder.like.isVisible = false
+                savedVideoViewModel.deleteLike(itemsEntity.id.videoId)
             } else {
 //                BTSUtils.addLike(context, itemsEntity.id.videoId)
-                BTSUtils.addLike(context, itemsEntity)
+                BTSUtils.addLike(fragment.requireActivity(), itemsEntity)
                 itemsEntity.snippet.isLike = true
                 holder.like.isVisible = true
+                savedVideoViewModel.saveLike(
+                    LikedVideo(
+                        itemsEntity.id.videoId,
+                        itemsEntity.snippet.title,
+                        itemsEntity.snippet.channelTitle,
+                        itemsEntity.snippet.thumbnail)
+                )
+
             }
         }
 
@@ -273,7 +288,7 @@ class HomeFragment : Fragment() {
                 itemsEntity
             )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            fragment.requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frame, videoDetailFragment)
                 .addToBackStack(null)
                 .commit()

@@ -10,8 +10,7 @@ import com.android.bts.R
 import com.bumptech.glide.Glide
 
 class LikedVideoAdapter(
-    private var likedVideos: List<LikedVideo>,
-    private val onVideoClick: (LikedVideo) -> Unit
+    private var likedVideos: List<LikedVideo>
 ) : RecyclerView.Adapter<LikedVideoAdapter.LikedVideoViewHolder>() {
 
     class LikedVideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,9 +35,6 @@ class LikedVideoAdapter(
             .centerCrop()
             .into(holder.thumbnail)
 
-        holder.itemView.setOnClickListener {
-            onVideoClick(video)
-        }
     }
 
     override fun getItemCount(): Int = likedVideos.size

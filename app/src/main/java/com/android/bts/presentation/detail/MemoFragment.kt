@@ -25,7 +25,8 @@ class MemoFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
 
     private val hotSpotClick: HotClickListenerImpl by lazy {
-        HotClickListenerImpl(requireActivity())
+//        HotClickListenerImpl(requireActivity())
+        HotClickListenerImpl(this)
     }
 
     private val newSpotAdapter: HotSpotAdapter by lazy {
