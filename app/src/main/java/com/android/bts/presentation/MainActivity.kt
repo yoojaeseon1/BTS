@@ -1,6 +1,8 @@
 package com.android.bts.presentation
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +12,8 @@ import com.android.bts.databinding.ActivityMainBinding
 import com.android.bts.MainViewModel
 import com.android.bts.presentation.Login.LoginFragment
 import com.android.bts.presentation.detail.VideoDetailFragment
+import com.android.bts.presentation.home.HomeFragment
+import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
 
 import com.google.android.material.tabs.TabLayoutMediator
@@ -35,14 +39,15 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.login_container, LoginFragment())
+                .add(R.id.login_container, LoginFragment())
+                .addToBackStack(null)
                 .commit()
         }
 
 
         myVideoViewModel = ViewModelProvider(this)[MyVideoViewModel::class.java]
         //로그인 상태 확인 및 레이아웃 초기화
-        checkLoginStatus()
+//        checkLoginStatus()
     }
 
     //레이아웃 초기화 함수 : 뷰페이저, 탭레이아웃 연결
@@ -74,12 +79,39 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.attach()
+
+
+
+
+        //우측 상단 프로필아이콘 클릭시 마이페이지로 전환
+        binding.mainToolbar.toolbarProfileIcon.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, MyVideoFragment())
+                .addToBackStack(null)
+                .commit()
+
+        }
+
+        //뒤로가기 버튼
+        val backButton = binding.mainToolbar.toolbarIvBack
+        backButton.setOnClickListener {
+            supportFragmentManager.popBackStack()
+        }
+
     }
 
     fun replaceDetailFragment() {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.detail_bounce,R.anim.detail_fade_out)
             .replace(R.id.main_frame, VideoDetailFragment())
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun replaceSearFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frame, HomeFragment())
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()
@@ -97,16 +129,17 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun checkLoginStatus() {
-        val isLoggedIn = false
-        if (isLoggedIn) {
-            showViewPager()
-        } else {
-            hideViewPager()
-        }
-    }
+//    fun checkLoginStatus() {
+//        val isLoggedIn = false
+//        if (isLoggedIn) {
+//            showViewPager()
+//        } else {
+//            hideViewPager()
+//        }
+//    }
 
     fun showViewPager() {
+        binding.loginContainer.startAnimation(AnimationUtils.loadAnimation(this, R.anim.login_click))
         binding.pager.isVisible = true
         binding.tabLayout.isVisible = true
         binding.loginContainer.isVisible = false

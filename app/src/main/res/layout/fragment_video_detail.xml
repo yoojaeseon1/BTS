@@ -22,52 +22,6 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
 
-
-        <LinearLayout
-            android:id="@+id/top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/background_black"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="@+id/detail_background">
-
-            <ImageView
-                android:id="@+id/back_button"
-                android:layout_width="19dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_back" />
-
-            <TextView
-                android:id="@+id/detail_bts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/notosans_bold"
-                android:includeFontPadding="false"
-                android:text="BTS"
-                android:textColor="@color/white"
-                android:textSize="32sp" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="34dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="200dp"
-                android:layout_marginEnd="17dp"
-                android:src="@drawable/ic_bell" />
-
-            <ImageView
-                android:id="@+id/profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_round" />
-
-        </LinearLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainContainerLayout"
             android:layout_width="0dp"

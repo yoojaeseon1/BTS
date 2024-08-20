@@ -60,10 +60,6 @@ class MyVideoFragment : Fragment() {
 
         }
 
-        binding.icBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-
         //고객센터 url 이동
         binding.tvMyVideoHelp.setOnClickListener {
             val url = "https://support.google.com/youtube/?hl=ko#topic=9257498/"

@@ -9,7 +9,6 @@ import com.google.gson.Gson
 object BTSUtils {
 
 
-
     fun addLike(context: Activity, videoId: String) {
         val pref = context.getSharedPreferences("like", Context.MODE_PRIVATE)
         val edit = pref.edit()
@@ -35,13 +34,13 @@ object BTSUtils {
         edit.apply()
     }
 
-    fun isCheckedLike(context: Activity, videoId: String): Boolean{
+    fun isCheckedLike(context: Activity, videoId: String): Boolean {
         val pref = context.getSharedPreferences("like", Context.MODE_PRIVATE)
 //        return pref.getBoolean(videoId, false)
         return pref.getString(videoId, "") != ""
     }
 
-    fun selectAllLikes(context: Activity): MutableList<LikedVideo>{
+    fun selectAllLikes(context: Activity): MutableList<LikedVideo> {
 
         val likedVideos = mutableListOf<LikedVideo>()
 
@@ -52,10 +51,14 @@ object BTSUtils {
         for (allItem in allItems) {
             val item = allItem.value
             val fromJson = gson.fromJson(item as String, ItemsEntity::class.java)
-            likedVideos.add(LikedVideo(fromJson.id.videoId,
-                fromJson.snippet.title,
-                fromJson.snippet.channelTitle,
-                fromJson.snippet.thumbnail))
+            likedVideos.add(
+                LikedVideo(
+                    fromJson.id.videoId,
+                    fromJson.snippet.title,
+                    fromJson.snippet.channelTitle,
+                    fromJson.snippet.thumbnail
+                )
+            )
         }
         return likedVideos
     }

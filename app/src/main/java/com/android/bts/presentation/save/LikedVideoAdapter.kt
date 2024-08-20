@@ -10,7 +10,8 @@ import com.android.bts.R
 import com.bumptech.glide.Glide
 
 class LikedVideoAdapter(
-    private var likedVideos: List<LikedVideo>
+    private var likedVideos: List<LikedVideo>,
+//    private val onVideoClick: (LikedVideo) -> Unit
 ) : RecyclerView.Adapter<LikedVideoAdapter.LikedVideoViewHolder>() {
 
     class LikedVideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
