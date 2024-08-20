@@ -5,6 +5,7 @@
     android:id="@+id/search_recommend"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@color/background_black"
     tools:context=".presentation.search.SearchRecommendFragment">
 
@@ -20,84 +21,126 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/search_recommend_tv_title"
+        android:id="@+id/search_recommend_tv_head"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:text="버스기사 추천 여행지"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/main_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_recommend_btn_exit"
-        app:layout_constraintBottom_toTopOf="@+id/search_recommend_iv_title"/>
+        app:layout_constraintBottom_toTopOf="@+id/search_recommend_iv_first"/>
 
     <ImageView
-        android:id="@+id/search_recommend_iv_title"
+        android:id="@+id/search_recommend_iv_first"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:src="@drawable/drawable_search_driver"
-        app:layout_constraintEnd_toEndOf="@+id/search_recommend_tv_title"
-        app:layout_constraintStart_toStartOf="@+id/search_recommend_tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/search_recommend_tv_title"
-        app:layout_constraintBottom_toTopOf="@+id/search_recommend_tv_name"/>
+        android:scaleType="centerCrop"
+        android:background="@color/background_black"
+        app:layout_constraintEnd_toEndOf="@+id/search_recommend_tv_head"
+        app:layout_constraintStart_toStartOf="@+id/search_recommend_tv_head"
+        app:layout_constraintTop_toBottomOf="@+id/search_recommend_tv_head"
+        app:layout_constraintBottom_toTopOf="@+id/search_recommend_tv_sub_title"/>
+
+
+    <ImageView
+        android:id="@+id/search_recommend_iv_second"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:scaleType="centerCrop"
+        android:background="@color/background_black"
+        app:layout_constraintTop_toTopOf="@+id/search_recommend_iv_first"
+        app:layout_constraintEnd_toEndOf="@+id/search_recommend_iv_first"
+        app:layout_constraintStart_toStartOf="@+id/search_recommend_iv_first"
+        app:layout_constraintBottom_toBottomOf="@+id/search_recommend_iv_first"/>
 
     <TextView
-        android:id="@+id/search_recommend_tv_name"
+        android:id="@+id/search_recommend_tv_sub_title"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:text="장소이름"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:text="서브타이틀"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="@+id/search_recommend_iv_first"
+        app:layout_constraintStart_toStartOf="@+id/search_recommend_iv_first"
+        app:layout_constraintTop_toBottomOf="@+id/search_recommend_iv_first"
+        app:layout_constraintBottom_toTopOf="@+id/search_recommend_tv_title"/>
+
+
+    <TextView
+        android:id="@+id/search_recommend_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="타이틀"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/search_recommend_iv_title"
-        app:layout_constraintStart_toStartOf="@+id/search_recommend_iv_title"
-        app:layout_constraintTop_toBottomOf="@+id/search_recommend_iv_title"
-        app:layout_constraintBottom_toTopOf="@+id/search_recommend_tv_info"/>
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/search_recommend_tv_sub_title"
+        app:layout_constraintStart_toStartOf="@+id/search_recommend_tv_sub_title"
+        app:layout_constraintTop_toBottomOf="@+id/search_recommend_tv_sub_title"/>
 
     <TextView
         android:id="@+id/search_recommend_tv_info"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="소개"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/search_recommend_tv_name"
-        app:layout_constraintStart_toStartOf="@+id/search_recommend_tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/search_recommend_tv_name"
-        app:layout_constraintBottom_toTopOf="@+id/search_recommend_btn_another"/>
-
-    <TextView
-        android:id="@+id/search_recommend_btn_another"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:text="별로예요"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:background="@drawable/sel_search_recommend_btn_another"
+        android:text="소개"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/search_recommend_tv_title"
+        app:layout_constraintStart_toStartOf="@+id/search_recommend_tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/search_recommend_tv_title" />
+
+    <ImageView
+        android:id="@+id/search_recommend_btn_left"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:src="@drawable/sel_search_recommend_btn_left"
         app:layout_constraintEnd_toStartOf="@+id/search_recommend_btn_accept"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/search_recommend_btn_right"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:src="@drawable/sel_search_recommend_btn_right"
+        android:clickable="true"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/search_recommend_btn_accept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/search_recommend_btn_accept"
+        app:layout_constraintTop_toTopOf="@+id/search_recommend_btn_accept" />
 
     <TextView
         android:id="@+id/search_recommend_btn_accept"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
         android:text="마음에 들어요!"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
         android:background="@drawable/sel_search_recommend_btn_accept"
-        app:layout_constraintTop_toTopOf="@+id/search_recommend_btn_another"
-        app:layout_constraintStart_toEndOf="@+id/search_recommend_btn_another"
-        app:layout_constraintBottom_toBottomOf="@+id/search_recommend_btn_another"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_recommend_btn_left"
+        app:layout_constraintStart_toEndOf="@+id/search_recommend_btn_left"
+        app:layout_constraintBottom_toBottomOf="@+id/search_recommend_btn_left"
+        app:layout_constraintEnd_toStartOf="@+id/search_recommend_btn_right"
         />
 
 

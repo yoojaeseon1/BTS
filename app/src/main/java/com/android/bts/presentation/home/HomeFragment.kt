@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
         homeViewModel.initViewModel()
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-        homeViewModel.getInterestedVideoList(requireActivity())
+//        homeViewModel.getInterestedVideoList(requireActivity())
 //        homeViewModel.getHotVideoList(requireActivity())
 //        homeViewModel.getNewVideoList(requireActivity())
 

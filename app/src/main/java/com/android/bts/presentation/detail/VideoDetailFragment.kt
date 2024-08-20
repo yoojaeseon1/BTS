@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.android.bts.BTSUtils
+import com.android.bts.MainViewModel
 import com.android.bts.R
 import com.android.bts.presentation.home.HomeFragment
 import com.android.bts.presentation.home.HomeViewModel
@@ -31,6 +32,7 @@ class VideoDetailFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels()
 
     private lateinit var homeFragment: HomeFragment
+    private val sharedViewModel : MainViewModel by activityViewModels()
 
     companion object {
         const val VIDEO_ID_KEY = "videoId"
@@ -71,6 +73,8 @@ class VideoDetailFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_video_detail, container, false)
 
+
+
 //        val videoId = arguments?.getString(VIDEO_ID_KEY)
 //        val videoTitle = arguments?.getString(VIDEO_TITLE_KEY)
 
@@ -85,6 +89,15 @@ class VideoDetailFragment : Fragment() {
 
         val textVideoIntro = view.findViewById<TextView>(R.id.text_video_intro)
         val textMemo = view.findViewById<TextView>(R.id.text_memo)
+
+
+
+        sharedViewModel.videoPlayLiveData.observe(viewLifecycleOwner) {
+            videoTitleTextView.text = it.snippet.title
+            bottomTitleTextView.text = videoTitle
+            setupYouTubePlayer(youTubePlayerView, it.id.videoId)
+        }
+
 
         // 기본 선택 상태 설정 및 초기 프래그먼트 표시
         textVideoIntro.isSelected = true
@@ -119,8 +132,17 @@ class VideoDetailFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
+
+
+
+
         return view
     }
+
+
+
+
+
 
     private fun setupYouTubePlayer(youTubePlayerView: YouTubePlayerView, videoId: String?) {
         lifecycle.addObserver(youTubePlayerView) // 생명주기 관리
