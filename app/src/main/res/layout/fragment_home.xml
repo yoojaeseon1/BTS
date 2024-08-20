@@ -1,146 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_black"
+    tools:context=".presentation.home.HomeFragment">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_black"
-        tools:context=".presentation.home.HomeFragment">
+        >
 
-
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
 
-                <TextView
-                    android:id="@+id/logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="46dp"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:includeFontPadding="false"
-                    android:text="BTS"
-                    android:textColor="@color/white"
-                    android:textSize="32sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:text="BTS"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="34dp"
-                    android:src="@drawable/ic_bell"
-                    android:layout_marginEnd="17dp"
-                    app:layout_constraintEnd_toStartOf="@id/profile_icon"
-                    app:layout_constraintTop_toTopOf="@+id/logo"
-                    app:layout_constraintBottom_toBottomOf="@id/logo"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="34dp"
+                android:src="@drawable/ic_bell"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintEnd_toStartOf="@id/profile_icon"
+                app:layout_constraintTop_toTopOf="@+id/logo"
+                app:layout_constraintBottom_toBottomOf="@id/logo"
 
-                    />
+                />
 
-                <ImageView
-                    android:id="@+id/profile_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_round"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/logo"
-                    app:layout_constraintBottom_toBottomOf="@id/logo"
-                    android:layout_marginEnd="16dp"
-                    />
+            <ImageView
+                android:id="@+id/profile_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_round"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/logo"
+                app:layout_constraintBottom_toBottomOf="@id/logo"
+                android:layout_marginEnd="16dp"
+                />
 
-                <ImageView
-                    android:id="@+id/ivAdBanner"
-                    android:layout_width="380dp"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/image_title"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/bg_round_thumbnail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/logo" />
+            <ImageView
+                android:id="@+id/ivAdBanner"
+                android:layout_width="380dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/image_title"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_round_thumbnail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/logo" />
 
-                <TextView
-                    android:id="@+id/tvInterestedSpots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:includeFontPadding="false"
-                    android:text="관심 여행지"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="@id/ivAdBanner"
-                    app:layout_constraintTop_toBottomOf="@+id/ivAdBanner" />
+            <TextView
+                android:id="@+id/tvInterestedSpots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:text="관심 여행지"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@id/ivAdBanner"
+                app:layout_constraintTop_toBottomOf="@+id/ivAdBanner" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewInterested"
-                    android:layout_width="380dp"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@id/tvInterestedSpots"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewInterested"
+                android:layout_width="380dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tvInterestedSpots"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
-                <TextView
-                    android:id="@+id/tvHotSpot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:includeFontPadding="false"
-                    android:text="인기 여행지"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/recyclerViewInterested"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewInterested" />
+            <TextView
+                android:id="@+id/tvHotSpot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:text="인기 여행지"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/recyclerViewInterested"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewInterested" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewHot"
-                    android:layout_width="380dp"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintStart_toStartOf="@id/tvHotSpot"
-                    app:layout_constraintTop_toBottomOf="@id/tvHotSpot" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewHot"
+                android:layout_width="380dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/tvHotSpot"
+                app:layout_constraintTop_toBottomOf="@id/tvHotSpot" />
 
-                <TextView
-                    android:id="@+id/tvNewSpots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_bold"
-                    android:includeFontPadding="false"
-                    android:text="신규 여행지"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
+            <TextView
+                android:id="@+id/tvNewSpots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:text="신규 여행지"
+                android:textColor="@color/white"
+                android:textSize="24sp"
 
-                    app:layout_constraintStart_toStartOf="@id/recyclerViewHot"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewHot" />
+                app:layout_constraintStart_toStartOf="@id/recyclerViewHot"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewHot" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewNew"
-                    android:layout_width="380dp"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintStart_toStartOf="@id/tvNewSpots"
-                    app:layout_constraintTop_toBottomOf="@id/tvNewSpots"
-                    app:spanCount="2" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewNew"
+                android:layout_width="380dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/tvNewSpots"
+                app:layout_constraintTop_toBottomOf="@id/tvNewSpots"
+                app:spanCount="2" />
 
 <!--                <com.google.android.material.progressindicator.CircularProgressIndicator-->
 <!--                    android:layout_width="100dp"-->
@@ -150,18 +147,16 @@
 <!--                    app:layout_constraintStart_toStartOf="@+id/recyclerViewNew"-->
 <!--                    app:layout_constraintEnd_toEndOf="@+id/recyclerViewNew" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+    </ScrollView>
 
-        <ImageView
-            android:layout_width="19dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+    <ImageView
+        android:layout_width="19dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,13 +3,11 @@ package com.android.bts.presentation.home
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -39,8 +37,10 @@ class HomeFragment : Fragment() {
     private var param2: String? = null
 
 
-    private var _binding: FragmentHomeBinding? = null
-    val binding get() = _binding!!
+    private val _binding: FragmentHomeBinding by lazy {
+        FragmentHomeBinding.inflate(layoutInflater)
+    }
+    val binding get() = _binding
 
     private val interestedClick: InterestedClickListenerImpl by lazy {
         InterestedClickListenerImpl(requireActivity())
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         HotSpotAdapter(hotSpotClick)
     }
 
-    private val homeViewModel by viewModels<HomeViewModel> {
+    val homeViewModel by viewModels<HomeViewModel> {
         HomeViewModelFactory()
     }
 
@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+//        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.recyclerViewInterested.adapter = interestedAdapter
         binding.recyclerViewHot.adapter = hotSpotAdapter
         binding.recyclerViewNew.adapter = newSpotAdapter
@@ -104,8 +104,8 @@ class HomeFragment : Fragment() {
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
         homeViewModel.getInterestedVideoList(requireActivity())
-        homeViewModel.getHotVideoList(requireActivity())
-        homeViewModel.getNewVideoList(requireActivity())
+//        homeViewModel.getHotVideoList(requireActivity())
+//        homeViewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
@@ -229,6 +229,16 @@ class HomeFragment : Fragment() {
             }
     }
 
+    fun submitAllVideos(){
+        Log.d("HomeFragment", "execute submitAllVideos()")
+        Log.d("HomeFragment", "homeViewModel.interestedVideos.value? = ${homeViewModel.interestedVideos.value?.hashCode()}")
+        Log.d("HomeFragment", "homeViewModel.interestedVideos.value?.toMutableList() = ${homeViewModel.interestedVideos.value?.toMutableList().hashCode()}")
+
+        interestedAdapter.submitList(homeViewModel.interestedVideos.value?.toMutableList())
+        hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value?.toMutableList())
+        newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
+    }
+
 
     class HotClickListenerImpl(val context: Activity) : HotClickListener {
 
@@ -256,5 +266,19 @@ class HomeFragment : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("HomeFragment", "onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("HomeFragment", "onStart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("HomeFragment", "onPause")
+    }
 
 }
