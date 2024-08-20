@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/toolbar" />
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
@@ -15,7 +19,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_frame"
@@ -24,7 +28,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
 
 
     <com.google.android.material.tabs.TabLayout
@@ -43,21 +47,10 @@
         app:tabTextColor="@color/white" />
 
     <FrameLayout
-        android:id="@+id/search_play_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/tab_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
         android:id="@+id/login_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/tab_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

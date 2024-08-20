@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.android.bts.R
 import com.android.bts.data.LoginInfo
@@ -40,7 +42,6 @@ class LoginFragment : Fragment() {
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
-            loginSuccess()
         }
 
         binding.loginUser2.setOnClickListener {
@@ -53,7 +54,7 @@ class LoginFragment : Fragment() {
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
-            loginSuccess()
+//            loginSuccess()
         }
 
         binding.loginUser3.setOnClickListener {
@@ -66,7 +67,7 @@ class LoginFragment : Fragment() {
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
-            loginSuccess()
+//            loginSuccess()
         }
 
         binding.loginUser4.setOnClickListener {
@@ -79,16 +80,51 @@ class LoginFragment : Fragment() {
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
-            loginSuccess()
+//            loginSuccess()
         }
+        initUserAnimation()
+
+
+
+
     }
 
-    private fun loginSuccess() {
-        val loginSuccess = true
-        if (loginSuccess) {
-            (activity as? MainActivity)?.showViewPager()
+
+
+    private fun initUserAnimation() {
+
+        val imageView = arrayListOf(
+            binding.loginUser1,
+            binding.loginUser2,
+            binding.loginUser3,
+            binding.loginUser4
+        )
+        val animation = arrayOf(
+            AnimationUtils.loadAnimation(requireContext(), R.anim.login_click),
+            AnimationUtils.loadAnimation(requireContext(), R.anim.login_unclick),
+        )
+
+        imageView.forEach { cardView ->
+            cardView.setOnClickListener { clickedCardView ->
+                clickedCardView.startAnimation(animation[0])
+                imageView.filter{ it != clickedCardView }.forEach{ it.startAnimation(animation[1])}
+                (activity as MainActivity).supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.login_exit,R.anim.login_exit)
+                    .remove(this).commit()
+            }
+            }
         }
-    }
+
+
+
+
+
+//    private fun loginSuccess() {
+//        val loginSuccess = true
+//        if (loginSuccess) {
+//            (activity as MainActivity).showViewPager()
+//        }
+//    }
 
 
 }
