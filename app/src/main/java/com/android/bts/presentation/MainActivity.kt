@@ -9,9 +9,8 @@ import com.android.bts.databinding.ActivityMainBinding
 
 import com.android.bts.MainViewModel
 import com.android.bts.presentation.Login.LoginFragment
+import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoViewModel
-
-import com.android.bts.presentation.search.VideoPlayFragment
 
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -77,13 +76,26 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
-    fun showVideo() {
+    fun replaceDetailFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.search_play_container, VideoPlayFragment())
+            .setCustomAnimations(R.anim.detail_bounce,R.anim.detail_fade_out)
+            .replace(R.id.main_frame, VideoDetailFragment())
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()
     }
+
+
+
+//    fun showVideo() {
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.search_play_container, VideoPlayFragment())
+//            .setReorderingAllowed(true)
+//            .addToBackStack(null)
+//            .commit()
+//    }
+
+
 
     fun checkLoginStatus() {
         val isLoggedIn = false

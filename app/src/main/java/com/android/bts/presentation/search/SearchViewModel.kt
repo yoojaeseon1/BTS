@@ -36,17 +36,17 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
     private val _loadingLiveData = MutableLiveData<Boolean>()
     val loadingLiveData = _loadingLiveData
 
+    //추천 여행지 인덱스번호
     private val _recommendNumberData = MutableLiveData(0)
     val recommendNumberData = _recommendNumberData
 
+    //
     private val _recommendViewData = MutableLiveData("first")
     val recommendViewData = _recommendViewData
 
+    //
     private val _recommendButtonData = MutableLiveData("left")
     val recommendButtonData = _recommendButtonData
-
-
-
 
 
     //검색어를 업데이트해주는 함수
@@ -116,6 +116,7 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
     fun nextRecommendNumber() {
         _recommendNumberData.value = _recommendNumberData.value?.plus(1)
     }
+
     //추천 여행지 이전 페이지번호를 담는 함수
     fun previousRecommendNumber() {
         _recommendNumberData.value = _recommendNumberData.value?.minus(1)
@@ -126,8 +127,6 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
         if (_recommendNumberData.value!! > -1) _recommendNumberData.value = 0
         else _recommendNumberData.value = listSize - 1
     }
-
-
 
 
 }

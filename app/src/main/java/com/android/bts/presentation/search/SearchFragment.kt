@@ -1,11 +1,11 @@
 package com.android.bts.presentation.search
 
+import android.animation.ValueAnimator
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +30,7 @@ class SearchFragment : Fragment() {
     private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
     }
-    private val sharedViewModel : MainViewModel by activityViewModels()
+    private val sharedViewModel: MainViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -42,6 +42,32 @@ class SearchFragment : Fragment() {
         //리사이클러뷰 어댑터 초기화
         initAdapter()
 
+        //검색어 변화 감지
+        searchViewModel.searchWordLiveData.observe(viewLifecycleOwner) {
+            searchViewModel.getSearchVideoResponse()
+        }
+        return binding.root
+    }
+
+    //검색어 입력 후 키보드 엔터키
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //검색어 입력 후 엔터키
+        binding.searchEt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (binding.searchEt.text.toString().indexOf("\n") != -1) {
+                    searchWithWord()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
         //검색어 입력 후 검색버튼
         binding.searchBtn.setOnClickListener {
             searchWithWord()
@@ -50,58 +76,23 @@ class SearchFragment : Fragment() {
         //무한 스크롤
         scrollEndListener()
 
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.searchEt.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(binding.searchEt.text.toString().indexOf("\n") != -1) {
-                    searchWithWord()
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-        })
-
-
-        //검색어 입력 후 키보드 엔터키
-        binding.searchEt.setOnKeyListener { _, keyCode, _ ->
-            Log.d("SearchFragment", "click enter keyCode = ${keyCode}")
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                searchWithWord()
-                return@setOnKeyListener false
-            } else return@setOnKeyListener false
-        }
-
         //추천버튼
         binding.searchBtnRecommend1.setOnClickListener {
             binding.searchRecommendContainer.isVisible = true
             recommendPlace()
         }
-
-
+        //추천버튼 애니메이션
+        initAnimationRecommendBtn()
 
     }
-
 
     //어댑터 초기화 함수 : 검색결과를 리사이클러뷰로 보여주는 함수. 컨텐츠 클릭시 Detail로 이동.
     private fun initAdapter() {
         searchRecyclerViewAdapter = SearchRecyclerViewAdapter(
             itemClickListener = { item ->
-                Log.d("써치", "${sharedViewModel.videoPlayLiveData.value}")
                 sharedViewModel.updateVideoPlayer(item)
                 (activity as MainActivity).binding.searchPlayContainer.isVisible = true
-                (activity as MainActivity).showVideo()
-
+                (activity as MainActivity).replaceDetailFragment()
             })
         binding.searchRv.adapter = searchRecyclerViewAdapter
         binding.searchRv.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -114,42 +105,49 @@ class SearchFragment : Fragment() {
         } else {
             searchViewModel.updateSearchWord(binding.searchEt.text.toString())
             hideKeyboard()
-            //검색어 변화 감지
-            searchViewModel.searchWordLiveData.observe(viewLifecycleOwner) {
-                searchViewModel.getSearchVideoResponse()
-            }
+
             //검색결과 변화 감지 및 리사이클러뷰 반영
             searchViewModel.searchVideoListLiveData.observe(viewLifecycleOwner) {
-                searchRecyclerViewAdapter.submitList(
-                    searchViewModel.searchVideoListLiveData.value
-                )
+                try {
+                    searchRecyclerViewAdapter.submitList(
+                        searchViewModel.searchVideoListLiveData.value
+                    )
+                } catch (_: Exception) {
+                    binding.searchTvCenter.text = "검색결과를 찾을 수 없습니다."
+                }
             }
         }
     }
 
-    //디테일 프래그먼트로 이동하는 함수 : 클릭시
-    private fun moveTotDetailFragment() {
-        val mainActivity = activity as MainActivity
-//        mainActivity.moveToVideoPlayFragment()
+    //추천버튼 텍스트 컬러 애니메이션 함수
+    private fun initAnimationRecommendBtn() {
+        val colorAnimation = ValueAnimator.ofArgb(Color.WHITE, Color.GRAY).apply {
+            duration = 800
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            addUpdateListener {
+                binding.apply {
+                    searchBtnRecommend1.setTextColor(it.animatedValue as Int)
+                    searchBtnRecommend2.setTextColor(it.animatedValue as Int)
+                    searchBtnRecommend3.setTextColor(it.animatedValue as Int)
+                    searchBtnRecommend4.setTextColor(it.animatedValue as Int)
+                }
+            }
+        }
+        colorAnimation.start()
     }
-
-
-
 
     //추천 프래그먼트 호출 함수 : 추천버튼 클릭시 프래그먼트로 이동
     private fun recommendPlace() {
         childFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.search_recommend_enter, R.anim.search_recommend_exit)
             .add(R.id.search_recommend_container, SearchRecommendFragment())
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()
     }
 
-
-
-
-
-
+    //무한스크롤 함수
     private fun scrollEndListener() {
         binding.searchRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -169,7 +167,6 @@ class SearchFragment : Fragment() {
         val manager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         manager.hideSoftInputFromWindow(binding.searchEt.windowToken, 0)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
