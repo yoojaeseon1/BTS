@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.android.bts.R
 import com.android.bts.data.LoginInfo
 import com.android.bts.databinding.FragmentLoginBinding
 import com.android.bts.presentation.MainActivity
-import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
 
 class LoginFragment : Fragment() {
@@ -32,62 +30,39 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.loginUser1.setOnClickListener {
-            val loginInfo = LoginInfo(
-                userId = "yoojaeseon1",
+        userClickListener()
+    }
+
+    //클릭된 유저에 알맞게 정보를 보내고 애니메이션을 반영해주는 함수
+    private fun userClickListener() {
+        val loginInfo = listOf(
+            LoginInfo(
+                userId = "user1",
                 userPassword = "1234",
-                userNickName = "yoojaeseon1",
-                userRegion = "인천",
+                userNickName = "유저1",
+                userRegion = "서울",
                 userProfile = R.drawable.profile4
-            )
-            myVideoViewModel.updateLoginInfo(loginInfo)
-
-        }
-
-        binding.loginUser2.setOnClickListener {
-            val loginInfo = LoginInfo(
-                userId = "hyehyunj",
+            ), LoginInfo(
+                userId = "user2",
                 userPassword = "1234",
-                userNickName = "hyehyunj",
-                userRegion = "경기",
+                userNickName = "유저2",
+                userRegion = "서울",
                 userProfile = R.drawable.profile3
-            )
-            myVideoViewModel.updateLoginInfo(loginInfo)
-
-        }
-
-        binding.loginUser3.setOnClickListener {
-            val loginInfo = LoginInfo(
-                userId = "dacafo77",
+            ), LoginInfo(
+                userId = "user3",
                 userPassword = "1234",
-                userNickName = "dacafo77",
-                userRegion = "경북",
+                userNickName = "유저3",
+                userRegion = "서울",
                 userProfile = R.drawable.profile2
-            )
-            myVideoViewModel.updateLoginInfo(loginInfo)
-
-        }
-
-        binding.loginUser4.setOnClickListener {
-            val loginInfo = LoginInfo(
-                userId = "Dyaoss",
+            ), LoginInfo(
+                userId = "user4",
                 userPassword = "1234",
-                userNickName = "Dyaoss",
+                userNickName = "유저4",
                 userRegion = "서울",
                 userProfile = R.drawable.profile1
             )
-            myVideoViewModel.updateLoginInfo(loginInfo)
-
-        }
-        initUserAnimation()
-
-
-    }
-
-
-    private fun initUserAnimation() {
-
-        val imageView = arrayListOf(
+        )
+        val imageView = listOf(
             binding.loginUser1,
             binding.loginUser2,
             binding.loginUser3,
@@ -97,9 +72,11 @@ class LoginFragment : Fragment() {
             AnimationUtils.loadAnimation(requireContext(), R.anim.login_click),
             AnimationUtils.loadAnimation(requireContext(), R.anim.login_unclick),
         )
-
         imageView.forEach { cardView ->
             cardView.setOnClickListener { clickedCardView ->
+                //클릭된 유저 정보 전송
+                myVideoViewModel.updateLoginInfo(loginInfo[imageView.indexOf(clickedCardView)])
+                //애니메이션
                 clickedCardView.startAnimation(animation[0])
                 imageView.filter { it != clickedCardView }
                     .forEach { it.startAnimation(animation[1]) }
@@ -109,4 +86,5 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
 }

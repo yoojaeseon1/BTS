@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 class InterestedAdapter(private val videoClick: InterestedClickLIstener) : ListAdapter<ItemsEntity, RecyclerView.ViewHolder>
     (object : DiffUtil.ItemCallback<ItemsEntity>(){
         override fun areItemsTheSame(oldItem:ItemsEntity, newItem:ItemsEntity): Boolean {
-//            return oldItem.snippet.thumbnail == newItem.snippet.thumbnail
             return oldItem.id.videoId == newItem.id.videoId
                     && oldItem.snippet.isLike == newItem.snippet.isLike
         }
@@ -42,7 +41,6 @@ class InterestedAdapter(private val videoClick: InterestedClickLIstener) : ListA
             videoClick.onClickDetail(currentItem, holder)
         }
 
-//        interestedHolder.thumbnail.setImageURI(currentItem.thumbnail.toUri())
         Glide.with(interestedHolder.thumbnail.context)
             .load(currentItem.snippet.thumbnail)
             .centerCrop()

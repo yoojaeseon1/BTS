@@ -1,6 +1,7 @@
 package com.android.bts.presentation.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.android.bts.MainViewModel
 import com.android.bts.R
+import com.android.bts.presentation.MainActivity
 import com.android.bts.presentation.home.HomeFragment
-import com.android.bts.presentation.home.HomeViewModel
 import com.android.bts.presentation.search.ItemsEntity
 import com.example.app.IntroduceVideoFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -20,15 +21,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 class VideoDetailFragment : Fragment() {
 
-    private var videoId: String? = null
-    private var videoTitle: String? = null
     private var itemsEntity: ItemsEntity? = null
-//    private val homeViewModel by viewModels<HomeViewModel> {
-//        HomeViewModelFactory()
-//    }
-
-    private val homeViewModel: HomeViewModel by activityViewModels()
-
     private lateinit var homeFragment: HomeFragment
     private val sharedViewModel : MainViewModel by activityViewModels()
 
@@ -38,15 +31,6 @@ class VideoDetailFragment : Fragment() {
         const val VIDEO_ITEMS_KEY = "snippet"
 
         // newInstance 메서드로 프래그먼트 생성
-        fun newInstance(videoId: String, videoTitle: String): VideoDetailFragment {
-            val fragment = VideoDetailFragment()
-            val args = Bundle()
-            args.putString(VIDEO_ID_KEY, videoId)
-            args.putString(VIDEO_TITLE_KEY, videoTitle)
-            fragment.arguments = args
-            return fragment
-        }
-
         fun newInstance(itemsEntity: ItemsEntity): VideoDetailFragment {
             val fragment = VideoDetailFragment()
             val args = Bundle()
@@ -66,11 +50,6 @@ class VideoDetailFragment : Fragment() {
                 homeFragment = fragment
         }
 
-//        arguments?.let{
-//            videoId = it.getString(VIDEO_ID_KEY)
-//            videoTitle = it.getString(VIDEO_TITLE_KEY)
-//        }
-
         arguments?.let{
             itemsEntity = it.getParcelable(VIDEO_ITEMS_KEY, ItemsEntity::class.java)
         }
@@ -84,21 +63,13 @@ class VideoDetailFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_video_detail, container, false)
 
-
-
-//        val videoId = arguments?.getString(VIDEO_ID_KEY)
-//        val videoTitle = arguments?.getString(VIDEO_TITLE_KEY)
-
         val videoTitleTextView = view.findViewById<TextView>(R.id.video_title)
-//        videoTitleTextView.text = videoTitle
         videoTitleTextView.text = itemsEntity?.snippet?.title
 
         val bottomTitleTextView = view.findViewById<TextView>(R.id.bottom_titel_texct_view)
-//        bottomTitleTextView.text = videoTitle
         bottomTitleTextView.text = itemsEntity?.snippet?.title
 
         val youTubePlayerView = view.findViewById<YouTubePlayerView>(R.id.player_view)
-//        setupYouTubePlayer(youTubePlayerView, videoId)
         setupYouTubePlayer(youTubePlayerView, itemsEntity?.id?.videoId)
 
         val textVideoIntro = view.findViewById<TextView>(R.id.text_video_intro)
@@ -108,7 +79,6 @@ class VideoDetailFragment : Fragment() {
 
         sharedViewModel.videoPlayLiveData.observe(viewLifecycleOwner) {
             videoTitleTextView.text = it.snippet.title
-//            bottomTitleTextView.text = videoTitle
             bottomTitleTextView.text = itemsEntity?.snippet?.title
             setupYouTubePlayer(youTubePlayerView, it.id.videoId)
         }
@@ -134,27 +104,16 @@ class VideoDetailFragment : Fragment() {
             showFragment(MemoFragment())
         }
 
-//        val backButton = view.findViewById<ImageView>(R.id.back_button)
-//        backButton.setOnClickListener {
-
-//            val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId?:"")
-//            Log.d("VideoDetailFragment", "isCheckedLike = ${isCheckedLike}")
-//
-//            homeFragment.homeViewModel.updateLike(videoId?:"", isCheckedLike)
-//            homeFragment.submitAllVideos()
-
-
-//            parentFragmentManager.popBackStack()
-//        }
-
-
+        closeBtnListener(view)
         return view
     }
 
-
-
-
-
+private fun closeBtnListener(view: View) {
+    val closeBtn = view.findViewById<ImageView>(R.id.detail_btn_exit)
+    closeBtn?.setOnClickListener {
+        (activity as MainActivity).supportFragmentManager.popBackStack()
+    }
+}
 
     private fun setupYouTubePlayer(youTubePlayerView: YouTubePlayerView, videoId: String?) {
         lifecycle.addObserver(youTubePlayerView) // 생명주기 관리
@@ -177,10 +136,6 @@ class VideoDetailFragment : Fragment() {
     }
 
     private fun showFragment(fragment: Fragment) {
-//        fragment.arguments = Bundle().apply {
-//            putString(VIDEO_ID_KEY, arguments?.getString(VIDEO_ID_KEY))
-//            putString(VIDEO_TITLE_KEY, arguments?.getString(VIDEO_TITLE_KEY))
-//        }
         fragment.arguments = Bundle().apply {
             putParcelable(VIDEO_ITEMS_KEY, itemsEntity)
         }

@@ -72,8 +72,6 @@ data class Snippet(
     val description: String,
     @SerializedName("thumbnails")
     val thumbnails: ThumbNail,
-//    @SerializedName("publishTime")
-//    val publishTime: String,
     @SerializedName("channelTitle")
     val channelTitle: String
 )

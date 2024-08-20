@@ -49,12 +49,10 @@ class HomeViewModel(private val videoRepository: HomeVideoRepository) : ViewMode
             val itemsEntity = mutableListOf<ItemsEntity>()
 
             for (item in items) {
-//                itemsEntity.add(item.snippet)
                 item.snippet.isLike = BTSUtils.isCheckedLike(context, item.id.videoId)
 
                 itemsEntity.add(item)
 
-//                Log.d("HomeViewModel", "${item}")
             }
             _interestedVideos.value = itemsEntity
         }
@@ -70,7 +68,6 @@ class HomeViewModel(private val videoRepository: HomeVideoRepository) : ViewMode
 
             for (item in items) {
                 item.snippet.isLike = BTSUtils.isCheckedLike(context, item.id.videoId)
-//                itemsEntity.add(item.snippet)
                 itemsEntity.add(item)
             }
             _hotSpotVideos.value = itemsEntity
@@ -102,67 +99,15 @@ class HomeViewModel(private val videoRepository: HomeVideoRepository) : ViewMode
         }
     }
 
-//    fun updateLike(videoId: String, changedState: Boolean){
-//
-//        val interestedVideos = _interestedVideos.value
-//        if (interestedVideos != null) {
-//            for (interestedVideo in interestedVideos) {
-//                Log.d("HomeViewModel", "searching video id = ${interestedVideo.id.videoId}")
-//                if(interestedVideo.id.videoId == videoId) {
-////                    Log.d("HomeViewModel", "videoId = ${videoId}, ${interestedVideo.snippet.isLike}")
-//                    Log.d("HomeViewModel", "videoId = ${videoId}, ${interestedVideo.hashCode()}")
-//                    interestedVideo.snippet.isLike = changedState
-////                    Log.d("HomeViewModel", "videoId = ${videoId}, ${interestedVideo.snippet.isLike}")
-//                    Log.d("HomeViewModel", "videoId = ${videoId}, ${interestedVideo.hashCode()}")
-//                    break
-//                }
-//            }
-//        }
-//        Log.d("HomeViewModel", "after _interestedVideos.hashCode = ${_interestedVideos.value?.hashCode()}")
-//
-//        val newSpotVideos = _newSpotVideos.value
-//        if (newSpotVideos != null) {
-//            for (newSpotVideo in newSpotVideos) {
-//                Log.d("HomeViewModel", "searching video id = ${newSpotVideo.id.videoId}")
-//                if(newSpotVideo.id.videoId == videoId) {
-//                    Log.d("HomeViewModel", "videoId = ${videoId}")
-//                    newSpotVideo.snippet.isLike = changedState
-//                    break
-//                }
-//            }
-//        }
-//
-//        Log.d("HomeViewModel", "after _newSpotVideos.hashCode = ${_newSpotVideos.value?.hashCode()}")
-//
-//        val hotSpotVideos = _hotSpotVideos.value
-//        if (hotSpotVideos != null) {
-//            for (hotSpotVideo in hotSpotVideos) {
-//                Log.d("HomeViewModel", "searching video id = ${hotSpotVideo.id.videoId}")
-//                if(hotSpotVideo.id.videoId == videoId) {
-//                    Log.d("HomeViewModel", "videoId = ${videoId}")
-//                    hotSpotVideo.snippet.isLike = changedState
-//                    break
-//                }
-//            }
-//        }
-//        Log.d("HomeViewModel", "after _hotSpotVideos.hashCode = ${_hotSpotVideos.value?.hashCode()}")
-//
-//    }
 }
 
 class HomeViewModelFactory : ViewModelProvider.Factory {
     private val repository = HomeVideoRepositoryImpl(RetrofitClient.searchVideo)
 
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-//        return super.create(modelClass, extras)
         return HomeViewModel(
             repository
         ) as T
 
     }
 }
-
-//
-//fun <T> MutableLiveData<T>.notifyObserver(){
-//    this.value = this.value
-//}

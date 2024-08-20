@@ -3,6 +3,7 @@ package com.android.bts.presentation.my
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
-import com.android.bts.data.LoginInfo
 import com.android.bts.databinding.FragmentMyVideoBinding
-import com.example.app.save.SavedFragment
 
 class MyVideoFragment : Fragment() {
     private val viewModel: MyVideoViewModel by activityViewModels()
@@ -46,7 +44,6 @@ class MyVideoFragment : Fragment() {
             binding.ivMyVideoProfile.setImageResource(newLoginInfo.userProfile)
         }
 
-
         return binding.root
     }
 
@@ -60,10 +57,6 @@ class MyVideoFragment : Fragment() {
                 parentFragmentManager, "MyVideoModifyDialog"
             )
 
-        }
-
-        binding.tvMyVideoSaved.setOnClickListener {
-            showSavedFragment()
         }
 
         //고객센터 url 이동
@@ -87,18 +80,42 @@ class MyVideoFragment : Fragment() {
             startActivity(intent)
         }
 
+        alertListener()
     }
+
+    //알림 함수
+    private fun alertListener() {
+        binding.rgMyVideoAlert.setOnCheckedChangeListener { rg, id ->
+            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+            }
+            startActivity(intent)
+            when (id) {
+                R.id.rb_my_video_alert1 -> {
+                    Toast.makeText(requireContext(), "알림이 소리 및 진동으로 설정되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.rb_my_video_alert2 -> {
+                    Toast.makeText(requireContext(), "알림이 소리로 설정되었습니다.", Toast.LENGTH_SHORT).show()
+
+                }
+
+                R.id.rb_my_video_alert3 -> {
+                    Toast.makeText(requireContext(), "알림이 진동으로 설정되었습니다.", Toast.LENGTH_SHORT).show()
+
+                }
+
+                R.id.rb_my_video_alert4 -> {
+                    Toast.makeText(requireContext(), "알림이 무음으로 설정되었습니다.", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun showSavedFragment() {
-        val savedFragment = SavedFragment()
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.my_video_fragment, savedFragment)
-            .addToBackStack(null)
-            .commit()
     }
 }

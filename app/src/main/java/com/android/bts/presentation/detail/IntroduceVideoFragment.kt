@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,10 +18,7 @@ import com.android.bts.databinding.FragmentIntroduceVideoBinding
 import com.android.bts.presentation.detail.CommentAdapter
 import com.android.bts.presentation.detail.IntroduceVideoViewModel
 import com.android.bts.presentation.detail.IntroduceVideoViewModelFactory
-import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ID_KEY
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ITEMS_KEY
-import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_TITLE_KEY
-import com.android.bts.presentation.home.HomeFragment
 import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.save.SavedVideo
 import com.android.bts.presentation.search.ItemsEntity
@@ -53,11 +49,6 @@ class IntroduceVideoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        arguments?.let{
-//            videoId = it.getString(VIDEO_ID_KEY)?:""
-//            videoTitle = it.getString(VIDEO_TITLE_KEY)?:""
-//        }
-
         arguments?.let {
             itemsEntity = it.getParcelable(VIDEO_ITEMS_KEY, ItemsEntity::class.java)
         }
@@ -81,15 +72,14 @@ class IntroduceVideoFragment : Fragment() {
         val thumbnail = itemsEntity?.snippet?.thumbnail?:"empty thumbnail"
 
         // ViewModel 설정 및 댓글 불러오기
-//        val videoId = arguments?.getString("VIDEO_ID_KEY")
-//        val videoTitle = arguments?.getString("VIDEO_TITLE_KEY")
 
         if (videoId == null) {
             Log.e("IntroduceVideoFragment", "Video ID is null")
         } else {
             Log.d("IntroduceVideoFragment", "Video ID: $videoId, Video Title: $videoTitle")
-            val apiKey = "AIzaSyBrhEMfHwQcNHcvtVvwQhe0fbILK7JWL14"
-            viewModel.fetchComments(videoId?:"", apiKey)
+
+            val apiKey = "AIzaSyCBXNgHk09i_9q6XXrK9_-uh_SjZmAPUPk"
+            viewModel.fetchComments(videoId, apiKey)
         }
 
         // 댓글 데이터 관찰하여 업데이트
@@ -109,7 +99,6 @@ class IntroduceVideoFragment : Fragment() {
         }
 
         val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId ?: "")
-        Log.d("IntroduceVideoFragment", "isCheckedLike = ${isCheckedLike}")
         if(isCheckedLike)
             binding.likeIcon.setImageResource(R.drawable.icon_like_full)
 
@@ -129,7 +118,6 @@ class IntroduceVideoFragment : Fragment() {
                 savedVideoViewModel.deleteLike(likedVideo)
             } else {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_full)
-//                BTSUtils.addLike(requireActivity(), videoId?:"")
                 BTSUtils.addLike(requireActivity(), itemsEntity?:ItemsEntity())
                 savedVideoViewModel.likeVideo(likedVideo)
             }

@@ -1,7 +1,5 @@
 package com.android.bts.data.remote
 
-import android.net.Uri
-
 
 data class Recommend(
     val thumbnail: String,

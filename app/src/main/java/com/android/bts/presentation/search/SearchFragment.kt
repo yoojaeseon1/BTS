@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +13,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.bts.MainViewModel
 import com.android.bts.R
 import com.android.bts.databinding.FragmentSearchBinding
 import com.android.bts.presentation.MainActivity
@@ -26,37 +23,35 @@ import com.android.bts.presentation.MainActivity
 private const val TAG = "SearchFragment"
 
 class SearchFragment : Fragment() {
-    private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding as FragmentSearchBinding
+    private val _binding: FragmentSearchBinding by lazy {
+        FragmentSearchBinding.inflate(layoutInflater)
+    }
+    val binding get() = _binding
 
     private lateinit var searchRecyclerViewAdapter: SearchRecyclerViewAdapter
     private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
     }
-    private val sharedViewModel: MainViewModel by activityViewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         //리사이클러뷰 어댑터 초기화
         initAdapter()
 
-        //검색어 변화 감지
-        searchViewModel.searchWordLiveData.observe(viewLifecycleOwner) {
-            Log.d(TAG, "ㅅ${searchViewModel.searchWordLiveData.value}")
-            binding.searchEt.setText(searchViewModel.searchWordLiveData.value)
-            searchViewModel.getSearchVideoResponse()
-        }
         return binding.root
     }
 
-    //검색어 입력 후 키보드 엔터키
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //검색어 변화 감지
+        searchViewModel.searchWordLiveData.observe(viewLifecycleOwner) {
+            binding.searchEt.setText(searchViewModel.searchWordLiveData.value)
+            searchViewModel.getSearchVideoResponse()
+        }
 
         //검색어 입력 후 엔터키
         binding.searchEt.addTextChangedListener(object : TextWatcher {
@@ -89,14 +84,17 @@ class SearchFragment : Fragment() {
         //추천버튼 애니메이션
         initAnimationRecommendBtn()
 
+        //예외처리
+        searchViewModel.exceptionLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), "검색결과를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     //어댑터 초기화 함수 : 검색결과를 리사이클러뷰로 보여주는 함수. 컨텐츠 클릭시 Detail로 이동.
     private fun initAdapter() {
         searchRecyclerViewAdapter = SearchRecyclerViewAdapter(
             itemClickListener = { item ->
-                sharedViewModel.updateVideoPlayer(item)
-                (activity as MainActivity).replaceDetailFragment()}
+                (activity as MainActivity).replaceDetailFragment(item)}
             ,itemLongClickListener = { item ->  })
         binding.searchRv.adapter = searchRecyclerViewAdapter
         binding.searchRv.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -108,6 +106,7 @@ class SearchFragment : Fragment() {
             Toast.makeText(requireContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
         } else {
             searchViewModel.updateSearchWord(binding.searchEt.text.toString())
+            binding.searchTvCenter.isVisible = false
             hideKeyboard()
 
             //검색결과 변화 감지 및 리사이클러뷰 반영
@@ -156,10 +155,9 @@ class SearchFragment : Fragment() {
         binding.searchRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (searchViewModel.loadingLiveData.value == false) {
                     if (!binding.searchRv.canScrollVertically(1)) {
                         searchViewModel.getNextSearchVideoResponse()
-                    }
+
                 }
             }
         })
@@ -172,18 +170,10 @@ class SearchFragment : Fragment() {
         manager.hideSoftInputFromWindow(binding.searchEt.windowToken, 0)
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "써치프래그먼트 ${searchViewModel.searchWordLiveData.value}")
-        binding.searchEt.setText(searchViewModel.searchWordLiveData.value)
-        if(searchViewModel.searchWordLiveData.value != "")searchWithWord()
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        _binding = null
+//    }
 
 }
 

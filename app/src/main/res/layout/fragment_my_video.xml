@@ -21,7 +21,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="20dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/my_video_profile_cardview"
@@ -90,24 +90,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="50dp"
                     app:layout_constraintTop_toBottomOf="@id/my_video_profile_cardview" />
 
-                <TextView
-                    android:id="@+id/tv_my_video_saved"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/notosans_medium"
-                    android:text="내 보관함"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    app:layout_constraintStart_toStartOf="@+id/myPage_divider_top"
-                    app:layout_constraintTop_toTopOf="@id/myPage_divider_top" />
-
-
                 <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/myPage_divider_bottom"
+                    android:id="@+id/myPage_divider_middle"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
@@ -115,9 +102,106 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_my_video_saved" />
 
                 <TextView
+                    android:id="@+id/tv_my_video_alert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:text="알림설정"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="@+id/myPage_divider_top"
+                    app:layout_constraintTop_toTopOf="@id/myPage_divider_middle" />
+
+                <TextView
+                    android:id="@+id/tv_my_video_saved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:text="저장된 영상"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="@+id/myPage_divider_top"
+                    app:layout_constraintTop_toTopOf="@id/myPage_divider_top" />
+
+                <RadioGroup
+                    android:id="@+id/rg_my_video_alert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/img_home_rg_filter_bg"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_my_video_alert"
+                    app:layout_constraintEnd_toEndOf="@+id/myPage_divider_middle"
+                    app:layout_constraintTop_toTopOf="@+id/tv_my_video_alert">
+
+                    <RadioButton
+                        android:id="@+id/rb_my_video_alert1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/sel_home_rb_filter_bg"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="전체"
+                        android:textColor="@color/white" />
+
+
+                    <RadioButton
+                        android:id="@+id/rb_my_video_alert2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/sel_home_rb_filter_bg"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="소리"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/rb_my_video_alert3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/sel_home_rb_filter_bg"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="진동"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/rb_my_video_alert4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/sel_home_rb_filter_bg"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="무음"
+                        android:textColor="@color/white" />
+
+
+                </RadioGroup>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/myPage_divider_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_my_video_alert" />
+
+
+                <TextView
                     android:id="@+id/tv_my_video_help"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/notosans_medium"
                     android:text="고객센터"
                     android:textColor="@color/white"
@@ -147,11 +231,22 @@
                     app:layout_constraintStart_toStartOf="@+id/myPage_divider_top"
                     app:layout_constraintTop_toBottomOf="@id/tv_my_video_ask" />
 
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_my_video_contract" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
     </ScrollView>
+
+
 
 
 </FrameLayout>
