@@ -24,7 +24,6 @@ class SavedFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_saved, container, false)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.savedRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
 
         savedVideoAdapter = SavedVideoAdapter(emptyList()) { video ->
             navigateToVideoDetailFragment(video)

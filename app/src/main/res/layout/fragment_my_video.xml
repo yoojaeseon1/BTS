@@ -146,23 +146,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:fontFamily="@font/notosans_medium"
+                    android:layout_marginTop="20dp"
                     android:text="저장된 영상"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/myPage_divider_top" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_my_video_like_list"
-                    android:layout_width="350dp"
-                    android:layout_height="250dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="1"
-                    app:layout_constraintTop_toBottomOf="@id/tv_my_video_saved"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:listitem="@layout/recyclerview_interested_holder"/>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/myPage_divider_bottom"
@@ -170,7 +160,7 @@
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp"
-                    app:layout_constraintTop_toBottomOf="@id/rv_my_video_like_list" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_my_video_saved" />
 
                 <TextView
                     android:id="@+id/tv_my_video_help"
