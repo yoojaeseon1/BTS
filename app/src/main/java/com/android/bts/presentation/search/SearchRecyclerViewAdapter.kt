@@ -9,7 +9,8 @@ import com.android.bts.databinding.RecyclerviewSearchHolderBinding
 import com.bumptech.glide.Glide
 
 class SearchRecyclerViewAdapter(
-    private val itemClickListener: (item: ItemsEntity) -> Unit
+    private val itemClickListener: (item: ItemsEntity) -> Unit,
+    private val itemLongClickListener: (item: ItemsEntity) -> Unit
 ) : ListAdapter<ItemsEntity, SearchRecyclerViewAdapter.Holder>(diffUtil) {
 
     companion object {
@@ -31,7 +32,7 @@ class SearchRecyclerViewAdapter(
                 parent,
                 false
             )
-        return Holder(binding, itemClickListener)
+        return Holder(binding, itemClickListener, itemLongClickListener)
     }
 
 
@@ -41,7 +42,8 @@ class SearchRecyclerViewAdapter(
 
     class Holder(
         private val binding: RecyclerviewSearchHolderBinding,
-        private val itemClickListener: (ItemsEntity) -> Unit
+        private val itemClickListener: (ItemsEntity) -> Unit,
+        private val itemLongClickListener: (item: ItemsEntity) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -52,6 +54,10 @@ class SearchRecyclerViewAdapter(
                 searchRvHolderTvTraveler.text = item.snippet.channelTitle
                 homeHolder.setOnClickListener {
                     itemClickListener(item)
+                }
+                homeHolder.setOnLongClickListener {
+                    itemLongClickListener(item)
+                    true
                 }
             }
             Glide.with(itemView.context)

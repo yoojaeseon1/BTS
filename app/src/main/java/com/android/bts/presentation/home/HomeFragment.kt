@@ -172,14 +172,7 @@ class HomeFragment : Fragment() {
 
 
 
-        binding.profileIcon.setOnClickListener {
-            // MyVideoFragment로 전환
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, MyVideoFragment())
-                .addToBackStack(null)
-                .commit()
 
-        }
 
     }
 
@@ -273,10 +266,13 @@ class HomeFragment : Fragment() {
                 itemsEntity
             )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, videoDetailFragment)
-                .addToBackStack(null)
-                .commit()
+            (context as MainActivity).replaceDetailFragment()
+
+
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_frame, videoDetailFragment)
+//                .addToBackStack(null)
+//                .commit()
         }
     }
 
