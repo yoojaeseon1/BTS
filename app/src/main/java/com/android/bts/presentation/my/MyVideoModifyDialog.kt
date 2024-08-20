@@ -97,7 +97,7 @@ class MyVideoModifyDialog() : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this@MyVideoModifyDialog, 0.95f, 0.80f)
+        context?.dialogFragmentResize(this@MyVideoModifyDialog, 0.95f, 0.78f)
     }
 
     // dialog 크기 조절

@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         myVideoViewModel = ViewModelProvider(this)[MyVideoViewModel::class.java]
         //로그인 상태 확인 및 레이아웃 초기화
 //        checkLoginStatus()
+
     }
 
     //레이아웃 초기화 함수 : 뷰페이저, 탭레이아웃 연결
@@ -71,15 +72,14 @@ class MainActivity : AppCompatActivity() {
                     tab.setIcon(R.drawable.ic_down)
                 }
 
-                3 -> {
-                    tab.text = "구독"
-                    tab.setIcon(R.drawable.ic_like)
-                }
             }
         }.attach()
 
+        myVideoViewModel = ViewModelProvider(this)[MyVideoViewModel::class.java]
 
-
+        myVideoViewModel.loginInfo.observe(this) { loginInfo ->
+            binding.mainToolbar.toolbarProfileIcon.setImageResource(loginInfo.userProfile)
+        }
 
         //우측 상단 프로필아이콘 클릭시 마이페이지로 전환
         binding.mainToolbar.toolbarProfileIcon.setOnClickListener {
@@ -87,7 +87,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.main_frame, MyVideoFragment())
                 .addToBackStack(null)
                 .commit()
-
         }
 
         //뒤로가기 버튼

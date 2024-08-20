@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.android.bts.R
 import com.android.bts.data.LoginInfo
@@ -37,27 +38,27 @@ class LoginFragment : Fragment() {
     private fun userClickListener() {
         val loginInfo = listOf(
             LoginInfo(
-                userId = "user1",
+                userId = "yoojaeseon1",
                 userPassword = "1234",
-                userNickName = "유저1",
+                userNickName = "yoojaeseon1",
                 userRegion = "서울",
                 userProfile = R.drawable.profile4
             ), LoginInfo(
-                userId = "user2",
+                userId = "hyehyunj",
                 userPassword = "1234",
-                userNickName = "유저2",
+                userNickName = "hyehyunj",
                 userRegion = "서울",
                 userProfile = R.drawable.profile3
             ), LoginInfo(
-                userId = "user3",
+                userId = "dacafo77",
                 userPassword = "1234",
-                userNickName = "유저3",
+                userNickName = "dacafo77",
                 userRegion = "서울",
                 userProfile = R.drawable.profile2
             ), LoginInfo(
-                userId = "user4",
+                userId = "Dyaoss",
                 userPassword = "1234",
-                userNickName = "유저4",
+                userNickName = "Dyaoss",
                 userRegion = "서울",
                 userProfile = R.drawable.profile1
             )
@@ -74,6 +75,7 @@ class LoginFragment : Fragment() {
         )
         imageView.forEach { cardView ->
             cardView.setOnClickListener { clickedCardView ->
+                binding.loginSubtitle.isVisible = false
                 //클릭된 유저 정보 전송
                 myVideoViewModel.updateLoginInfo(loginInfo[imageView.indexOf(clickedCardView)])
                 //애니메이션
@@ -86,4 +88,5 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
 }

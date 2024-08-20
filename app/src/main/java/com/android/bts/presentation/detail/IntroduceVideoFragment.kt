@@ -78,7 +78,7 @@ class IntroduceVideoFragment : Fragment() {
         } else {
             Log.d("IntroduceVideoFragment", "Video ID: $videoId, Video Title: $videoTitle")
 
-            val apiKey = "AIzaSyCBXNgHk09i_9q6XXrK9_-uh_SjZmAPUPk"
+            val apiKey = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
             viewModel.fetchComments(videoId, apiKey)
         }
 
