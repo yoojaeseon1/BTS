@@ -35,7 +35,8 @@ class LoginFragment : Fragment() {
                 userId = "user1",
                 userPassword = "1234",
                 userNickName = "유저1",
-                userRegion = "서울"
+                userRegion = "서울",
+                userProfile = R.drawable.profile4
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
@@ -47,7 +48,8 @@ class LoginFragment : Fragment() {
                 userId = "user2",
                 userPassword = "1234",
                 userNickName = "유저2",
-                userRegion = "서울"
+                userRegion = "서울",
+                userProfile = R.drawable.profile3
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
@@ -59,7 +61,8 @@ class LoginFragment : Fragment() {
                 userId = "user3",
                 userPassword = "1234",
                 userNickName = "유저3",
-                userRegion = "서울"
+                userRegion = "서울",
+                userProfile = R.drawable.profile2
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
@@ -71,7 +74,8 @@ class LoginFragment : Fragment() {
                 userId = "user4",
                 userPassword = "1234",
                 userNickName = "유저4",
-                userRegion = "서울"
+                userRegion = "서울",
+                userProfile = R.drawable.profile1
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
