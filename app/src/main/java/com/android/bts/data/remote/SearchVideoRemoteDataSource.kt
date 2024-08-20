@@ -33,7 +33,7 @@ import retrofit2.http.Query
             @Query("maxResults") maxResults:Int = 4,
             @Query("order") order: String = "viewCount",
 //            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
-            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
+            @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
         ): VideoResponse
 
 
