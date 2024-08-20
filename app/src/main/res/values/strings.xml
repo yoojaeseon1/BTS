@@ -16,4 +16,8 @@
     <string name="modify_btn_confirm">확 인</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_user_1">yoojaeseon1</string>
+    <string name="login_user_2">hyehyunj</string>
+    <string name="login_user_3">dacafo77</string>
+    <string name="login_user_4">Dyaoss</string>
 </resources>

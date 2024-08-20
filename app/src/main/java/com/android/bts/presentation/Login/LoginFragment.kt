@@ -34,9 +34,9 @@ class LoginFragment : Fragment() {
 
         binding.loginUser1.setOnClickListener {
             val loginInfo = LoginInfo(
-                userId = "user1",
+                userId = "yoojaeseon1",
                 userPassword = "1234",
-                userNickName = "유저1",
+                userNickName = "yoojaeseon1",
                 userRegion = "서울",
                 userProfile = R.drawable.profile4
             )
@@ -46,10 +46,10 @@ class LoginFragment : Fragment() {
 
         binding.loginUser2.setOnClickListener {
             val loginInfo = LoginInfo(
-                userId = "user2",
+                userId = "hyehyunj",
                 userPassword = "1234",
-                userNickName = "유저2",
-                userRegion = "서울",
+                userNickName = "hyehyunj",
+                userRegion = "인천",
                 userProfile = R.drawable.profile3
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
@@ -59,10 +59,10 @@ class LoginFragment : Fragment() {
 
         binding.loginUser3.setOnClickListener {
             val loginInfo = LoginInfo(
-                userId = "user3",
+                userId = "dacafo77",
                 userPassword = "1234",
-                userNickName = "유저3",
-                userRegion = "서울",
+                userNickName = "dacafo77",
+                userRegion = "경기",
                 userProfile = R.drawable.profile2
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
@@ -72,10 +72,10 @@ class LoginFragment : Fragment() {
 
         binding.loginUser4.setOnClickListener {
             val loginInfo = LoginInfo(
-                userId = "user4",
+                userId = "Dyaoss",
                 userPassword = "1234",
-                userNickName = "유저4",
-                userRegion = "서울",
+                userNickName = "Dyaoss",
+                userRegion = "강원",
                 userProfile = R.drawable.profile1
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
