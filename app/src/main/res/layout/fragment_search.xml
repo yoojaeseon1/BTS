@@ -59,38 +59,110 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <TextView
-        android:id="@+id/search_btn_recommend"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:background="@android:color/transparent"
-        android:drawableStart="@drawable/drawable_search_driver"
+        android:id="@+id/search_btn_recommend_1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:padding="4dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="이국적인"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
         android:gravity="center"
-        android:text="버스기사님 추천해주세요!"
-        android:textColor="@color/red_like"
+        android:background="@drawable/sel_search_btn_recommend"
         app:layout_constraintStart_toStartOf="@+id/search_bar"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
+    <TextView
+        android:id="@+id/search_btn_recommend_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:padding="4dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="전통적인"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/sel_search_btn_recommend"
+        app:layout_constraintStart_toEndOf="@+id/search_btn_recommend_1"
+        app:layout_constraintEnd_toStartOf="@+id/search_btn_recommend_3"
+        app:layout_constraintTop_toTopOf="@+id/search_btn_recommend_1"
+        app:layout_constraintBottom_toBottomOf="@+id/search_btn_recommend_1"/>
+
+    <TextView
+        android:id="@+id/search_btn_recommend_3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:padding="4dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="뭐라할까"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/sel_search_btn_recommend"
+        app:layout_constraintEnd_toStartOf="@+id/search_btn_recommend_4"
+        app:layout_constraintStart_toEndOf="@+id/search_btn_recommend_2"
+        app:layout_constraintTop_toTopOf="@+id/search_btn_recommend_2"
+        app:layout_constraintBottom_toBottomOf="@+id/search_btn_recommend_2"/>
+
+    <TextView
+        android:id="@+id/search_btn_recommend_4"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/sel_search_btn_recommend"
+        android:gravity="center"
+        android:padding="4dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="고민고민"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/search_btn_recommend_3"
+        app:layout_constraintEnd_toEndOf="@+id/search_btn"
+        app:layout_constraintTop_toTopOf="@+id/search_btn_recommend_3" />
+
+    <TextView
+        android:id="@+id/search_tv_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="어디로 떠나볼까요?"
+        android:textColor="@color/gray"
+        android:textSize="16dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_rv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_btn_recommend" />
+        app:layout_constraintEnd_toEndOf="@+id/search_btn"
+        app:layout_constraintStart_toStartOf="@+id/search_bar"
+        app:layout_constraintTop_toBottomOf="@+id/search_btn_recommend_1" />
 
     <FrameLayout
         android:id="@+id/search_recommend_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
