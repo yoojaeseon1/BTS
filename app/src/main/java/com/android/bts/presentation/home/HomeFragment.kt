@@ -175,82 +175,82 @@ class HomeFragment : Fragment() {
 //            }
 //        })
 
+    }
+
+    private fun observeModel() {
+
+        homeViewModel.interestedVideos.observe(viewLifecycleOwner) {
+            interestedAdapter.submitList(homeViewModel.interestedVideos.value)
         }
 
-        private fun observeModel() {
+        homeViewModel.interestedSpots.observe(viewLifecycleOwner) {
+            Log.d(
+                "HomeFragment",
+                "observe interestedSpots checkedText = ${homeViewModel.interestedSpots.value?.size}"
+            )
+            homeViewModel.getInterestedVideoList(requireActivity())
+        }
 
-            homeViewModel.interestedVideos.observe(viewLifecycleOwner) {
-                interestedAdapter.submitList(homeViewModel.interestedVideos.value)
-            }
+        homeViewModel.hotSpotVideos.observe(viewLifecycleOwner) {
+            hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value)
+        }
 
-            homeViewModel.interestedSpots.observe(viewLifecycleOwner) {
-                Log.d(
-                    "HomeFragment",
-                    "observe interestedSpots checkedText = ${homeViewModel.interestedSpots.value?.size}"
-                )
-                homeViewModel.getInterestedVideoList(requireActivity())
-            }
-
-            homeViewModel.hotSpotVideos.observe(viewLifecycleOwner) {
-                hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value)
-            }
-
-            homeViewModel.newSpotVideos.observe(viewLifecycleOwner) {
-                Log.d(
-                    "HomeFragment",
-                    "observe newSpotVideos size = ${homeViewModel.newSpotVideos.value?.size}"
-                )
+        homeViewModel.newSpotVideos.observe(viewLifecycleOwner) {
+            Log.d(
+                "HomeFragment",
+                "observe newSpotVideos size = ${homeViewModel.newSpotVideos.value?.size}"
+            )
 //            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
-                newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
-            }
-
-            myVideoViewModel.checkedText.observe(viewLifecycleOwner) {
-                Log.d(
-                    "HomeFragment",
-                    "observe mypage checkedText = ${myVideoViewModel.checkedText.value?.size}"
-                )
-                homeViewModel.interestedSpots.value = myVideoViewModel.checkedText.value
-            }
-        }
-
-
-        companion object {
-            /**
-             * Use this factory method to create a new instance of
-             * this fragment using the provided parameters.
-             *
-             * @param param1 Parameter 1.
-             * @param param2 Parameter 2.
-             * @return A new instance of fragment HomeFragment.
-             */
-            // TODO: Rename and change types and number of parameters
-            @JvmStatic
-            fun newInstance(param1: String, param2: String) =
-                HomeFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-        }
-
-        fun submitAllVideos() {
-            Log.d("HomeFragment", "execute submitAllVideos()")
-            Log.d(
-                "HomeFragment",
-                "homeViewModel.interestedVideos.value? = ${homeViewModel.interestedVideos.value?.hashCode()}"
-            )
-            Log.d(
-                "HomeFragment",
-                "homeViewModel.interestedVideos.value?.toMutableList() = ${
-                    homeViewModel.interestedVideos.value?.toMutableList().hashCode()
-                }"
-            )
-
-            interestedAdapter.submitList(homeViewModel.interestedVideos.value?.toMutableList())
-            hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value?.toMutableList())
             newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
         }
+
+        myVideoViewModel.checkedText.observe(viewLifecycleOwner) {
+            Log.d(
+                "HomeFragment",
+                "observe mypage checkedText = ${myVideoViewModel.checkedText.value?.size}"
+            )
+            homeViewModel.interestedSpots.value = myVideoViewModel.checkedText.value
+        }
+    }
+
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment HomeFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            HomeFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+
+    fun submitAllVideos() {
+        Log.d("HomeFragment", "execute submitAllVideos()")
+        Log.d(
+            "HomeFragment",
+            "homeViewModel.interestedVideos.value? = ${homeViewModel.interestedVideos.value?.hashCode()}"
+        )
+        Log.d(
+            "HomeFragment",
+            "homeViewModel.interestedVideos.value?.toMutableList() = ${
+                homeViewModel.interestedVideos.value?.toMutableList().hashCode()
+            }"
+        )
+
+        interestedAdapter.submitList(homeViewModel.interestedVideos.value?.toMutableList())
+        hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value?.toMutableList())
+        newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
+    }
 
 
     class HotClickListenerImpl(val fragment: Fragment) : HotClickListener {
@@ -280,43 +280,43 @@ class HomeFragment : Fragment() {
             }
         }
 
-            override fun onClickDetail(
-                itemsEntity: ItemsEntity,
-                holder: HotSpotAdapter.HotSpotHolder
-            ) {
-                Log.d("HomeFragment", "video id = ${itemsEntity.id.videoId}")
-                Log.d("HomeFragment", "title = ${itemsEntity.snippet.title}")
-                // VideoDetailFragment로 전환
+        override fun onClickDetail(
+            itemsEntity: ItemsEntity,
+            holder: HotSpotAdapter.HotSpotHolder
+        ) {
+            Log.d("HomeFragment", "video id = ${itemsEntity.id.videoId}")
+            Log.d("HomeFragment", "title = ${itemsEntity.snippet.title}")
+            // VideoDetailFragment로 전환
 //            val videoDetailFragment = VideoDetailFragment.newInstance(
 //                itemsEntity.id.videoId,
 //                itemsEntity.snippet.title
 //            )
 
-                val videoDetailFragment = VideoDetailFragment.newInstance(
-                    itemsEntity
-                )
+            val videoDetailFragment = VideoDetailFragment.newInstance(
+                itemsEntity
+            )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-                fragment.requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_frame, videoDetailFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
+            fragment.requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, videoDetailFragment)
+                .addToBackStack(null)
+                .commit()
         }
-
-
-        override fun onResume() {
-            super.onResume()
-            Log.d("HomeFragment", "onResume")
-        }
-
-        override fun onStart() {
-            super.onStart()
-            Log.d("HomeFragment", "onStart")
-        }
-
-        override fun onPause() {
-            super.onPause()
-            Log.d("HomeFragment", "onPause")
-        }
-
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("HomeFragment", "onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("HomeFragment", "onStart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("HomeFragment", "onPause")
+    }
+
+}

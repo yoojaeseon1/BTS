@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
                 userId = "yoojaeseon1",
                 userPassword = "1234",
                 userNickName = "yoojaeseon1",
-                userRegion = "서울",
+                userRegion = "인천",
                 userProfile = R.drawable.profile4
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
@@ -49,12 +49,11 @@ class LoginFragment : Fragment() {
                 userId = "hyehyunj",
                 userPassword = "1234",
                 userNickName = "hyehyunj",
-                userRegion = "인천",
+                userRegion = "경기",
                 userProfile = R.drawable.profile3
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
-//            loginSuccess()
         }
 
         binding.loginUser3.setOnClickListener {
@@ -62,12 +61,11 @@ class LoginFragment : Fragment() {
                 userId = "dacafo77",
                 userPassword = "1234",
                 userNickName = "dacafo77",
-                userRegion = "경기",
+                userRegion = "경북",
                 userProfile = R.drawable.profile2
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
-//            loginSuccess()
         }
 
         binding.loginUser4.setOnClickListener {
@@ -75,20 +73,16 @@ class LoginFragment : Fragment() {
                 userId = "Dyaoss",
                 userPassword = "1234",
                 userNickName = "Dyaoss",
-                userRegion = "강원",
+                userRegion = "서울",
                 userProfile = R.drawable.profile1
             )
             myVideoViewModel.updateLoginInfo(loginInfo)
 
-//            loginSuccess()
         }
         initUserAnimation()
 
 
-
-
     }
-
 
 
     private fun initUserAnimation() {
@@ -107,24 +101,12 @@ class LoginFragment : Fragment() {
         imageView.forEach { cardView ->
             cardView.setOnClickListener { clickedCardView ->
                 clickedCardView.startAnimation(animation[0])
-                imageView.filter{ it != clickedCardView }.forEach{ it.startAnimation(animation[1])}
+                imageView.filter { it != clickedCardView }
+                    .forEach { it.startAnimation(animation[1]) }
                 (activity as MainActivity).supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.login_exit,R.anim.login_exit)
+                    .setCustomAnimations(R.anim.login_exit, R.anim.login_exit)
                     .remove(this).commit()
             }
-            }
         }
-
-
-
-
-
-//    private fun loginSuccess() {
-//        val loginSuccess = true
-//        if (loginSuccess) {
-//            (activity as MainActivity).showViewPager()
-//        }
-//    }
-
-
+    }
 }

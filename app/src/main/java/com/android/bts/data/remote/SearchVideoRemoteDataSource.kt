@@ -10,7 +10,7 @@ import retrofit2.http.Query
         suspend fun getSearchVideo(
             @Query("part") part:String = "snippet",
             @Query("maxResults") maxResults:Int =20,
-            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk",
+            @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ",
             @Query("pageToken") pageToken: String = "",
             @Query("type") type: String = "video",
             @Query("q") query: String
@@ -22,8 +22,7 @@ import retrofit2.http.Query
             @Query("part") part:String = "snippet",
             @Query("maxResults") maxResults:Int = 4,
             @Query("type") type: String = "video",
-            // @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
-            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
+            @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
         ): VideoResponse
 
         @GET("search")
@@ -33,8 +32,7 @@ import retrofit2.http.Query
             @Query("part") part:String = "snippet",
             @Query("maxResults") maxResults:Int = 4,
             @Query("order") order: String = "viewCount",
-//            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
-            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
+            @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
         ): VideoResponse
 
 
@@ -46,7 +44,6 @@ import retrofit2.http.Query
             @Query("maxResults") maxResults:Int =10,
             @Query("order") order: String = "date",
             @Query("type") type: String = "video",
-//            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
-            @Query("key") apiKey: String = "AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk"
+            @Query("key") apiKey: String = "AIzaSyBGJe7YtNLzC9nZKPUlas39NQuJDrWoSuQ"
         ): VideoResponse
     }
