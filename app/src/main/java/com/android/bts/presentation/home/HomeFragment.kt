@@ -258,24 +258,27 @@ class HomeFragment : Fragment() {
         private val savedVideoViewModel: SavedVideoViewModel by fragment.activityViewModels()
 
         override fun onClickLike(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder) {
-            if(itemsEntity.snippet.isLike) {
+
+            val likedVideo = LikedVideo(
+                itemsEntity.id.videoId,
+                itemsEntity.snippet.title,
+                itemsEntity.snippet.channelTitle,
+                itemsEntity.snippet.thumbnail
+            )
+
+            if (itemsEntity.snippet.isLike) {
                 BTSUtils.deleteLike(fragment.requireActivity(), itemsEntity.id.videoId)
                 itemsEntity.snippet.isLike = false
                 holder.like.isVisible = false
-                savedVideoViewModel.deleteLike(itemsEntity.id.videoId)
+                savedVideoViewModel.deleteLike(likedVideo)
             } else {
 //                BTSUtils.addLike(context, itemsEntity.id.videoId)
                 BTSUtils.addLike(fragment.requireActivity(), itemsEntity)
                 itemsEntity.snippet.isLike = true
                 holder.like.isVisible = true
-                savedVideoViewModel.saveLike(
-                    LikedVideo(
-                        itemsEntity.id.videoId,
-                        itemsEntity.snippet.title,
-                        itemsEntity.snippet.channelTitle,
-                        itemsEntity.snippet.thumbnail)
-                )
+                savedVideoViewModel.likeVideo(likedVideo)
             }
+        }
 
             override fun onClickDetail(
                 itemsEntity: ItemsEntity,
@@ -293,10 +296,11 @@ class HomeFragment : Fragment() {
                     itemsEntity
                 )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-            fragment.requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, videoDetailFragment)
-                .addToBackStack(null)
-                .commit()
+                fragment.requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, videoDetailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
 
 

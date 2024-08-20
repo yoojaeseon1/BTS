@@ -28,6 +28,7 @@ private const val TAG = "SearchFragment"
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding as FragmentSearchBinding
+
     private lateinit var searchRecyclerViewAdapter: SearchRecyclerViewAdapter
     private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
