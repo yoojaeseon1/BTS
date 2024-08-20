@@ -1,6 +1,7 @@
 package com.android.bts.presentation.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.android.bts.BTSUtils
 import com.android.bts.MainViewModel
 import com.android.bts.R
+import com.android.bts.presentation.home.HomeFragment
+import com.android.bts.presentation.home.HomeViewModel
+import com.android.bts.presentation.home.HomeViewModelFactory
 import com.example.app.IntroduceVideoFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -19,6 +25,13 @@ class VideoDetailFragment : Fragment() {
 
     private var videoId: String? = null
     private var videoTitle: String? = null
+//    private val homeViewModel by viewModels<HomeViewModel> {
+//        HomeViewModelFactory()
+//    }
+
+    private val homeViewModel: HomeViewModel by activityViewModels()
+
+    private lateinit var homeFragment: HomeFragment
     private val sharedViewModel : MainViewModel by activityViewModels()
 
     companion object {
@@ -38,6 +51,13 @@ class VideoDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val fragments = requireActivity().supportFragmentManager.fragments
+
+        for (fragment in fragments) {
+            if (fragment is HomeFragment)
+                homeFragment = fragment
+        }
 
         arguments?.let{
             videoId = it.getString(VIDEO_ID_KEY)
@@ -101,6 +121,14 @@ class VideoDetailFragment : Fragment() {
 
         val backButton = view.findViewById<ImageView>(R.id.back_button)
         backButton.setOnClickListener {
+
+//            val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId?:"")
+//            Log.d("VideoDetailFragment", "isCheckedLike = ${isCheckedLike}")
+//
+//            homeFragment.homeViewModel.updateLike(videoId?:"", isCheckedLike)
+//            homeFragment.submitAllVideos()
+
+
             parentFragmentManager.popBackStack()
         }
 

@@ -5,9 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.bts.BTSUtils
+import com.android.bts.R
 import com.android.bts.data.remote.CommentRemoteDataSource
 import com.android.bts.data.remote.CommentRepository
 import com.android.bts.databinding.FragmentIntroduceVideoBinding
@@ -16,6 +19,7 @@ import com.android.bts.presentation.detail.IntroduceVideoViewModel
 import com.android.bts.presentation.detail.IntroduceVideoViewModelFactory
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ID_KEY
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_TITLE_KEY
+import com.android.bts.presentation.home.HomeFragment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -42,8 +46,8 @@ class IntroduceVideoFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let{
-            videoId = it.getString(VIDEO_ID_KEY)
-            videoTitle = it.getString(VIDEO_TITLE_KEY)
+            videoId = it.getString(VIDEO_ID_KEY)?:""
+            videoTitle = it.getString(VIDEO_TITLE_KEY)?:""
         }
 
 
@@ -83,6 +87,22 @@ class IntroduceVideoFragment : Fragment() {
             videoId?.let {
                 Log.d("IntroduceVideoFragment", "Saving video: $videoTitle with ID: $videoId")
                 // 비디오 정보 저장 (SavedVideoRepository에 저장 로직 추가)
+            }
+        }
+
+        val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId ?: "")
+        Log.d("IntroduceVideoFragment", "isCheckedLike = ${isCheckedLike}")
+        if(isCheckedLike)
+            binding.likeIcon.setImageResource(R.drawable.icon_like_full)
+
+        binding.likeIcon.setOnClickListener{
+            val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId ?: "")
+            if(isCheckedLike) {
+                binding.likeIcon.setImageResource(R.drawable.icon_like_empty)
+                BTSUtils.deleteLike(requireActivity(), videoId?:"")
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.icon_like_full)
+                BTSUtils.addLike(requireActivity(), videoId?:"")
             }
         }
 

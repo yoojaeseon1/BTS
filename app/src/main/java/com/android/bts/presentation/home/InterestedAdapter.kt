@@ -50,6 +50,8 @@ class InterestedAdapter(private val videoClick: InterestedClickLIstener) : ListA
 
         if(currentItem.snippet.isLike) {
             interestedHolder.like.visibility = ImageView.VISIBLE
+        } else {
+            interestedHolder.like.visibility = ImageView.GONE
         }
 
         interestedHolder.traveler.text = currentItem.snippet.channelTitle
