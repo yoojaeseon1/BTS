@@ -55,6 +55,9 @@
                     android:layout_marginEnd="10dp"
                     />
 
+
+
+
                 <ImageView
                     android:id="@+id/ivAdBanner"
                     android:layout_width="380dp"

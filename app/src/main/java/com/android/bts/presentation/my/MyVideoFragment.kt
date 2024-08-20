@@ -43,6 +43,7 @@ class MyVideoFragment : Fragment() {
             binding.tvMyVideoUserNickName.text = newLoginInfo.userNickName
             binding.tvMyVideoUserRegion.text = newLoginInfo.userRegion
             binding.ivMyVideoProfile.setImageResource(newLoginInfo.userProfile)
+            binding.profileIcon.setImageResource(newLoginInfo.userProfile)
         }
 
         return binding.root
