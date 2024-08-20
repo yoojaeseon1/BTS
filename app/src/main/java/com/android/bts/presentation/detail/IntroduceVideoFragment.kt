@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.bts.BTSUtils
@@ -18,8 +20,12 @@ import com.android.bts.presentation.detail.CommentAdapter
 import com.android.bts.presentation.detail.IntroduceVideoViewModel
 import com.android.bts.presentation.detail.IntroduceVideoViewModelFactory
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ID_KEY
+import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ITEMS_KEY
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_TITLE_KEY
 import com.android.bts.presentation.home.HomeFragment
+import com.android.bts.presentation.save.SavedVideo
+import com.android.bts.presentation.search.ItemsEntity
+import com.example.app.save.SavedVideoViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -31,8 +37,9 @@ class IntroduceVideoFragment : Fragment() {
         IntroduceVideoViewModelFactory(CommentRepository(apiService))
     }
 
-    private var videoId: String? = null
-    private var videoTitle: String? = null
+    private val savedVideoViewModel: SavedVideoViewModel by activityViewModels()
+
+    private var itemsEntity: ItemsEntity? = null
 
     private val apiService: CommentRemoteDataSource by lazy {
         Retrofit.Builder()
@@ -45,11 +52,14 @@ class IntroduceVideoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let{
-            videoId = it.getString(VIDEO_ID_KEY)?:""
-            videoTitle = it.getString(VIDEO_TITLE_KEY)?:""
-        }
+//        arguments?.let{
+//            videoId = it.getString(VIDEO_ID_KEY)?:""
+//            videoTitle = it.getString(VIDEO_TITLE_KEY)?:""
+//        }
 
+        arguments?.let {
+            itemsEntity = it.getParcelable(VIDEO_ITEMS_KEY, ItemsEntity::class.java)
+        }
 
     }
 
@@ -64,6 +74,11 @@ class IntroduceVideoFragment : Fragment() {
         commentAdapter = CommentAdapter(emptyList())
         binding.recyclerView.adapter = commentAdapter
 
+        val videoId = itemsEntity?.id?.videoId?:"empty videoId"
+        val videoTitle = itemsEntity?.snippet?.title?:"empty title"
+        val channelTitle = itemsEntity?.snippet?.channelTitle?:"empty channelTitle"
+        val thumbnail = itemsEntity?.snippet?.thumbnail?:"empty thumbnail"
+
         // ViewModel 설정 및 댓글 불러오기
 //        val videoId = arguments?.getString("VIDEO_ID_KEY")
 //        val videoTitle = arguments?.getString("VIDEO_TITLE_KEY")
@@ -73,7 +88,8 @@ class IntroduceVideoFragment : Fragment() {
         } else {
             Log.d("IntroduceVideoFragment", "Video ID: $videoId, Video Title: $videoTitle")
             val apiKey = "AIzaSyBrhEMfHwQcNHcvtVvwQhe0fbILK7JWL14"
-            viewModel.fetchComments(videoId?:"", apiKey)
+//            viewModel.fetchComments(videoId?:"", apiKey)
+//            viewModel.fetchComments(videoId?:"", apiKey)
         }
 
         // 댓글 데이터 관찰하여 업데이트
@@ -87,6 +103,8 @@ class IntroduceVideoFragment : Fragment() {
             videoId?.let {
                 Log.d("IntroduceVideoFragment", "Saving video: $videoTitle with ID: $videoId")
                 // 비디오 정보 저장 (SavedVideoRepository에 저장 로직 추가)
+                savedVideoViewModel.saveVideo(SavedVideo(videoId, videoTitle,channelTitle, thumbnail))
+                Toast.makeText(requireActivity(), "영상이 저장되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
 

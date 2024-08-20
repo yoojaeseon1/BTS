@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.R
 import com.android.bts.presentation.detail.VideoDetailFragment
+import com.android.bts.presentation.save.SavedVideo
 
 class SavedFragment : Fragment() {
 
     private lateinit var savedVideoAdapter: SavedVideoAdapter
-    private val savedVideoViewModel: SavedVideoViewModel by viewModels()
+    private val savedVideoViewModel: SavedVideoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +40,10 @@ class SavedFragment : Fragment() {
     }
 
     private fun navigateToVideoDetailFragment(video: SavedVideo) {
+
+//        savedVideoViewModel.savedVideos.value?.plus(video)
+//        Log.d("SaveFragment", "savedVideos size = ${savedVideoViewModel.savedVideos.value?.size}")
+
         val fragment = VideoDetailFragment.newInstance(video.videoId, video.title)
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)

@@ -3,6 +3,7 @@ package com.example.app.save
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.bts.presentation.save.SavedVideo
 
 class SavedVideoViewModel : ViewModel() {
 

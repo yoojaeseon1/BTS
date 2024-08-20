@@ -1,7 +1,6 @@
 package com.android.bts.presentation.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.android.bts.BTSUtils
 import com.android.bts.MainViewModel
 import com.android.bts.R
 import com.android.bts.presentation.home.HomeFragment
 import com.android.bts.presentation.home.HomeViewModel
-import com.android.bts.presentation.home.HomeViewModelFactory
+import com.android.bts.presentation.search.ItemsEntity
 import com.example.app.IntroduceVideoFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -25,6 +22,7 @@ class VideoDetailFragment : Fragment() {
 
     private var videoId: String? = null
     private var videoTitle: String? = null
+    private var itemsEntity: ItemsEntity? = null
 //    private val homeViewModel by viewModels<HomeViewModel> {
 //        HomeViewModelFactory()
 //    }
@@ -37,6 +35,7 @@ class VideoDetailFragment : Fragment() {
     companion object {
         const val VIDEO_ID_KEY = "videoId"
         const val VIDEO_TITLE_KEY = "videoTitle"
+        const val VIDEO_ITEMS_KEY = "snippet"
 
         // newInstance 메서드로 프래그먼트 생성
         fun newInstance(videoId: String, videoTitle: String): VideoDetailFragment {
@@ -44,6 +43,14 @@ class VideoDetailFragment : Fragment() {
             val args = Bundle()
             args.putString(VIDEO_ID_KEY, videoId)
             args.putString(VIDEO_TITLE_KEY, videoTitle)
+            fragment.arguments = args
+            return fragment
+        }
+
+        fun newInstance(itemsEntity: ItemsEntity): VideoDetailFragment {
+            val fragment = VideoDetailFragment()
+            val args = Bundle()
+            args.putParcelable(VIDEO_ITEMS_KEY, itemsEntity)
             fragment.arguments = args
             return fragment
         }
@@ -59,9 +66,13 @@ class VideoDetailFragment : Fragment() {
                 homeFragment = fragment
         }
 
+//        arguments?.let{
+//            videoId = it.getString(VIDEO_ID_KEY)
+//            videoTitle = it.getString(VIDEO_TITLE_KEY)
+//        }
+
         arguments?.let{
-            videoId = it.getString(VIDEO_ID_KEY)
-            videoTitle = it.getString(VIDEO_TITLE_KEY)
+            itemsEntity = it.getParcelable(VIDEO_ITEMS_KEY, ItemsEntity::class.java)
         }
 
 
@@ -79,13 +90,16 @@ class VideoDetailFragment : Fragment() {
 //        val videoTitle = arguments?.getString(VIDEO_TITLE_KEY)
 
         val videoTitleTextView = view.findViewById<TextView>(R.id.video_title)
-        videoTitleTextView.text = videoTitle
+//        videoTitleTextView.text = videoTitle
+        videoTitleTextView.text = itemsEntity?.snippet?.title
 
         val bottomTitleTextView = view.findViewById<TextView>(R.id.bottom_titel_texct_view)
-        bottomTitleTextView.text = videoTitle
+//        bottomTitleTextView.text = videoTitle
+        bottomTitleTextView.text = itemsEntity?.snippet?.title
 
         val youTubePlayerView = view.findViewById<YouTubePlayerView>(R.id.player_view)
-        setupYouTubePlayer(youTubePlayerView, videoId)
+//        setupYouTubePlayer(youTubePlayerView, videoId)
+        setupYouTubePlayer(youTubePlayerView, itemsEntity?.id?.videoId)
 
         val textVideoIntro = view.findViewById<TextView>(R.id.text_video_intro)
         val textMemo = view.findViewById<TextView>(R.id.text_memo)
@@ -94,7 +108,8 @@ class VideoDetailFragment : Fragment() {
 
         sharedViewModel.videoPlayLiveData.observe(viewLifecycleOwner) {
             videoTitleTextView.text = it.snippet.title
-            bottomTitleTextView.text = videoTitle
+//            bottomTitleTextView.text = videoTitle
+            bottomTitleTextView.text = itemsEntity?.snippet?.title
             setupYouTubePlayer(youTubePlayerView, it.id.videoId)
         }
 
@@ -133,9 +148,6 @@ class VideoDetailFragment : Fragment() {
         }
 
 
-
-
-
         return view
     }
 
@@ -165,10 +177,15 @@ class VideoDetailFragment : Fragment() {
     }
 
     private fun showFragment(fragment: Fragment) {
+//        fragment.arguments = Bundle().apply {
+//            putString(VIDEO_ID_KEY, arguments?.getString(VIDEO_ID_KEY))
+//            putString(VIDEO_TITLE_KEY, arguments?.getString(VIDEO_TITLE_KEY))
+//        }
         fragment.arguments = Bundle().apply {
-            putString(VIDEO_ID_KEY, arguments?.getString(VIDEO_ID_KEY))
-            putString(VIDEO_TITLE_KEY, arguments?.getString(VIDEO_TITLE_KEY))
+            putParcelable(VIDEO_ITEMS_KEY, itemsEntity)
         }
+
+
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
