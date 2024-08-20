@@ -134,8 +134,8 @@ class VideoDetailFragment : Fragment() {
             showFragment(MemoFragment())
         }
 
-        val backButton = view.findViewById<ImageView>(R.id.back_button)
-        backButton.setOnClickListener {
+//        val backButton = view.findViewById<ImageView>(R.id.back_button)
+//        backButton.setOnClickListener {
 
 //            val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId?:"")
 //            Log.d("VideoDetailFragment", "isCheckedLike = ${isCheckedLike}")
@@ -144,8 +144,8 @@ class VideoDetailFragment : Fragment() {
 //            homeFragment.submitAllVideos()
 
 
-            parentFragmentManager.popBackStack()
-        }
+//            parentFragmentManager.popBackStack()
+//        }
 
 
         return view

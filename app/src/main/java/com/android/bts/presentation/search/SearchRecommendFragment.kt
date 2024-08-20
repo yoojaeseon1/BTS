@@ -20,6 +20,10 @@ import com.android.bts.presentation.MainActivity
 import com.bumptech.glide.Glide
 import okhttp3.internal.platform.android.BouncyCastleSocketAdapter.Companion.factory
 
+
+
+private const val TAG = "SearchRecommendFragment"
+
 class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
     private var _binding: FragmentSearchRecommendBinding? = null
     private val binding get() = _binding as FragmentSearchRecommendBinding
@@ -135,7 +139,7 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
         //마음에 들어요 버튼
         binding.searchRecommendBtnAccept.setOnClickListener {
             sharedViewModel.updateSearchWord(recommendPlace.searchWord)
-            Log.d("추천검색어", "${sharedViewModel.searchWordLiveData.value}")
+            Log.d(TAG, "써치R프래그먼트 ${sharedViewModel.searchWordLiveData.value}")
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.search_recommend_exit,R.anim.search_recommend_exit)
                 .remove(this).commit()

@@ -6,10 +6,6 @@
     android:background="@color/background_black"
     tools:context=".presentation.search.SearchFragment">
 
-    <include
-        android:id="@+id/search_toolbar"
-        layout="@layout/toolbar" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_bar"
         android:layout_width="0dp"
@@ -19,7 +15,7 @@
         android:background="@drawable/bg_search_bar"
         app:layout_constraintEnd_toStartOf="@+id/search_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/search_et"

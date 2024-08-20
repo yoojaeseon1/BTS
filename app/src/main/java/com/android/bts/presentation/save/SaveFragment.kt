@@ -34,13 +34,6 @@ class SavedFragment : Fragment() {
         val likedRectclerView = view.findViewById<RecyclerView>(R.id.likedRecyclerView)
 
 
-        viewModel.loginInfo.observe(viewLifecycleOwner) { newLoginInfo ->
-            var userProfile = view.findViewById<ImageView>(R.id.profile_icon)
-            userProfile.setImageResource(newLoginInfo.userProfile)
-
-        }
-
-
         savedVideoAdapter = SavedVideoAdapter(emptyList()) { video ->
             navigateToVideoDetailFragment(video)
         }

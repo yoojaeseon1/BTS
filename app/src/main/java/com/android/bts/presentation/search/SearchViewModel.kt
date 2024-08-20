@@ -1,5 +1,8 @@
 package com.android.bts.presentation.search
 
+import android.net.http.HttpException
+import android.os.Build
+import android.os.ext.SdkExtensions
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,13 +11,39 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.android.bts.data.remote.SearchRepositoryImpl
 import com.android.bts.network.RetrofitClient
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.net.SocketException
+import java.net.UnknownHostException
 
 private const val TAG = "SearchViewModel"
 
+
+
 class SearchViewModel(private val searchRepository: SearchRepository) :
     ViewModel() {
+
+    // 예외처리
+    private val _fetchState = MutableLiveData<Throwable>()
+    val fetchState : LiveData<Throwable>
+        get() = _fetchState
+
+    //코루틴 예외처리 핸들러
+    private val exceptionHandler = CoroutineExceptionHandler{ _, throwable ->
+        throwable.printStackTrace()
+
+        if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.S) >= 7) {
+            when (throwable) {
+                is SocketException -> _fetchState.postValue(throwable)
+                is HttpException -> _fetchState.postValue(throwable)
+                is UnknownHostException -> _fetchState.postValue(throwable)
+                else -> _fetchState.postValue(throwable)
+            }
+        }
+    }
+
+
 
     //검색어
     private val _searchWordLiveData = MutableLiveData("")
@@ -62,7 +91,7 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
 
     //검색결과 응답값을 받아오는 함수
     fun getSearchVideoResponse() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _loadingLiveData.value = false
             val list = async {
                 searchWordLiveData.value?.let {
@@ -90,7 +119,7 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
     //다음페이지 응답값을 받아오는 함수
     fun getNextSearchVideoResponse() {
         if (_nextPageTokenLiveData.value != "") {
-            viewModelScope.launch {
+            viewModelScope.launch(exceptionHandler) {
                 _loadingLiveData.value = false
                 val list = async {
                     searchWordLiveData.value?.let { searchWord ->

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.android.bts.R
 import com.android.bts.databinding.FragmentSearchBinding
 import com.android.bts.presentation.MainActivity
 
+private const val TAG = "SearchFragment"
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -44,6 +46,8 @@ class SearchFragment : Fragment() {
 
         //검색어 변화 감지
         searchViewModel.searchWordLiveData.observe(viewLifecycleOwner) {
+            Log.d(TAG, "ㅅ${searchViewModel.searchWordLiveData.value}")
+            binding.searchEt.setText(searchViewModel.searchWordLiveData.value)
             searchViewModel.getSearchVideoResponse()
         }
         return binding.root
@@ -91,9 +95,8 @@ class SearchFragment : Fragment() {
         searchRecyclerViewAdapter = SearchRecyclerViewAdapter(
             itemClickListener = { item ->
                 sharedViewModel.updateVideoPlayer(item)
-                (activity as MainActivity).binding.searchPlayContainer.isVisible = true
-                (activity as MainActivity).replaceDetailFragment()
-            })
+                (activity as MainActivity).replaceDetailFragment()}
+            ,itemLongClickListener = { item ->  })
         binding.searchRv.adapter = searchRecyclerViewAdapter
         binding.searchRv.layoutManager = GridLayoutManager(requireContext(), 2)
     }
@@ -166,6 +169,14 @@ class SearchFragment : Fragment() {
     private fun hideKeyboard() {
         val manager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         manager.hideSoftInputFromWindow(binding.searchEt.windowToken, 0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "써치프래그먼트 ${searchViewModel.searchWordLiveData.value}")
+        binding.searchEt.setText(searchViewModel.searchWordLiveData.value)
+        if(searchViewModel.searchWordLiveData.value != "")searchWithWord()
+
     }
 
     override fun onDestroy() {
