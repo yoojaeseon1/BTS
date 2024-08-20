@@ -110,7 +110,6 @@ class IntroduceVideoFragment : Fragment() {
         }
 
         val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId ?: "")
-        Log.d("IntroduceVideoFragment", "isCheckedLike = ${isCheckedLike}")
         if(isCheckedLike)
             binding.likeIcon.setImageResource(R.drawable.icon_like_full)
 
@@ -130,7 +129,6 @@ class IntroduceVideoFragment : Fragment() {
                 savedVideoViewModel.deleteLike(likedVideo)
             } else {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_full)
-//                BTSUtils.addLike(requireActivity(), videoId?:"")
                 BTSUtils.addLike(requireActivity(), itemsEntity?:ItemsEntity())
                 savedVideoViewModel.likeVideo(likedVideo)
             }
