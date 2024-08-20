@@ -32,9 +32,7 @@ class InterestedClickListenerImpl(val fragment: Fragment) : InterestedClickLIste
             holder.like.isVisible = false
             savedVideoViewModel.deleteLike(likedVideo)
         } else {
-//            BTSUtils.addLike(context, itemsEntity.id.videoId)
             BTSUtils.addLike(fragment.requireActivity(), itemsEntity)
-//                holder.like.setImageResource(R.drawable.icon_like_full)
             itemsEntity.snippet.isLike = true
             holder.like.isVisible = true
             savedVideoViewModel.likeVideo(likedVideo)
@@ -44,17 +42,9 @@ class InterestedClickListenerImpl(val fragment: Fragment) : InterestedClickLIste
     override fun onClickDetail(itemsEntity: ItemsEntity,
         holder: InterestedAdapter.InterestedSpotHolder
     ) {
-        // VideoDetailFragment로 전환
-//        val videoDetailFragment = VideoDetailFragment.newInstance(
-//            itemsEntity.id.videoId,
-//            itemsEntity.snippet.title
-//        )
-
         val videoDetailFragment = VideoDetailFragment.newInstance(
             itemsEntity
         )
-//            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-//        (fragment as FragmentActivity).supportFragmentManager.beginTransaction()
         fragment.requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_frame, videoDetailFragment)
             .addToBackStack(null)

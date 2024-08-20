@@ -1,6 +1,5 @@
 package com.android.bts.presentation.home
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +17,6 @@ import com.android.bts.R
 import com.android.bts.databinding.FragmentHomeBinding
 import com.android.bts.presentation.MainActivity
 import com.android.bts.presentation.detail.VideoDetailFragment
-import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
 import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.search.ItemsEntity
@@ -97,7 +94,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.recyclerViewInterested.adapter = interestedAdapter
         binding.recyclerViewHot.adapter = hotSpotAdapter
         binding.recyclerViewNew.adapter = newSpotAdapter
@@ -106,14 +102,9 @@ class HomeFragment : Fragment() {
 
         homeViewModel.initViewModel()
 
-//        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-        homeViewModel.getInterestedVideoList(requireActivity())
-        homeViewModel.getHotVideoList(requireActivity())
-        homeViewModel.getNewVideoList(requireActivity())
-
-//        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
-
-//        interestedAdapter.submitList(viewModel.interestedVideos.value)
+//        homeViewModel.getInterestedVideoList(requireActivity())
+//        homeViewModel.getHotVideoList(requireActivity())
+//        homeViewModel.getNewVideoList(requireActivity())
 
         observeModel()
 
@@ -124,13 +115,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.recyclerViewInterested.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-//
-//            Log.d("HomeFragment", "interestedScroll = (${v.scrollX},${v.scrollY}), (${scrollX}, ${scrollY})")
-//            Log.d("HomeFragment", "interestedScroll =  (${oldScrollX}, ${oldScrollY})")
-//
-//        }
-
         binding.recyclerViewInterested.addOnItemTouchListener(recyclerViewListener)
         binding.recyclerViewHot.addOnItemTouchListener(recyclerViewListener)
         binding.recyclerViewNew.addOnScrollListener(object : RecyclerView.OnScrollListener(){
@@ -140,41 +124,9 @@ class HomeFragment : Fragment() {
 
                 if(!recyclerView.canScrollVertically(1)) {
                     homeViewModel.getNewVideoList(requireActivity())
-//                    viewModel.newSpotVideos.notifyObserver()
-//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value)
-//                    newSpotAdapter.submitList(viewModel.newSpotVideos.value?.toMutableList())
                 }
             }
         })
-
-//        binding.recyclerViewInterested.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                Log.d("HomeFragment", "scrollListener (${dx}, ${dy})")
-//
-//                if(!recyclerView.canScrollHorizontally(1)) {
-////                    isScrollable = false
-//                    parentActivity.binding.pager.isUserInputEnabled = true
-//                    Log.d("HomeFragment", "scrollListener end canScroll true (${dx}, ${dy})")
-//                } else {
-////                    isEndScroll = true
-//                    Log.d("HomeFragment", "scrollListener canScroll false (${dx}, ${dy})")
-//
-//                    parentActivity.binding.pager.isUserInputEnabled = false
-//
-//                }
-//
-//                if(!recyclerView.canScrollHorizontally(-1)) {
-////                    isScrollable = false
-//                    parentActivity.binding.pager.isUserInputEnabled = true
-//                    Log.d("HomeFragment", "scrollListener start canScroll true (${dx}, ${dy})")
-//                }
-//            }
-//        })
-
-
-
-
 
     }
 
@@ -195,7 +147,6 @@ class HomeFragment : Fragment() {
 
         homeViewModel.newSpotVideos.observe(viewLifecycleOwner){
             Log.d("HomeFragment", "observe newSpotVideos size = ${homeViewModel.newSpotVideos.value?.size}")
-//            newSpotAdapter.submitList(homeViewModel.newSpotResults.toMutableList())
             newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
         }
 
@@ -226,17 +177,6 @@ class HomeFragment : Fragment() {
             }
     }
 
-    fun submitAllVideos(){
-        Log.d("HomeFragment", "execute submitAllVideos()")
-        Log.d("HomeFragment", "homeViewModel.interestedVideos.value? = ${homeViewModel.interestedVideos.value?.hashCode()}")
-        Log.d("HomeFragment", "homeViewModel.interestedVideos.value?.toMutableList() = ${homeViewModel.interestedVideos.value?.toMutableList().hashCode()}")
-
-        interestedAdapter.submitList(homeViewModel.interestedVideos.value?.toMutableList())
-        hotSpotAdapter.submitList(homeViewModel.hotSpotVideos.value?.toMutableList())
-        newSpotAdapter.submitList(homeViewModel.newSpotVideos.value?.toMutableList())
-    }
-
-
     class HotClickListenerImpl(val fragment: Fragment) : HotClickListener {
 
         private val savedVideoViewModel: SavedVideoViewModel by fragment.activityViewModels()
@@ -254,11 +194,13 @@ class HomeFragment : Fragment() {
                 BTSUtils.deleteLike(fragment.requireActivity(), itemsEntity.id.videoId)
                 itemsEntity.snippet.isLike = false
                 holder.like.isVisible = false
+                savedVideoViewModel.deleteLike(likedVideo)
+
             } else {
-//                BTSUtils.addLike(context, itemsEntity.id.videoId)
                 BTSUtils.addLike(fragment.requireActivity(), itemsEntity)
                 itemsEntity.snippet.isLike = true
                 holder.like.isVisible = true
+                savedVideoViewModel.likeVideo(likedVideo)
             }
         }
 
@@ -268,37 +210,15 @@ class HomeFragment : Fragment() {
         ) {
             Log.d("HomeFragment", "video id = ${itemsEntity.id.videoId}")
             Log.d("HomeFragment", "title = ${itemsEntity.snippet.title}")
-            // VideoDetailFragment로 전환
-//            val videoDetailFragment = VideoDetailFragment.newInstance(
-//                itemsEntity.id.videoId,
-//                itemsEntity.snippet.title
-//            )
 
                 val videoDetailFragment = VideoDetailFragment.newInstance(
                     itemsEntity
                 )
-//            (context as FragmentActivity).supportFragmentManager.beginTransaction()
                 fragment.requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.main_frame, videoDetailFragment)
                     .addToBackStack(null)
                     .commit()
             }
         }
-
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("HomeFragment", "onResume")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("HomeFragment", "onStart")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("HomeFragment", "onPause")
-    }
 
 }

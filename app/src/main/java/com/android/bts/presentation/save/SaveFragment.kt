@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.BTSUtils
 import com.android.bts.R
 import com.android.bts.presentation.detail.VideoDetailFragment
-import com.android.bts.presentation.my.MyVideoViewModel
 import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.save.LikedVideoAdapter
 import com.android.bts.presentation.save.SavedVideo
@@ -25,7 +23,6 @@ class SavedFragment : Fragment() {
     private lateinit var savedVideoAdapter: SavedVideoAdapter
     private lateinit var likedVideoAdapter: LikedVideoAdapter
     private val savedVideoViewModel: SavedVideoViewModel by activityViewModels()
-    private val viewModel: MyVideoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,13 +59,8 @@ class SavedFragment : Fragment() {
 
     private fun navigateToVideoDetailFragment(video: SavedVideo) {
 
-//        savedVideoViewModel.savedVideos.value?.plus(video)
-//        Log.d("SaveFragment", "savedVideos size = ${savedVideoViewModel.savedVideos.value?.size}")
-
-//        val fragment = VideoDetailFragment.newInstance(video.videoId, video.title)
         val fragment = VideoDetailFragment.newInstance(ItemsEntity(Id(videoId = video.videoId), SnippetEntity(video.title)))
         parentFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, fragment)
             .replace(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()
@@ -76,13 +68,8 @@ class SavedFragment : Fragment() {
 
     private fun navigateToVideoDetailFragment(video: LikedVideo) {
 
-//        savedVideoViewModel.savedVideos.value?.plus(video)
-//        Log.d("SaveFragment", "savedVideos size = ${savedVideoViewModel.savedVideos.value?.size}")
-
-//        val fragment = VideoDetailFragment.newInstance(video.videoId, video.title)
         val fragment = VideoDetailFragment.newInstance(ItemsEntity(Id(videoId = video.videoId), SnippetEntity(video.title)))
         parentFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, fragment)
             .replace(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()

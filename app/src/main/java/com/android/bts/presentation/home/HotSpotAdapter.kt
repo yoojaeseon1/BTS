@@ -14,8 +14,6 @@ class HotSpotAdapter(private val videoClick: HotClickListener) :
     ListAdapter<ItemsEntity, RecyclerView.ViewHolder>(object :
         DiffUtil.ItemCallback<ItemsEntity>() {
         override fun areItemsTheSame(oldItem: ItemsEntity, newItem: ItemsEntity): Boolean {
-//        return oldItem.snippet.thumbnail == newItem.snippet.thumbnail
-//        return oldItem.id.videoId == newItem.id.videoId
             return oldItem.id.videoId == newItem.id.videoId
                     && oldItem.snippet.isLike == newItem.snippet.isLike
         }
