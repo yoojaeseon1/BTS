@@ -250,7 +250,8 @@ class HomeFragment : Fragment() {
                 itemsEntity.snippet.isLike = false
                 holder.like.isVisible = false
             } else {
-                BTSUtils.addLike(context, itemsEntity.id.videoId)
+//                BTSUtils.addLike(context, itemsEntity.id.videoId)
+                BTSUtils.addLike(context, itemsEntity)
                 itemsEntity.snippet.isLike = true
                 holder.like.isVisible = true
             }
