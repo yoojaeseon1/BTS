@@ -29,7 +29,7 @@
         android:background="@drawable/icon_like_full"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/search_rv_holder_iv_title" />
 
     <TextView
         android:id="@+id/search_rv_holder_tv_title"

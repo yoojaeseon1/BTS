@@ -25,7 +25,6 @@ class MemoFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels { HomeViewModelFactory() }
 
     private val hotSpotClick: HotClickListenerImpl by lazy {
-//        HotClickListenerImpl(requireActivity())
         HotClickListenerImpl(this)
     }
 
@@ -71,13 +70,6 @@ class MemoFragment : Fragment() {
 
     private fun observeViewModel() {
         homeViewModel.newSpotVideos.observe(viewLifecycleOwner) { videoList ->
-//            if (videoList.isNullOrEmpty()) {
-//                // 데이터가 비어 있는 경우 로그 출력
-//                Log.d("MemoFragment", "Video list is empty or null")
-//            } else {
-//                newSpotAdapter.submitList(videoList)
-//                Log.d("MemoFragment", "Video list loaded with size: ${videoList.size}")
-//            }
         }
     }
 

@@ -44,12 +44,6 @@ class ModifyRecyclerViewAdapter(private val viewModel: MyVideoViewModel) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.bind(regionItems[position].regionName)
-//        holder.binding.apply {
-//            cbRegion11.text = regionItems[position].regionName
-//        }
-
-//        holder.binding.cbRegion11.isChecked
-
     }
 
     fun getSelectedRegionItems(): List<String> = selectedRegionItems

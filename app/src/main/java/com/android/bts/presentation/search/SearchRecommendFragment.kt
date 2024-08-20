@@ -8,18 +8,11 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.android.bts.MainViewModel
 import com.android.bts.R
 import com.android.bts.data.remote.RecommendList
 import com.android.bts.databinding.FragmentSearchRecommendBinding
-import com.android.bts.presentation.MainActivity
 import com.bumptech.glide.Glide
-import okhttp3.internal.platform.android.BouncyCastleSocketAdapter.Companion.factory
-
 
 
 private const val TAG = "SearchRecommendFragment"
@@ -155,48 +148,6 @@ class SearchRecommendFragment : Fragment(R.layout.fragment_search_recommend) {
         binding.searchRecommendBtnLeft.startAnimation(blinkAnimation)
         binding.searchRecommendBtnRight.startAnimation(blinkAnimation)
     }
-
-
-//            Glide.with(requireContext())
-//                .load(sharedViewModel.videoPlayLiveData.value?.snippet?.thumbnail)
-//                .into(binding.videoPlayPlayerVv)
-
-
-//        binding.videoPlay.setTransitionListener(object : MotionLayout.TransitionListener {
-//            override fun onTransitionStarted(
-//                motionLayout: MotionLayout?,
-//                startId: Int,
-//                endId: Int
-//            ) {
-//            }
-
-//            override fun onTransitionChange(
-//                motionLayout: MotionLayout?,
-//                startId: Int,
-//                endId: Int,
-//                progress: Float
-//            ) {
-//                binding.let { mbinding ->
-//                    (activity as MainActivity).also { mainActivity ->
-//                        mainActivity.findViewById<MotionLayout>(R.id.video_play).progress =
-//                            abs(progress)
-//                    }
-//                }
-//            }
-//
-//            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-//            }
-//
-//            override fun onTransitionTrigger(
-//                motionLayout: MotionLayout?,
-//                triggerId: Int,
-//                positive: Boolean,
-//                progress: Float
-//            ) {
-//            }
-//
-//    })
-
 
     override fun onDestroy() {
         super.onDestroy()

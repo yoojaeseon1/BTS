@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
 import com.android.bts.databinding.ActivityMainBinding
-
 import com.android.bts.MainViewModel
 import com.android.bts.presentation.Login.LoginFragment
 import com.android.bts.presentation.detail.VideoDetailFragment
@@ -15,7 +14,6 @@ import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
 import com.android.bts.presentation.search.ItemsEntity
 import com.android.bts.presentation.search.SearchFragment
-
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
