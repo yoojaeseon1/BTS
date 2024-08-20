@@ -11,7 +11,7 @@ import com.android.bts.presentation.search.SearchFragment
 import com.example.app.save.SavedFragment
 
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    private val fragments = listOf(HomeFragment(), SearchFragment(), SavedFragment(), MyVideoFragment())
+    private val fragments = listOf(HomeFragment(), SearchFragment(), SavedFragment())
 
     override fun getItemCount(): Int {
         return fragments.size

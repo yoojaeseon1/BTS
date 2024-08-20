@@ -73,10 +73,6 @@ class MainActivity : AppCompatActivity() {
                     tab.setIcon(R.drawable.ic_down)
                 }
 
-                3 -> {
-                    tab.text = "구독"
-                    tab.setIcon(R.drawable.ic_like)
-                }
             }
         }.attach()
 
