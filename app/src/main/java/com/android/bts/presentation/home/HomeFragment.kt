@@ -106,8 +106,8 @@ class HomeFragment : Fragment() {
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
         homeViewModel.getInterestedVideoList(requireActivity())
-        homeViewModel.getHotVideoList(requireActivity())
-        homeViewModel.getNewVideoList(requireActivity())
+//        homeViewModel.getHotVideoList(requireActivity())
+//        homeViewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
@@ -261,12 +261,12 @@ class HomeFragment : Fragment() {
 //                itemsEntity.id.videoId,
 //                itemsEntity.snippet.title
 //            )
-
             val videoDetailFragment = VideoDetailFragment.newInstance(
                 itemsEntity
             )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-            (context as MainActivity).replaceDetailFragment()
+
+            (context as MainActivity).replaceDetailFragment(itemsEntity)
 
 
 //            supportFragmentManager.beginTransaction()

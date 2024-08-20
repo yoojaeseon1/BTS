@@ -25,9 +25,8 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
     ViewModel() {
 
     // 예외처리
-    private val _fetchState = MutableLiveData<Throwable>()
-    val fetchState : LiveData<Throwable>
-        get() = _fetchState
+    private val _exceptionLiveData = MutableLiveData<Throwable>()
+    val exceptionLiveData : LiveData<Throwable> = _exceptionLiveData
 
     //코루틴 예외처리 핸들러
     private val exceptionHandler = CoroutineExceptionHandler{ _, throwable ->
@@ -35,15 +34,13 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
 
         if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.S) >= 7) {
             when (throwable) {
-                is SocketException -> _fetchState.postValue(throwable)
-                is HttpException -> _fetchState.postValue(throwable)
-                is UnknownHostException -> _fetchState.postValue(throwable)
-                else -> _fetchState.postValue(throwable)
+                is SocketException -> _exceptionLiveData.postValue(throwable)
+                is HttpException -> _exceptionLiveData.postValue(throwable)
+                is UnknownHostException -> _exceptionLiveData.postValue(throwable)
+                else -> _exceptionLiveData.postValue(throwable)
             }
         }
     }
-
-
 
     //검색어
     private val _searchWordLiveData = MutableLiveData("")
@@ -56,14 +53,6 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
 
     //다음페이지
     private val _nextPageTokenLiveData = MutableLiveData<String>()
-//    val nextPageTokenLiveData: LiveData<String> = _nextPageTokenLiveData
-
-    //비디오 재생
-    private val _videoToPlayLiveData = MutableLiveData<ItemsEntity>()
-//    val videoToPlayLiveData: LiveData<ItemsEntity> = _videoToPlayLiveData
-
-    private val _loadingLiveData = MutableLiveData<Boolean>()
-    val loadingLiveData = _loadingLiveData
 
     //추천 여행지 인덱스번호
     private val _recommendNumberData = MutableLiveData(0)
@@ -84,15 +73,9 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
         _searchVideoListLiveData.value = listOf()
     }
 
-    //재생할 동영상을 업데이트해주는 함수
-    fun updateVideoToPlay(video: ItemsEntity) {
-        _videoToPlayLiveData.value = video
-    }
-
     //검색결과 응답값을 받아오는 함수
     fun getSearchVideoResponse() {
         viewModelScope.launch(exceptionHandler) {
-            _loadingLiveData.value = false
             val list = async {
                 searchWordLiveData.value?.let {
                     searchRepository.getSearchVideoList(
@@ -120,7 +103,6 @@ class SearchViewModel(private val searchRepository: SearchRepository) :
     fun getNextSearchVideoResponse() {
         if (_nextPageTokenLiveData.value != "") {
             viewModelScope.launch(exceptionHandler) {
-                _loadingLiveData.value = false
                 val list = async {
                     searchWordLiveData.value?.let { searchWord ->
                         _nextPageTokenLiveData.value?.let { nextPageToken ->

@@ -2,7 +2,6 @@ package com.android.bts.presentation
 
 import android.os.Bundle
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -12,16 +11,17 @@ import com.android.bts.databinding.ActivityMainBinding
 import com.android.bts.MainViewModel
 import com.android.bts.presentation.Login.LoginFragment
 import com.android.bts.presentation.detail.VideoDetailFragment
-import com.android.bts.presentation.home.HomeFragment
 import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
+import com.android.bts.presentation.search.ItemsEntity
+import com.android.bts.presentation.search.SearchFragment
 
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    private lateinit var searchSharedViewModel: MainViewModel
+    private lateinit var mainSharedViewModel: MainViewModel
     private lateinit var myVideoViewModel: MyVideoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         //레이아웃 초기화
         initLayout()
-        searchSharedViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainSharedViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -100,7 +100,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun replaceDetailFragment() {
+    fun replaceDetailFragment(item:ItemsEntity) {
+        mainSharedViewModel.updateVideoPlayer(item)
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.detail_bounce,R.anim.detail_fade_out)
             .replace(R.id.main_frame, VideoDetailFragment())
@@ -109,9 +110,9 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun replaceSearFragment() {
+    fun replaceSearchFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame, HomeFragment())
+            .replace(R.id.main_frame, SearchFragment())
             .setReorderingAllowed(true)
             .addToBackStack(null)
             .commit()

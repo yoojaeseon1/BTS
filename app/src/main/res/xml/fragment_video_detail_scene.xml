@@ -54,10 +54,19 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_marginStart="8dp"
-            motion:layout_constraintTop_toTopOf="@+id/bottomPlayerControlButton"
-            motion:layout_constraintEnd_toStartOf="@id/bottomPlayerControlButton"
+            motion:layout_constraintTop_toTopOf="@+id/detail_btn_exit"
+            motion:layout_constraintEnd_toStartOf="@id/detail_btn_exit"
             motion:layout_constraintStart_toEndOf="@id/player_view"
-            motion:layout_constraintBottom_toBottomOf="@+id/bottomPlayerControlButton" />
+            motion:layout_constraintBottom_toBottomOf="@+id/detail_btn_exit" />
+        <Constraint
+            android:id="@+id/detail_btn_exit"
+            motion:layout_constraintEnd_toEndOf="@id/mainContainerLayout"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:visibility="gone"
+            motion:layout_constraintBottom_toBottomOf="@id/mainContainerLayout"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toTopOf="@id/mainContainerLayout" />
 
     </ConstraintSet>
 
@@ -96,14 +105,14 @@
         motion:layout_constraintStart_toStartOf="@id/mainContainerLayout" />
         <Constraint
             android:id="@+id/bottom_titel_texct_view"
-            motion:layout_constraintEnd_toStartOf="@id/bottomPlayerControlButton"
+            motion:layout_constraintEnd_toStartOf="@id/detail_btn_exit"
             motion:layout_constraintStart_toEndOf="@id/player_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="@+id/bottomPlayerControlButton"
+            motion:layout_constraintBottom_toBottomOf="@+id/detail_btn_exit"
             android:layout_marginEnd="12dp"
             android:layout_marginStart="8dp"
-            motion:layout_constraintTop_toTopOf="@+id/bottomPlayerControlButton" />
+            motion:layout_constraintTop_toTopOf="@+id/detail_btn_exit" />
         <Constraint
             android:id="@+id/detail_background"
             motion:layout_constraintEnd_toEndOf="parent"
@@ -112,5 +121,14 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toTopOf="@id/mainContainerLayout"
             motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/detail_btn_exit"
+            motion:layout_constraintEnd_toEndOf="@id/mainContainerLayout"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="@id/mainContainerLayout"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toTopOf="@id/mainContainerLayout" />
     </ConstraintSet>
 </MotionScene>

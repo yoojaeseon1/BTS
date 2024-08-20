@@ -88,15 +88,15 @@
                     android:text="신규 여행지"
                     android:textColor="@color/white"
                     android:textSize="24sp"
-
                     app:layout_constraintStart_toStartOf="@id/recyclerViewHot"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerViewHot" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewNew"
-                    android:layout_width="380dp"
+                    android:layout_width="340dp"
                     android:layout_height="250dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginStart="30dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintStart_toStartOf="@id/tvNewSpots"
                     app:layout_constraintTop_toBottomOf="@id/tvNewSpots"

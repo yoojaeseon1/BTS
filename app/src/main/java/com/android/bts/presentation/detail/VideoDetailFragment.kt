@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.android.bts.MainViewModel
 import com.android.bts.R
+import com.android.bts.presentation.MainActivity
 import com.android.bts.presentation.home.HomeFragment
 import com.android.bts.presentation.home.HomeViewModel
 import com.android.bts.presentation.search.ItemsEntity
@@ -147,14 +148,19 @@ class VideoDetailFragment : Fragment() {
 //            parentFragmentManager.popBackStack()
 //        }
 
-
+        closeBtnListener()
         return view
     }
 
 
 
 
-
+private fun closeBtnListener() {
+    val closeBtn = view?.findViewById<ImageView>(R.id.detail_btn_exit)
+    closeBtn?.setOnClickListener {
+        (activity as MainActivity).supportFragmentManager.popBackStack()
+    }
+}
 
     private fun setupYouTubePlayer(youTubePlayerView: YouTubePlayerView, videoId: String?) {
         lifecycle.addObserver(youTubePlayerView) // 생명주기 관리
