@@ -30,9 +30,13 @@ class InterestedClickListenerImpl(val context: Activity) : InterestedClickLIsten
         holder: InterestedAdapter.InterestedSpotHolder
     ) {
         // VideoDetailFragment로 전환
+//        val videoDetailFragment = VideoDetailFragment.newInstance(
+//            itemsEntity.id.videoId,
+//            itemsEntity.snippet.title
+//        )
+
         val videoDetailFragment = VideoDetailFragment.newInstance(
-            itemsEntity.id.videoId,
-            itemsEntity.snippet.title
+            itemsEntity
         )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
         (context as FragmentActivity).supportFragmentManager.beginTransaction()

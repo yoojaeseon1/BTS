@@ -1,11 +1,13 @@
 package com.android.bts.presentation.search
 
+import android.os.Parcelable
 import android.util.Log
 import com.android.bts.data.remote.HomeVideoItems
 import com.android.bts.data.remote.HomeVideoResponse
 import com.android.bts.data.remote.Items
 import com.android.bts.data.remote.Snippet
 import com.android.bts.data.remote.VideoResponse
+import kotlinx.parcelize.Parcelize
 import java.util.UUID
 
 data class VideoEntity(
@@ -13,31 +15,33 @@ data class VideoEntity(
     val etag: String,
     val nextPageToken: String,
     val items: List<ItemsEntity>
-
 )
 
+@Parcelize
 data class Id(
-    val kind: String,
-    val videoId: String
-)
+    val kind: String = "",
+    val videoId: String = ""
+) : Parcelable
 
+@Parcelize
 data class ItemsEntity(
-    val id: Id,
-    val snippet: SnippetEntity
-)
+    val id: Id = Id(),
+    val snippet: SnippetEntity = SnippetEntity()
+): Parcelable
 
+@Parcelize
 data class SnippetEntity(
 //    val uId: String = UUID.randomUUID().toString(),
 //    val publishedAt: String,
 //    val channelId: String,
-    val title: String,
+    val title: String = "",
 //    val description: String,
 //    val publishTime: String,
-    val channelTitle: String,
-    val thumbnail: String,
+    val channelTitle: String = "",
+    val thumbnail: String = "",
     var isLike: Boolean = false
 
-)
+) : Parcelable
 
 fun toVideoEntity(content: VideoResponse): VideoEntity = with(content) {
     return VideoEntity(

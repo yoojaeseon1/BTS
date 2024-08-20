@@ -263,9 +263,13 @@ class HomeFragment : Fragment() {
             Log.d("HomeFragment", "video id = ${itemsEntity.id.videoId}")
             Log.d("HomeFragment", "title = ${itemsEntity.snippet.title}")
             // VideoDetailFragment로 전환
+//            val videoDetailFragment = VideoDetailFragment.newInstance(
+//                itemsEntity.id.videoId,
+//                itemsEntity.snippet.title
+//            )
+
             val videoDetailFragment = VideoDetailFragment.newInstance(
-                itemsEntity.id.videoId,
-                itemsEntity.snippet.title
+                itemsEntity
             )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
             (context as FragmentActivity).supportFragmentManager.beginTransaction()
