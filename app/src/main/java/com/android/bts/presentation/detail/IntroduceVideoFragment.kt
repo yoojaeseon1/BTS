@@ -114,13 +114,14 @@ class IntroduceVideoFragment : Fragment() {
             binding.likeIcon.setImageResource(R.drawable.icon_like_full)
 
         binding.likeIcon.setOnClickListener{
-            val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId ?: "")
+            val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId)
             if(isCheckedLike) {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_empty)
-                BTSUtils.deleteLike(requireActivity(), videoId?:"")
+                BTSUtils.deleteLike(requireActivity(), videoId)
             } else {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_full)
-                BTSUtils.addLike(requireActivity(), videoId?:"")
+//                BTSUtils.addLike(requireActivity(), videoId?:"")
+                BTSUtils.addLike(requireActivity(), itemsEntity?:ItemsEntity())
             }
         }
 

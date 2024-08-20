@@ -19,7 +19,8 @@ class InterestedClickListenerImpl(val context: Activity) : InterestedClickLIsten
             itemsEntity.snippet.isLike = false
             holder.like.isVisible = false
         } else {
-            BTSUtils.addLike(context, itemsEntity.id.videoId)
+//            BTSUtils.addLike(context, itemsEntity.id.videoId)
+            BTSUtils.addLike(context, itemsEntity)
 //                holder.like.setImageResource(R.drawable.icon_like_full)
             itemsEntity.snippet.isLike = true
             holder.like.isVisible = true
