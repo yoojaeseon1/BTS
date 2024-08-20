@@ -3,45 +3,42 @@ package com.android.bts.presentation.save
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bts.R
-import com.android.bts.databinding.RecyclerviewInterestedHolderBinding
-import com.example.app.save.LikedVideo
-import com.example.app.save.SavedVideo
-import com.example.app.save.SavedVideoAdapter
+import com.bumptech.glide.Glide
 
 class LikedVideoAdapter(
     private var likedVideos: List<LikedVideo>,
     private val onVideoClick: (LikedVideo) -> Unit
 ) : RecyclerView.Adapter<LikedVideoAdapter.LikedVideoViewHolder>() {
 
-    inner class LikedVideoViewHolder(private val binding: RecyclerviewInterestedHolderBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(video: LikedVideo) {
-            binding.interestedRvHolderTvTitle.text = video.title
-            binding.interestedRvHolderTvTraveler.text = video.description
-
-            binding.root.setOnClickListener {
-                onVideoClick(video)
-            }
-        }
+    class LikedVideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val titleTextView: TextView = itemView.findViewById(R.id.search_rv_holder_tv_title)
+        val descriptionTextView: TextView = itemView.findViewById(R.id.search_rv_holder_tv_traveler)
+        val thumbnail: ImageView = itemView.findViewById(R.id.search_rv_holder_iv_title)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedVideoViewHolder {
-        val binding =
-            RecyclerviewInterestedHolderBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-
-        return LikedVideoViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recyclerview_hot_holder, parent, false)
+        return LikedVideoViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: LikedVideoViewHolder, position: Int) {
         val video = likedVideos[position]
-        holder.bind(video)
+        holder.titleTextView.text = video.title
+        holder.descriptionTextView.text = video.channelTitle
+
+        Glide.with(holder.thumbnail.context)
+            .load(video.thumbnailUrl)
+            .centerCrop()
+            .into(holder.thumbnail)
+
+        holder.itemView.setOnClickListener {
+            onVideoClick(video)
+        }
     }
 
     override fun getItemCount(): Int = likedVideos.size

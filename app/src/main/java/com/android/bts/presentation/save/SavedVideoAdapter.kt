@@ -22,7 +22,8 @@ class SavedVideoAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedVideoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_hot_holder, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recyclerview_hot_holder, parent, false)
         return SavedVideoViewHolder(view)
     }
 
@@ -47,5 +48,7 @@ class SavedVideoAdapter(
         savedVideos = newVideos
         notifyDataSetChanged()
     }
+
+
 }
 

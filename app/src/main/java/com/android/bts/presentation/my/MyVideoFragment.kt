@@ -42,6 +42,7 @@ class MyVideoFragment : Fragment() {
         viewModel.loginInfo.observe(viewLifecycleOwner) { newLoginInfo ->
             binding.tvMyVideoUserNickName.text = newLoginInfo.userNickName
             binding.tvMyVideoUserRegion.text = newLoginInfo.userRegion
+            binding.ivMyVideoProfile.setImageResource(newLoginInfo.userProfile)
         }
 
         return binding.root
