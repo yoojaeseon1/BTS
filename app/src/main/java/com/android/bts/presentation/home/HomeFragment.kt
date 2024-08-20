@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
+import com.android.bts.BTSUtils
 import com.android.bts.R
 import com.android.bts.databinding.FragmentHomeBinding
 import com.android.bts.presentation.MainActivity
@@ -103,9 +105,9 @@ class HomeFragment : Fragment() {
         homeViewModel.initViewModel()
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
-//        homeViewModel.getInterestedVideoList(requireActivity())
-//        homeViewModel.getHotVideoList(requireActivity())
-//        homeViewModel.getNewVideoList(requireActivity())
+        homeViewModel.getInterestedVideoList(requireActivity())
+        homeViewModel.getHotVideoList(requireActivity())
+        homeViewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
@@ -243,7 +245,15 @@ class HomeFragment : Fragment() {
     class HotClickListenerImpl(val context: Activity) : HotClickListener {
 
         override fun onClickLike(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder) {
-
+            if(itemsEntity.snippet.isLike) {
+                BTSUtils.deleteLike(context, itemsEntity.id.videoId)
+                itemsEntity.snippet.isLike = false
+                holder.like.isVisible = false
+            } else {
+                BTSUtils.addLike(context, itemsEntity.id.videoId)
+                itemsEntity.snippet.isLike = true
+                holder.like.isVisible = true
+            }
         }
 
         override fun onClickDetail(
