@@ -2,13 +2,10 @@ package com.android.bts.presentation.search
 
 import android.os.Parcelable
 import android.util.Log
-import com.android.bts.data.remote.HomeVideoItems
-import com.android.bts.data.remote.HomeVideoResponse
 import com.android.bts.data.remote.Items
 import com.android.bts.data.remote.Snippet
 import com.android.bts.data.remote.VideoResponse
 import kotlinx.parcelize.Parcelize
-import java.util.UUID
 
 data class VideoEntity(
     val kind: String,

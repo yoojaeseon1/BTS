@@ -26,7 +26,6 @@ class SavedVideoViewModel : ViewModel() {
 
     fun likeVideo(video: LikedVideo) {
         savedLikeResults.add(video)
-//        _likedVideos.value = _likedVideos.value.orEmpty() + video
         _likedVideos.value = savedLikeResults
     }
 

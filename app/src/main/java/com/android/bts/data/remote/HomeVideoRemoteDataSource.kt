@@ -13,7 +13,7 @@ interface HomeVideoRemoteDataSource {
         @Query("regionCode") regionCode: String = "KR",
         @Query("videoCategoryId") videoCategoryId: String ="20",
 
-        @Query("key") apiKey: String = "AIzaSyACNkAFWijoL83hOheP7TUbenVYPynsbpg"
+        @Query("key") apiKey: String = "AIzaSyDuDJlPQVxPrHlTDWQbiUqLiMLpCY949XQ"
     ): HomeVideoResponse
     //AIzaSyDJEWhqOKTHcJFagn_4_2UpS4669gXaXkk
 
@@ -25,7 +25,7 @@ interface HomeVideoRemoteDataSource {
         @Query("regionCode") regionCode: String = "KR",
         @Query("videoCategoryId") videoCategoryId: String ="10",
 
-        @Query("key") apiKey: String = "AIzaSyACNkAFWijoL83hOheP7TUbenVYPynsbpg"
+        @Query("key") apiKey: String = "AIzaSyDuDJlPQVxPrHlTDWQbiUqLiMLpCY949XQ"
 
     ): HomeVideoResponse
 
