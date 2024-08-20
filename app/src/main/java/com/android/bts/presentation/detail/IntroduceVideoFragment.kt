@@ -23,6 +23,7 @@ import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_I
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_ITEMS_KEY
 import com.android.bts.presentation.detail.VideoDetailFragment.Companion.VIDEO_TITLE_KEY
 import com.android.bts.presentation.home.HomeFragment
+import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.save.SavedVideo
 import com.android.bts.presentation.search.ItemsEntity
 import com.example.app.save.SavedVideoViewModel
@@ -115,13 +116,23 @@ class IntroduceVideoFragment : Fragment() {
 
         binding.likeIcon.setOnClickListener{
             val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId)
+
+            val likedVideo = LikedVideo(
+                videoId,
+                videoTitle,
+                channelTitle,
+                thumbnail
+            )
+
             if(isCheckedLike) {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_empty)
                 BTSUtils.deleteLike(requireActivity(), videoId)
+                savedVideoViewModel.deleteLike(likedVideo)
             } else {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_full)
 //                BTSUtils.addLike(requireActivity(), videoId?:"")
                 BTSUtils.addLike(requireActivity(), itemsEntity?:ItemsEntity())
+                savedVideoViewModel.likeVideo(likedVideo)
             }
         }
 

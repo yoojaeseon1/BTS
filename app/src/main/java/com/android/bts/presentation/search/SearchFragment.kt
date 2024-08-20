@@ -26,8 +26,11 @@ import com.android.bts.presentation.MainActivity
 private const val TAG = "SearchFragment"
 
 class SearchFragment : Fragment() {
-    private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding as FragmentSearchBinding
+    private val _binding: FragmentSearchBinding by lazy {
+        FragmentSearchBinding.inflate(layoutInflater)
+    }
+    val binding get() = _binding
+
     private lateinit var searchRecyclerViewAdapter: SearchRecyclerViewAdapter
     private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
@@ -38,7 +41,6 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         //리사이클러뷰 어댑터 초기화
         initAdapter()
@@ -172,10 +174,10 @@ class SearchFragment : Fragment() {
         manager.hideSoftInputFromWindow(binding.searchEt.windowToken, 0)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        _binding = null
+//    }
 
 }
 

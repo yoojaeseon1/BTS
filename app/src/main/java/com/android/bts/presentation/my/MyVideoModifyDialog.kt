@@ -97,7 +97,7 @@ class MyVideoModifyDialog() : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this@MyVideoModifyDialog, 0.95f, 0.85f)
+        context?.dialogFragmentResize(this@MyVideoModifyDialog, 0.95f, 0.80f)
     }
 
     // dialog 크기 조절
@@ -115,7 +115,7 @@ class MyVideoModifyDialog() : DialogFragment() {
         val y = (rect.height() * height).toInt()
 
         window?.setLayout(x, y)
-        window?.setGravity(Gravity.BOTTOM)
+        window?.setGravity(Gravity.CENTER_VERTICAL)
     }
 
 

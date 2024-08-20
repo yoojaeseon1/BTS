@@ -39,6 +39,7 @@ class LikedVideoAdapter(
         holder.itemView.setOnClickListener {
             onVideoClick(video)
         }
+
     }
 
     override fun getItemCount(): Int = likedVideos.size

@@ -21,7 +21,9 @@ import com.android.bts.presentation.MainActivity
 import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoFragment
 import com.android.bts.presentation.my.MyVideoViewModel
+import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.search.ItemsEntity
+import com.example.app.save.SavedVideoViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,11 +47,11 @@ class HomeFragment : Fragment() {
     val binding get() = _binding
 
     private val interestedClick: InterestedClickListenerImpl by lazy {
-        InterestedClickListenerImpl(requireActivity())
+        InterestedClickListenerImpl(this)
     }
 
     private val hotSpotClick: HotClickListenerImpl by lazy {
-        HotClickListenerImpl(requireActivity())
+        HotClickListenerImpl(this)
     }
 
     private val interestedAdapter: InterestedAdapter by lazy {
@@ -106,8 +108,8 @@ class HomeFragment : Fragment() {
 
 //        binding.recyclerViewInterested.layoutManager = LinearLayoutManager(requireActivity())
         homeViewModel.getInterestedVideoList(requireActivity())
-//        homeViewModel.getHotVideoList(requireActivity())
-//        homeViewModel.getNewVideoList(requireActivity())
+        homeViewModel.getHotVideoList(requireActivity())
+        homeViewModel.getNewVideoList(requireActivity())
 
 //        Log.d("HomeFragment", "${viewModel.interestedVideos.value?.size}")
 
@@ -235,16 +237,26 @@ class HomeFragment : Fragment() {
     }
 
 
-    class HotClickListenerImpl(val context: Activity) : HotClickListener {
+    class HotClickListenerImpl(val fragment: Fragment) : HotClickListener {
+
+        private val savedVideoViewModel: SavedVideoViewModel by fragment.activityViewModels()
 
         override fun onClickLike(itemsEntity: ItemsEntity, holder: HotSpotAdapter.HotSpotHolder) {
-            if(itemsEntity.snippet.isLike) {
-                BTSUtils.deleteLike(context, itemsEntity.id.videoId)
+
+            val likedVideo = LikedVideo(
+                itemsEntity.id.videoId,
+                itemsEntity.snippet.title,
+                itemsEntity.snippet.channelTitle,
+                itemsEntity.snippet.thumbnail
+            )
+
+            if (itemsEntity.snippet.isLike) {
+                BTSUtils.deleteLike(fragment.requireActivity(), itemsEntity.id.videoId)
                 itemsEntity.snippet.isLike = false
                 holder.like.isVisible = false
             } else {
 //                BTSUtils.addLike(context, itemsEntity.id.videoId)
-                BTSUtils.addLike(context, itemsEntity)
+                BTSUtils.addLike(fragment.requireActivity(), itemsEntity)
                 itemsEntity.snippet.isLike = true
                 holder.like.isVisible = true
             }
@@ -261,20 +273,17 @@ class HomeFragment : Fragment() {
 //                itemsEntity.id.videoId,
 //                itemsEntity.snippet.title
 //            )
-            val videoDetailFragment = VideoDetailFragment.newInstance(
-                itemsEntity
-            )
+
+                val videoDetailFragment = VideoDetailFragment.newInstance(
+                    itemsEntity
+                )
 //            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-
-            (context as MainActivity).replaceDetailFragment(itemsEntity)
-
-
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.main_frame, videoDetailFragment)
-//                .addToBackStack(null)
-//                .commit()
+                fragment.requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, videoDetailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
-    }
 
 
     override fun onResume() {
