@@ -116,26 +116,23 @@ class IntroduceVideoFragment : Fragment() {
 
         binding.likeIcon.setOnClickListener{
             val isCheckedLike = BTSUtils.isCheckedLike(requireActivity(), videoId)
+
+            val likedVideo = LikedVideo(
+                videoId,
+                videoTitle,
+                channelTitle,
+                thumbnail
+            )
+
             if(isCheckedLike) {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_empty)
                 BTSUtils.deleteLike(requireActivity(), videoId)
-
+                savedVideoViewModel.deleteLike(likedVideo)
             } else {
                 binding.likeIcon.setImageResource(R.drawable.icon_like_full)
 //                BTSUtils.addLike(requireActivity(), videoId?:"")
                 BTSUtils.addLike(requireActivity(), itemsEntity?:ItemsEntity())
-                savedVideoViewModel.saveLike(
-                    LikedVideo(
-//                    itemsEntity.id.videoId,
-//                    itemsEntity.snippet.title,
-//                    itemsEntity.snippet.channelTitle,
-//                    itemsEntity.snippet.thumbnail
-                        videoId,
-                        videoTitle,
-                        channelTitle,
-                        thumbnail
-                    )
-                )
+                savedVideoViewModel.likeVideo(likedVideo)
             }
         }
 

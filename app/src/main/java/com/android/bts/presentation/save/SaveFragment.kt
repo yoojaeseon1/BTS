@@ -13,6 +13,7 @@ import com.android.bts.BTSUtils
 import com.android.bts.R
 import com.android.bts.presentation.detail.VideoDetailFragment
 import com.android.bts.presentation.my.MyVideoViewModel
+import com.android.bts.presentation.save.LikedVideo
 import com.android.bts.presentation.save.LikedVideoAdapter
 import com.android.bts.presentation.save.SavedVideo
 import com.android.bts.presentation.search.Id
@@ -38,7 +39,9 @@ class SavedFragment : Fragment() {
             navigateToVideoDetailFragment(video)
         }
 
-        likedVideoAdapter = LikedVideoAdapter(BTSUtils.selectAllLikes(requireActivity()))
+        likedVideoAdapter = LikedVideoAdapter(BTSUtils.selectAllLikes(requireActivity())){ video ->
+            navigateToVideoDetailFragment(video)
+        }
 
         savedRecyclerView.adapter = savedVideoAdapter
         likedRectclerView.adapter = likedVideoAdapter
@@ -58,6 +61,20 @@ class SavedFragment : Fragment() {
     }
 
     private fun navigateToVideoDetailFragment(video: SavedVideo) {
+
+//        savedVideoViewModel.savedVideos.value?.plus(video)
+//        Log.d("SaveFragment", "savedVideos size = ${savedVideoViewModel.savedVideos.value?.size}")
+
+//        val fragment = VideoDetailFragment.newInstance(video.videoId, video.title)
+        val fragment = VideoDetailFragment.newInstance(ItemsEntity(Id(videoId = video.videoId), SnippetEntity(video.title)))
+        parentFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.main_frame, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun navigateToVideoDetailFragment(video: LikedVideo) {
 
 //        savedVideoViewModel.savedVideos.value?.plus(video)
 //        Log.d("SaveFragment", "savedVideos size = ${savedVideoViewModel.savedVideos.value?.size}")

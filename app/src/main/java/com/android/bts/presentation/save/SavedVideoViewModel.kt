@@ -1,5 +1,6 @@
 package com.example.app.save
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,18 @@ class SavedVideoViewModel : ViewModel() {
     val likedVideos: LiveData<List<LikedVideo>> get() = _likedVideos
 
     fun likeVideo(video: LikedVideo) {
-        _likedVideos.value = _likedVideos.value.orEmpty() + video
+        savedLikeResults.add(video)
+//        _likedVideos.value = _likedVideos.value.orEmpty() + video
+        _likedVideos.value = savedLikeResults
+    }
+
+    fun deleteLike(video: LikedVideo) {
+        Log.d("SavedVideoViewModel", "before _likedVideos size = ${_likedVideos.value?.size}")
+//        _likedVideos.value = _likedVideos.value.orEmpty() - video
+        savedLikeResults.removeIf {
+            it.videoId == video.videoId
+        }
+        _likedVideos.value = savedLikeResults
+        Log.d("SavedVideoViewModel", "after _likedVideos size = ${_likedVideos.value?.size}")
     }
 }

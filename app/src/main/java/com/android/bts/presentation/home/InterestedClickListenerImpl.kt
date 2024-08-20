@@ -19,24 +19,25 @@ class InterestedClickListenerImpl(val fragment: Fragment) : InterestedClickLIste
     override fun onClickLike(itemsEntity: ItemsEntity,
                              holder: InterestedAdapter.InterestedSpotHolder
     ) {
+
+        val likedVideo = LikedVideo(
+            itemsEntity.id.videoId,
+            itemsEntity.snippet.title,
+            itemsEntity.snippet.channelTitle,
+            itemsEntity.snippet.thumbnail
+        )
         if(itemsEntity.snippet.isLike) {
             BTSUtils.deleteLike(fragment.requireActivity(), itemsEntity.id.videoId)
             itemsEntity.snippet.isLike = false
             holder.like.isVisible = false
-            savedVideoViewModel.deleteLike(itemsEntity.id.videoId)
+            savedVideoViewModel.deleteLike(likedVideo)
         } else {
 //            BTSUtils.addLike(context, itemsEntity.id.videoId)
             BTSUtils.addLike(fragment.requireActivity(), itemsEntity)
 //                holder.like.setImageResource(R.drawable.icon_like_full)
             itemsEntity.snippet.isLike = true
             holder.like.isVisible = true
-            savedVideoViewModel.saveLike(
-                LikedVideo(
-                    itemsEntity.id.videoId,
-                    itemsEntity.snippet.title,
-                    itemsEntity.snippet.channelTitle,
-                    itemsEntity.snippet.thumbnail)
-            )
+            savedVideoViewModel.likeVideo(likedVideo)
         }
     }
 
