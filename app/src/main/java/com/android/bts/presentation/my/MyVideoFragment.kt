@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.bts.R
 import com.android.bts.data.LoginInfo
 import com.android.bts.databinding.FragmentMyVideoBinding
+import com.example.app.save.SavedFragment
 
 class MyVideoFragment : Fragment() {
     private val viewModel: MyVideoViewModel by activityViewModels()
@@ -45,6 +46,7 @@ class MyVideoFragment : Fragment() {
             binding.ivMyVideoProfile.setImageResource(newLoginInfo.userProfile)
         }
 
+
         return binding.root
     }
 
@@ -58,6 +60,10 @@ class MyVideoFragment : Fragment() {
                 parentFragmentManager, "MyVideoModifyDialog"
             )
 
+        }
+
+        binding.tvMyVideoSaved.setOnClickListener {
+            showSavedFragment()
         }
 
         //고객센터 url 이동
@@ -80,10 +86,19 @@ class MyVideoFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showSavedFragment() {
+        val savedFragment = SavedFragment()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.my_video_fragment, savedFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
